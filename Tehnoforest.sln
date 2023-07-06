@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33801.468
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest", "Tehnoforest\Tehnoforest.csproj", "{587C5C5B-F4AD-430D-A17B-8B853AA3AB40}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EC05E75B-F965-4B60-A503-FBB80BC05A06} = {EC05E75B-F965-4B60-A503-FBB80BC05A06}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Common", "Tehnoforest.Common\Tehnoforest.Common.csproj", "{EC05E75B-F965-4B60-A503-FBB80BC05A06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9BDF8A4E-9F39-425D-9146-1DF7E7D4A552}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F656E969-9828-46F6-A25D-BF0CD167ECA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Data", "Tehnoforest.Data\Tehnoforest.Data.csproj", "{D97653D5-B8BC-46A5-A03C-90607F9E0740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Data.Models", "Tehnoforest.Data.Models\Tehnoforest.Data.Models.csproj", "{6C46F6E6-B1B9-455E-9B55-B049B026DB7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Web.ViewModels", "Tehnoforest.Web.ViewModels\Tehnoforest.Web.ViewModels.csproj", "{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{587C5C5B-F4AD-430D-A17B-8B853AA3AB40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{587C5C5B-F4AD-430D-A17B-8B853AA3AB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{587C5C5B-F4AD-430D-A17B-8B853AA3AB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{587C5C5B-F4AD-430D-A17B-8B853AA3AB40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC05E75B-F965-4B60-A503-FBB80BC05A06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC05E75B-F965-4B60-A503-FBB80BC05A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC05E75B-F965-4B60-A503-FBB80BC05A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC05E75B-F965-4B60-A503-FBB80BC05A06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D97653D5-B8BC-46A5-A03C-90607F9E0740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D97653D5-B8BC-46A5-A03C-90607F9E0740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D97653D5-B8BC-46A5-A03C-90607F9E0740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D97653D5-B8BC-46A5-A03C-90607F9E0740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C46F6E6-B1B9-455E-9B55-B049B026DB7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C46F6E6-B1B9-455E-9B55-B049B026DB7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C46F6E6-B1B9-455E-9B55-B049B026DB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C46F6E6-B1B9-455E-9B55-B049B026DB7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{587C5C5B-F4AD-430D-A17B-8B853AA3AB40} = {9BDF8A4E-9F39-425D-9146-1DF7E7D4A552}
+		{D97653D5-B8BC-46A5-A03C-90607F9E0740} = {F656E969-9828-46F6-A25D-BF0CD167ECA4}
+		{6C46F6E6-B1B9-455E-9B55-B049B026DB7F} = {F656E969-9828-46F6-A25D-BF0CD167ECA4}
+		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6} = {9BDF8A4E-9F39-425D-9146-1DF7E7D4A552}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {483E30E9-FD76-4999-BCF6-76C45C8826A1}
+	EndGlobalSection
+EndGlobal
