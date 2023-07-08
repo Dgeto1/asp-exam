@@ -13,7 +13,7 @@
         public string Model { get; set; } = null!;
 
         [Required]
-        public static decimal Power { get; set; }
+        public decimal Power { get; set; }
 
         [Required]
         public int CuttingWidth { get; set; }

@@ -30,5 +30,6 @@
 
         [NotMapped]
         public virtual ICollection<LawnMower> LawnMowers { get; set; }
+
     }
 }
