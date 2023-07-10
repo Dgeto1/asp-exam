@@ -18,26 +18,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Tehnoforest.Data;
 using Tehnoforest.Data.Models;
 
 namespace Tehnoforest.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly TehnoforestDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+       // private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
+            TehnoforestDbContext context,
+           // RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            _context = context;
+           // _roleManager = roleManager;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
@@ -114,7 +122,8 @@ namespace Tehnoforest.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 ApplicationUser user = CreateUser();
-
+                //var user = new ApplicationUser {Email = Input.Email };
+                //var result = await _userManager.CreateAsync(user, Input.Password);
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -123,6 +132,13 @@ namespace Tehnoforest.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+
+                    /*if(this._context.Users.Count() == 1)
+                    {
+                        await this._roleManager.CreateAsync(new IdentityRole("Administrator"));
+                        await this._userManager.AddToRoleAsync(user, "Administrator");
+                    }*/
+                  
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
