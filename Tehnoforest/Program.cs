@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Drawing.Text;
 using Tehnoforest.Data;
 using Tehnoforest.Data.Models;
+using Tehnoforest.Services.Data;
 using Tehnoforest.Services.Data.Interfaces;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -29,7 +30,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
     .AddEntityFrameworkStores<TehnoforestDbContext>();
 
-//builder.Services.AddScoped<IChainsawService, ChainsawService>
+builder.Services.AddScoped<IChainsawService, ChainsawService>();
 
 builder.Services.AddControllersWithViews();
 

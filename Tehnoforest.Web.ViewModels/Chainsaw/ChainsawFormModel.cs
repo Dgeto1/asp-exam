@@ -1,7 +1,7 @@
 ﻿namespace Tehnoforest.Web.ViewModels.Chainsaw
 {
     using System.ComponentModel.DataAnnotations;
-    using System.Runtime.InteropServices;
+
     using static Common.EntityValidationConstants.Product;
     public class ChainsawFormModel
     {
