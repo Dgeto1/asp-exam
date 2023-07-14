@@ -1,4 +1,4 @@
-﻿@model ChainsawFormModel
+﻿@model AutomowerFormModel
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form method="post">
@@ -8,22 +8,22 @@
                 <span asp-validation-for="Model" class="small text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Power"></label>
-                <input asp-for="Power" class="form-control"
-                       placeholder="Мощност">
-                <span asp-validation-for="Power" class="small text-danger"></span>
+                <label asp-for="WorkingAreaCapacity"></label>
+                <input asp-for="WorkingAreaCapacity" class="form-control"
+                       placeholder="Работна площ">
+                <span asp-validation-for="WorkingAreaCapacity" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SlopePerformance"></label>
+                <input asp-for="SlopePerformance" class="form-control"
+                       placeholder="Максимален наклон на работа">
+                <span asp-validation-for="SlopePerformance" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BoundaryType"></label>
                 <input asp-for="BoundaryType" class="form-control"
-                       placeholder="Обем на цилиндър">
+                       placeholder="Вид на ограничението">
                 <span asp-validation-for="BoundaryType" class="small text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BarLength"></label>
-                <input asp-for="BarLength" class="form-control"
-                       placeholder="Дължина на шина">
-                <span asp-validation-for="BarLength" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description"></label>

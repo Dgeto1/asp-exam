@@ -22,7 +22,7 @@
             {
                 Model = formModel.Model,
                 Power = formModel.Power,
-                CylinderDisplacement = formModel.CylinderDisplacement,
+                CylinderDisplacement = formModel.BoundaryType,
                 BarLength = formModel.BarLength,
                 Description = formModel.Description,
                 ImageUrl = formModel.ImageUrl,

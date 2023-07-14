@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Text;
 using Tehnoforest.Data;
 using Tehnoforest.Data.Models;
 using Tehnoforest.Services.Data;
 using Tehnoforest.Services.Data.Interfaces;
+using Tehnoforest.Web.Infrastructure.ModelBinders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -31,8 +33,14 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<TehnoforestDbContext>();
 
 builder.Services.AddScoped<IChainsawService, ChainsawService>();
+builder.Services.AddScoped<IAutomowerService, AutomowerService>();
 
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+        options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    });
 
 
 WebApplication app = builder.Build();

@@ -1,0 +1,14 @@
+﻿@model AutomowerFormModel
+@{
+    ViewData["Title"] = "Добави косачка-робот";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<partial name="_AutomowerFormPartial" model="@Model" />
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

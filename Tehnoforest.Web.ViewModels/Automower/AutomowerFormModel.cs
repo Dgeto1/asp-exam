@@ -1,39 +1,36 @@
-﻿namespace Tehnoforest.Web.ViewModels.Chainsaw
+﻿namespace Tehnoforest.Web.ViewModels.Automower
 {
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.Product;
-    using static Common.EntityValidationConstants.Chainsaw;
-
-    public class ChainsawFormModel
+    using static Common.EntityValidationConstants.Automower;
+    public  class AutomowerFormModel
     {
         [StringLength(ModelMaxLength, MinimumLength = ModelMinLength)]
         public string Model { get; set; } = null!;
 
         [Required]
-        [Range(typeof(decimal), PowerMin, PowerMax)]
-        [Display(Name = "Мощност")]
-        public decimal Power { get; set; }
+        [Range(typeof(int), WorkingAreaCapacityMin, WorkingAreaCapacityMax)]
+        [Display(Name = "Работна площ")]
+        public int WorkingAreaCapacity { get; set; }
 
         [Required]
-        [Range(typeof(int), CylinderDisplacementMin, CylinderDisplacementMax)]
-        [Display(Name = "Обем на цилиндъра")]
-        public int BoundaryType { get; set; }
+        [Range(typeof(int), MaximumSlopePerformanceMin, MaximumSlopePerformanceMax)]
+        public int SlopePerformance { get; set; }
 
         [Required]
-        [Range(typeof(int), BarMin, BarMax)]
-        [Display(Name = "Дължина на шина")]
-        public int BarLength { get; set; }
+        [Display(Name = "Вид на ограничението")]
+        public string BoundaryType { get; set; } = null!;
 
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
+        [Display(Name = "Описание на продукт")]
         public string Description { get; set; } = null!;
 
         [Required]
         [StringLength(ImageUrlMaxLength)]
         [Display(Name = "Линк на изображение")]
         public string ImageUrl { get; set; } = null!;
-
 
         [Required]
         [Range(typeof(decimal), PriceMin, PriceMax)]
