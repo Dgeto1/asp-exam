@@ -7,7 +7,5 @@ namespace Tehnoforest.Services.Data.Interfaces
         Task<bool> ExistByModelAsync(string chainsawModel);
 
         Task CreateAsync(ChainsawFormModel formModel);
-
-        Task AddExistingAsync(ChainsawFormModel formModel);
     }
 }

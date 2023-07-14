@@ -1,7 +1,7 @@
 ﻿namespace Tehnoforest.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
-
+    using System.Collections.Generic;
     using Tehnoforest.Data;
     using Tehnoforest.Data.Models;
     using Tehnoforest.Services.Data.Interfaces;
@@ -14,11 +14,6 @@
         public ChainsawService(TehnoforestDbContext dbContext)
         {
             this.dbContext = dbContext;
-        }
-
-        public async Task AddExistingAsync(ChainsawFormModel formModel)
-        {
-            Chainsaw chainsaw = dbContext.Chainsaws.AnyAsync(c = chainsaw>);
         }
 
         public async Task CreateAsync(ChainsawFormModel formModel)
