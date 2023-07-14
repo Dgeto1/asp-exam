@@ -31,6 +31,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<TehnoforestDbContext>();
 
 builder.Services.AddScoped<IChainsawService, ChainsawService>();
+builder.Services.AddScoped<IAutomowerService, AutomowerService>();
 
 builder.Services.AddControllersWithViews();
 

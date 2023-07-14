@@ -1,7 +1,7 @@
-﻿using Tehnoforest.Web.ViewModels.Chainsaw;
-
-namespace Tehnoforest.Services.Data.Interfaces
+﻿namespace Tehnoforest.Services.Data.Interfaces
 {
+    using Tehnoforest.Web.ViewModels.Chainsaw;
+
     public interface IChainsawService
     {
         Task<bool> ExistByModelAsync(string chainsawModel);
