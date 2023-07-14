@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using System.Drawing.Text;
 using Tehnoforest.Data;
+using Tehnoforest.Data.Models;
+using Tehnoforest.Services.Data;
+using Tehnoforest.Services.Data.Interfaces;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -9,16 +12,28 @@ string connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services
-    .AddDbContext<ApplicationDbContext>(options =>
+    .AddDbContext<TehnoforestDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedAccount =
+        builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+    options.Password.RequireLowercase =
+        builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
+    options.Password.RequireUppercase =
+        builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
+    options.Password.RequireNonAlphanumeric =
+        builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+    options.Password.RequiredLength =
+        builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
 })
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<TehnoforestDbContext>();
+
+builder.Services.AddScoped<IChainsawService, ChainsawService>();
 
 builder.Services.AddControllersWithViews();
+
 
 WebApplication app = builder.Build();
 

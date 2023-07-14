@@ -10,6 +10,15 @@ namespace Tehnoforest.Common
             public const int ModelMaxLength = 20;
             public const int DescriptionMinLength = 20;
             public const int DescriptionMaxLength = 500;
+            public const int ImageUrlMaxLength = 2048;
+            public const string PriceMin = "0";
+            public const string PriceMax = "3000";
+            public const string PowerMin = "0";
+            public const string PowerMax = "30";
+            public const string CylinderDisplacementMin = "0";
+            public const string CylinderDisplacementMax = "60";
+            public const string BarMin = "10";
+            public const string BarMax = "200";
         }
     }
 }

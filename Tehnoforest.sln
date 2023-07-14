@@ -3,22 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest", "Tehnoforest\Tehnoforest.csproj", "{587C5C5B-F4AD-430D-A17B-8B853AA3AB40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest", "Tehnoforest\Tehnoforest.csproj", "{587C5C5B-F4AD-430D-A17B-8B853AA3AB40}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EC05E75B-F965-4B60-A503-FBB80BC05A06} = {EC05E75B-F965-4B60-A503-FBB80BC05A06}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Common", "Tehnoforest.Common\Tehnoforest.Common.csproj", "{EC05E75B-F965-4B60-A503-FBB80BC05A06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest.Common", "Tehnoforest.Common\Tehnoforest.Common.csproj", "{EC05E75B-F965-4B60-A503-FBB80BC05A06}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9BDF8A4E-9F39-425D-9146-1DF7E7D4A552}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F656E969-9828-46F6-A25D-BF0CD167ECA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Data", "Tehnoforest.Data\Tehnoforest.Data.csproj", "{D97653D5-B8BC-46A5-A03C-90607F9E0740}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest.Data", "Tehnoforest.Data\Tehnoforest.Data.csproj", "{D97653D5-B8BC-46A5-A03C-90607F9E0740}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Data.Models", "Tehnoforest.Data.Models\Tehnoforest.Data.Models.csproj", "{6C46F6E6-B1B9-455E-9B55-B049B026DB7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest.Data.Models", "Tehnoforest.Data.Models\Tehnoforest.Data.Models.csproj", "{6C46F6E6-B1B9-455E-9B55-B049B026DB7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Web.ViewModels", "Tehnoforest.Web.ViewModels\Tehnoforest.Web.ViewModels.csproj", "{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest.Web.ViewModels", "Tehnoforest.Web.ViewModels\Tehnoforest.Web.ViewModels.csproj", "{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{24D58B4A-079F-4AF1-A0FB-19DC1C01C310}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest.Services.Data", "Tehnoforest.Services.Data\Tehnoforest.Services.Data.csproj", "{8CC6EA1B-8971-43D3-B169-A66838CD4AD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Web.Infrastructure", "Tehnoforest.Web.Infrastructure\Tehnoforest.Web.Infrastructure.csproj", "{516151C8-C1BD-4125-826C-B2895A0EC844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +52,14 @@ Global
 		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CC6EA1B-8971-43D3-B169-A66838CD4AD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CC6EA1B-8971-43D3-B169-A66838CD4AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CC6EA1B-8971-43D3-B169-A66838CD4AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CC6EA1B-8971-43D3-B169-A66838CD4AD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{516151C8-C1BD-4125-826C-B2895A0EC844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{516151C8-C1BD-4125-826C-B2895A0EC844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{516151C8-C1BD-4125-826C-B2895A0EC844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{516151C8-C1BD-4125-826C-B2895A0EC844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +69,8 @@ Global
 		{D97653D5-B8BC-46A5-A03C-90607F9E0740} = {F656E969-9828-46F6-A25D-BF0CD167ECA4}
 		{6C46F6E6-B1B9-455E-9B55-B049B026DB7F} = {F656E969-9828-46F6-A25D-BF0CD167ECA4}
 		{BB14761B-EA6B-476A-91BA-05A2ED4C38B6} = {9BDF8A4E-9F39-425D-9146-1DF7E7D4A552}
+		{8CC6EA1B-8971-43D3-B169-A66838CD4AD5} = {24D58B4A-079F-4AF1-A0FB-19DC1C01C310}
+		{516151C8-C1BD-4125-826C-B2895A0EC844} = {9BDF8A4E-9F39-425D-9146-1DF7E7D4A552}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {483E30E9-FD76-4999-BCF6-76C45C8826A1}

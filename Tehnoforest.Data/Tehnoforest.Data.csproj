@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -17,6 +17,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tehnoforest.Common\Tehnoforest.Common.csproj" />
+    <ProjectReference Include="..\Tehnoforest.Data.Models\Tehnoforest.Data.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
