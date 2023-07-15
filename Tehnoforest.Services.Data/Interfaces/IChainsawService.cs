@@ -7,7 +7,7 @@
     {
         Task<bool> ExistByModelAsync(string chainsawModel);
 
-        Task CreateAsync(ChainsawFormModel formModel);
+        Task<string> CreateAndReturnIdAsync(ChainsawFormModel formModel);
 
         Task<AllChainsawsFilteredAndPagedServiceModel> AllAsync(AllChainsawsQueryModel queryModel);
 

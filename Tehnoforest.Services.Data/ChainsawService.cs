@@ -69,7 +69,7 @@
             };
         }
 
-        public async Task CreateAsync(ChainsawFormModel formModel)
+        public async Task<string> CreateAndReturnIdAsync(ChainsawFormModel formModel)
         {
             Chainsaw newChainsaw = new Chainsaw()
             {
@@ -84,6 +84,8 @@
             };
             await this.dbContext.Chainsaws.AddAsync(newChainsaw);
             await this.dbContext.SaveChangesAsync();
+
+            return newChainsaw.Id.ToString();
         }
 
         public async Task<bool> ExistsByIdAsync(int id)

@@ -55,12 +55,14 @@
             {
                 return this.View(formModel);
             }
+
             try
             {
-                await this.chainsawService.CreateAsync(formModel);
+                string chainsawId = 
+                    await this.chainsawService.CreateAndReturnIdAsync(formModel);
 
                 this.TempData[SuccessMessage] = "Моторният трион е добавен успешно!";
-                return this.RedirectToAction("All", "Chainsaw");
+                return this.RedirectToAction("Details", "Chainsaw", new { id = chainsawId});
             }
             catch (Exception)
             {
