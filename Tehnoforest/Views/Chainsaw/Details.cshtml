@@ -1,0 +1,41 @@
+﻿@model ChainsawDetailsViewModel
+<link rel="stylesheet" href="~/css/details.css" type="text/css" />
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Chainsaw Image">
+        </div>
+        <div class="card col-8 border-0">
+            <h2>HUSQVARNA @Model.Model</h2>
+            <h2><b>@String.Format("{0:f2}", Model.Price) BGN</b> </h2>
+            <hr />
+            <div id="container">
+            <div>
+                <h3>@Model.CylinderDisplacement cm³</h3>
+                <p>Обем на цилиндъра</p>
+            </div>
+            <div>
+                <h3>@Model.Power kW</h3>
+                <p>Мощност</p>
+            </div>
+            <div>
+                <h3>@Model.BarLength cm</h3>
+                <p>Мощност</p>
+            </div>
+            </div>
+            <p>@Model.Description</p>
+            <div class="form-inline">
+                @if (this.User.Identity!.IsAuthenticated)
+                {
+                    <a class="btn btn-warning" asp-controller="Chainsaw" asp-
+                       action="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+                    <a class="ml-2 btn btn-danger" asp-controller="Chainsaw" asp-
+                       action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -70,5 +70,22 @@
                 return this.View(formModel);
             }
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            ChainsawDetailsViewModel? viewModel = await this.chainsawService
+                .GetDetailsByIdAsync(id);
+
+            if (viewModel == null)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            return View(viewModel);
+        }
     }
 }

@@ -94,5 +94,29 @@
 
             return result;
         }
+
+        public async Task<ChainsawDetailsViewModel?> GetDetailsByIdAsync(int chainsawId)
+        {
+            Chainsaw? chainsaw = await this.dbContext
+                .Chainsaws
+                .Where(c => c.IsAvailable)
+                .FirstOrDefaultAsync(c => c.Id == chainsawId);
+
+            if(chainsaw == null)
+            {
+                return null;
+            }
+
+            return new ChainsawDetailsViewModel()
+            {
+                Id = chainsaw.Id,
+                Model = chainsaw.Model,
+                CylinderDisplacement = chainsaw.CylinderDisplacement,
+                Power = chainsaw.Power,
+                ImageUrl = chainsaw.ImageUrl,
+                Description = chainsaw.Description,
+                Price = chainsaw.Price,
+            };
+        }
     }
 }

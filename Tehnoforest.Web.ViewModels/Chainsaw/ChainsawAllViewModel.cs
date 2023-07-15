@@ -15,6 +15,9 @@
         [Display(Name = "Мощност")]
         public decimal Power { get; set; }
 
+        [Display(Name = "Дължина на шината")]
+        public int BarLength { get; set; }
+
         [Display(Name = "Линк на изображение")]
         public string ImageUrl { get; set; } = null!;
 

@@ -10,5 +10,7 @@
         Task CreateAsync(ChainsawFormModel formModel);
 
         Task<AllChainsawsFilteredAndPagedServiceModel> AllAsync(AllChainsawsQueryModel queryModel);
+
+        Task<ChainsawDetailsViewModel?> GetDetailsByIdAsync(int chainsawId);
     }
 }
