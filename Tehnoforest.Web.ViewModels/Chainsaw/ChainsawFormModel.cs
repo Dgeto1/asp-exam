@@ -18,7 +18,7 @@
         [Required]
         [Range(typeof(int), CylinderDisplacementMin, CylinderDisplacementMax)]
         [Display(Name = "Обем на цилиндъра")]
-        public int BoundaryType { get; set; }
+        public int CylinderDisplacement { get; set; }
 
         [Required]
         [Range(typeof(int), BarMin, BarMax)]
@@ -40,5 +40,9 @@
         [Range(typeof(decimal), PriceMin, PriceMax)]
         [Display(Name = "Цена")]
         public decimal Price { get; set; }
+
+        [Range(typeof(int), AvailabilityMin, AvailabilityMax)]
+        [Display(Name = "Цена")]
+        public int Availability { get; set; }
     }
 }

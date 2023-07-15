@@ -75,17 +75,25 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            ChainsawDetailsViewModel? viewModel = await this.chainsawService
-                .GetDetailsByIdAsync(id);
-
-            if (viewModel == null)
+            bool chainsawExists = await this.chainsawService
+                .ExistsByIdAsync(id);
+            if (!chainsawExists)
             {
                 this.TempData[ErrorMessage] = "Верижният трион не съществува!";
 
                 return this.RedirectToAction("All", "Chainsaw");
             }
 
+            ChainsawDetailsViewModel viewModel = await this.chainsawService
+                .GetDetailsByIdAsync(id);
+
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string chainsawModel)
+        {
+
         }
     }
 }

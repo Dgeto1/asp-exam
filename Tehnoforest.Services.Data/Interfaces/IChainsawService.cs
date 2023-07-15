@@ -11,6 +11,9 @@
 
         Task<AllChainsawsFilteredAndPagedServiceModel> AllAsync(AllChainsawsQueryModel queryModel);
 
-        Task<ChainsawDetailsViewModel?> GetDetailsByIdAsync(int chainsawId);
+        Task<bool> ExistsByIdAsync(int id);
+        Task<ChainsawFormModel> GetChainsawForEditByIdAsync(int chainsawId);
+
+        Task<ChainsawDetailsViewModel> GetDetailsByIdAsync(int chainsawId);
     }
 }

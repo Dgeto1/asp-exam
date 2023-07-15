@@ -86,6 +86,16 @@
             await this.dbContext.SaveChangesAsync();
         }
 
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            bool result = await this.dbContext
+                .Chainsaws
+                .Where(c => c.IsAvailable)
+                .AnyAsync(c => c.Id == id);
+
+            return result;
+        }
+
         public async Task<bool> ExistByModelAsync(string chainsawModel)
         {
             bool result = await this.dbContext
@@ -95,17 +105,32 @@
             return result;
         }
 
-        public async Task<ChainsawDetailsViewModel?> GetDetailsByIdAsync(int chainsawId)
+        public async Task<ChainsawFormModel> GetChainsawForEditByIdAsync(int chainsawId)
         {
-            Chainsaw? chainsaw = await this.dbContext
+            Chainsaw chainsaw = await this.dbContext
+               .Chainsaws
+               .Where(c => c.IsAvailable)
+               .FirstAsync(c => c.Id == chainsawId);
+
+            return new ChainsawFormModel
+            {
+                Model = chainsaw.Model,
+                CylinderDisplacement = chainsaw.CylinderDisplacement,
+                Power = chainsaw.Power,
+                BarLength = chainsaw.BarLength,
+                Description = chainsaw.Description,
+                ImageUrl = chainsaw.ImageUrl,
+                Price = chainsaw.Price,
+                Availability = chainsaw.Availability
+            };
+        }
+
+        public async Task<ChainsawDetailsViewModel> GetDetailsByIdAsync(int chainsawId)
+        {
+            Chainsaw chainsaw = await this.dbContext
                 .Chainsaws
                 .Where(c => c.IsAvailable)
-                .FirstOrDefaultAsync(c => c.Id == chainsawId);
-
-            if(chainsaw == null)
-            {
-                return null;
-            }
+                .FirstAsync(c => c.Id == chainsawId);
 
             return new ChainsawDetailsViewModel()
             {
