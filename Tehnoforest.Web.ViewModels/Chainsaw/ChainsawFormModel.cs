@@ -27,6 +27,7 @@
 
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
+        [Display(Name = "Описание")]
         public string Description { get; set; } = null!;
 
         [Required]

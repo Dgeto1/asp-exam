@@ -5,7 +5,9 @@
     using Tehnoforest.Data;
     using Tehnoforest.Data.Models;
     using Tehnoforest.Services.Data.Interfaces;
+    using Tehnoforest.Services.Data.Models.Chainsaw;
     using Tehnoforest.Web.ViewModels.Chainsaw;
+    using Tehnoforest.Web.ViewModels.Enums;
 
     public class ChainsawService : IChainsawService
     {
@@ -14,6 +16,56 @@
         public ChainsawService(TehnoforestDbContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+
+        public async Task<AllChainsawsFilteredAndPagedServiceModel> AllAsync(AllChainsawsQueryModel queryModel)
+        {
+            IQueryable<Chainsaw> chainsawsQuery = this.dbContext
+                .Chainsaws
+                .AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                chainsawsQuery = chainsawsQuery
+                    .Where(h => EF.Functions.Like(h.Model, wildCard) ||
+                    EF.Functions.Like(h.Description, wildCard));
+            }
+
+            chainsawsQuery = queryModel.ChainsawSorting switch
+            {
+                ProductsSorting.NameAZ => chainsawsQuery
+                .OrderBy(c => c.Model),
+                ProductsSorting.NameZA => chainsawsQuery
+                .OrderByDescending(h => h.Model),
+                ProductsSorting.PriceAscending => chainsawsQuery
+                .OrderBy(c => c.Price),
+                ProductsSorting.PriceDescending => chainsawsQuery
+                .OrderByDescending(c => c.Price)
+            };
+
+            IEnumerable<ChainsawAllViewModel> allChainsaws = await chainsawsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.ChainsawPerPage)
+                .Take(queryModel.ChainsawPerPage)
+                .Select(c => new ChainsawAllViewModel()
+                {
+                    Id = c.Id,
+                    Model = c.Model,
+                    CylinderDisplacement = c.CylinderDisplacement,
+                    Power = c.Power,
+                    ImageUrl = c.ImageUrl,
+                    Price = c.Price
+                })
+                .ToArrayAsync();
+
+            int totalChainsaws = chainsawsQuery.Count();
+
+            return new AllChainsawsFilteredAndPagedServiceModel()
+            {
+                TotalChainsawsCount = totalChainsaws,
+                Chainsaws = allChainsaws
+            };
         }
 
         public async Task CreateAsync(ChainsawFormModel formModel)

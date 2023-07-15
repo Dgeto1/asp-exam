@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Tehnoforest.Services.Data.Interfaces;
+    using Tehnoforest.Services.Data.Models.Chainsaw;
     using Tehnoforest.Web.ViewModels.Chainsaw;
     using static Common.NotificationMessagesConstants;
 
@@ -17,11 +18,18 @@
         {
             this.chainsawService = chainsawService;
         }
+
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllChainsawsQueryModel queryModel)
         {
-            // TODO:  
-            return this.Ok();
+            AllChainsawsFilteredAndPagedServiceModel serviceModel =
+                await this.chainsawService.AllAsync(queryModel);
+
+            queryModel.Chainsaws = serviceModel.Chainsaws;
+            queryModel.TotalChainsaws = serviceModel.TotalChainsawsCount;
+
+            return this.View(queryModel);
         }
 
         [HttpGet]
@@ -52,7 +60,7 @@
                 await this.chainsawService.CreateAsync(formModel);
 
                 this.TempData[SuccessMessage] = "Моторният трион е добавен успешно!";
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("All", "Chainsaw");
             }
             catch (Exception)
             {
