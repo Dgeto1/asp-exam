@@ -133,7 +133,7 @@
 
             try
             {
-                await this.chainsawService.EditChainsawByIdAndFormModel(id, formModel);
+                await this.chainsawService.EditChainsawByIdAndFormModelAsync(id, formModel);
             }
             catch (Exception)
             {
@@ -144,6 +144,56 @@
 
             this.TempData[SuccessMessage] = "Моторният трион беше редактиран успешно!";
             return this.RedirectToAction("Details", "Chainsaw", new {id});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool chainsawExists = await this.chainsawService
+            .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            try
+            {
+                ChainsawDeleteViewModel viewModel = 
+                    await this.chainsawService.GetHouseForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, ChainsawDeleteViewModel formModel)
+        {
+            bool chainsawExists = await this.chainsawService
+           .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            try
+            {
+                await this.chainsawService.DeleteChainsawByIdAsync(id);
+                this.TempData[WarningMessage] = "Успешно премахнахте верижният трион!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         private IActionResult GeneralError()

@@ -146,7 +146,7 @@
             };
         }
 
-        public async Task EditChainsawByIdAndFormModel(int chainsawId, ChainsawFormModel formModel)
+        public async Task EditChainsawByIdAndFormModelAsync(int chainsawId, ChainsawFormModel formModel)
         {
             Chainsaw chainsaw = await this.dbContext
                 .Chainsaws
@@ -161,6 +161,33 @@
             chainsaw.ImageUrl = formModel.ImageUrl;
             chainsaw.Price = formModel.Price;
             chainsaw.Availability = formModel.Availability;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<ChainsawDeleteViewModel> GetHouseForDeleteByIdAsync(int chainsawId)
+        {
+            Chainsaw chainsaw = await this.dbContext
+                .Chainsaws
+                .Where(c => c.IsAvailable)
+                .FirstAsync(c => c.Id == chainsawId);
+
+            return new ChainsawDeleteViewModel()
+            {
+                Model = chainsaw.Model,
+                Availability = chainsaw.Availability,
+                ImageUrl = chainsaw.ImageUrl
+            };
+        }
+
+        public async Task DeleteChainsawByIdAsync(int chainsawId)
+        {
+            Chainsaw chainsawToDelete = await this.dbContext
+                .Chainsaws
+                .Where(c => c.IsAvailable)
+                .FirstAsync(c => c.Id == chainsawId);
+
+            chainsawToDelete.IsAvailable = false;
 
             await this.dbContext.SaveChangesAsync();
         }
