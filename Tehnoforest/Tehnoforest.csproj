@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\details.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.18" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.18" />
@@ -23,6 +27,7 @@
     <ProjectReference Include="..\Tehnoforest.Common\Tehnoforest.Common.csproj" />
     <ProjectReference Include="..\Tehnoforest.Data.Models\Tehnoforest.Data.Models.csproj" />
     <ProjectReference Include="..\Tehnoforest.Data\Tehnoforest.Data.csproj" />
+    <ProjectReference Include="..\Tehnoforest.Services.Data.Models\Tehnoforest.Services.Data.Models.csproj" />
     <ProjectReference Include="..\Tehnoforest.Services.Data\Tehnoforest.Services.Data.csproj" />
     <ProjectReference Include="..\Tehnoforest.Web.Infrastructure\Tehnoforest.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\Tehnoforest.Web.ViewModels\Tehnoforest.Web.ViewModels.csproj" />

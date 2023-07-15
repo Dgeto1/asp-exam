@@ -33,6 +33,8 @@ namespace Tehnoforest.Common
             public const string BarMax = "200";
             public const string PriceMin = "0";
             public const string PriceMax = "3000";
+            public const string AvailabilityMin = "0";
+            public const string AvailabilityMax = "200";
         }
     }
 }

@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Tehnoforest.Services.Data.Interfaces;
+    using Tehnoforest.Services.Data.Models.Chainsaw;
     using Tehnoforest.Web.ViewModels.Chainsaw;
     using static Common.NotificationMessagesConstants;
 
@@ -17,11 +18,18 @@
         {
             this.chainsawService = chainsawService;
         }
+
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllChainsawsQueryModel queryModel)
         {
-            // TODO:  
-            return this.Ok();
+            AllChainsawsFilteredAndPagedServiceModel serviceModel =
+                await this.chainsawService.AllAsync(queryModel);
+
+            queryModel.Chainsaws = serviceModel.Chainsaws;
+            queryModel.TotalChainsaws = serviceModel.TotalChainsawsCount;
+
+            return this.View(queryModel);
         }
 
         [HttpGet]
@@ -47,20 +55,152 @@
             {
                 return this.View(formModel);
             }
+
             try
             {
-                await this.chainsawService.CreateAsync(formModel);
+                string chainsawId = 
+                    await this.chainsawService.CreateAndReturnIdAsync(formModel);
 
                 this.TempData[SuccessMessage] = "Моторният трион е добавен успешно!";
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Details", "Chainsaw", new { id = chainsawId});
             }
             catch (Exception)
             {
+                return this.GeneralError();
+            }
+        }
 
-                this.ModelState.AddModelError(string.Empty, "Нещо се обърка, докато се добавяше моторен трион! Моля опитайте отново или се свържете с администраторите!");
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            bool chainsawExists = await this.chainsawService
+                .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            try
+            {
+                ChainsawDetailsViewModel viewModel = await this.chainsawService
+                .GetDetailsByIdAsync(id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            bool chainsawExists = await this.chainsawService
+               .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            ChainsawFormModel formModel = await this.chainsawService
+                .GetChainsawForEditByIdAsync(id);
+
+            return this.View(formModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ChainsawFormModel formModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(formModel);      
+            }
+
+            bool chainsawExists = await this.chainsawService
+             .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            try
+            {
+                await this.chainsawService.EditChainsawByIdAndFormModelAsync(id, formModel);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Нещо се обърка! Опитайте отново или се свържете с администратор!");
 
                 return this.View(formModel);
             }
+
+            this.TempData[SuccessMessage] = "Моторният трион беше редактиран успешно!";
+            return this.RedirectToAction("Details", "Chainsaw", new {id});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool chainsawExists = await this.chainsawService
+            .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            try
+            {
+                ChainsawDeleteViewModel viewModel = 
+                    await this.chainsawService.GetHouseForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, ChainsawDeleteViewModel formModel)
+        {
+            bool chainsawExists = await this.chainsawService
+           .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            try
+            {
+                await this.chainsawService.DeleteChainsawByIdAsync(id);
+                this.TempData[WarningMessage] = "Успешно премахнахте верижния трион!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] = "Нещо се обърка! Опитайте отново или се свържете с администратор!";
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

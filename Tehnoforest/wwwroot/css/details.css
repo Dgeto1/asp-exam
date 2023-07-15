@@ -1,0 +1,11 @@
+﻿#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 60%;
+}
+
+    #container div {
+        margin: 5%;
+        margin-top: 1%;
+    }
