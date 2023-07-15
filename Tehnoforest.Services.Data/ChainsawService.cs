@@ -75,12 +75,12 @@
             {
                 Model = formModel.Model,
                 Power = formModel.Power,
-                CylinderDisplacement = formModel.BoundaryType,
+                CylinderDisplacement = formModel.CylinderDisplacement,
                 BarLength = formModel.BarLength,
                 Description = formModel.Description,
                 ImageUrl = formModel.ImageUrl,
                 Price = formModel.Price,
-                Availability = 1
+                Availability = formModel.Availability
             };
             await this.dbContext.Chainsaws.AddAsync(newChainsaw);
             await this.dbContext.SaveChangesAsync();
@@ -142,6 +142,25 @@
                 Description = chainsaw.Description,
                 Price = chainsaw.Price,
             };
+        }
+
+        public async Task EditChainsawByIdAndFormModel(int chainsawId, ChainsawFormModel formModel)
+        {
+            Chainsaw chainsaw = await this.dbContext
+                .Chainsaws
+                .Where(c => c.IsAvailable)
+                .FirstAsync(c => c.Id == chainsawId);
+
+            chainsaw.Model = formModel.Model;
+            chainsaw.CylinderDisplacement = formModel.CylinderDisplacement;
+            chainsaw.Power = formModel.Power;
+            chainsaw.BarLength = formModel.BarLength;
+            chainsaw.Description = formModel.Description;
+            chainsaw.ImageUrl = formModel.ImageUrl;
+            chainsaw.Price = formModel.Price;
+            chainsaw.Availability = formModel.Availability;
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

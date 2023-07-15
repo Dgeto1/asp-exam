@@ -64,10 +64,7 @@
             }
             catch (Exception)
             {
-
-                this.ModelState.AddModelError(string.Empty, "Нещо се обърка, докато се добавяше моторен трион! Моля опитайте отново или се свържете с администраторите!");
-
-                return this.View(formModel);
+                return this.GeneralError();
             }
         }
 
@@ -84,16 +81,73 @@
                 return this.RedirectToAction("All", "Chainsaw");
             }
 
-            ChainsawDetailsViewModel viewModel = await this.chainsawService
+            try
+            {
+                ChainsawDetailsViewModel viewModel = await this.chainsawService
                 .GetDetailsByIdAsync(id);
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string chainsawModel)
+        public async Task<IActionResult> Edit(int id)
         {
+            bool chainsawExists = await this.chainsawService
+               .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
 
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            ChainsawFormModel formModel = await this.chainsawService
+                .GetChainsawForEditByIdAsync(id);
+
+            return this.View(formModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ChainsawFormModel formModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(formModel);      
+            }
+
+            bool chainsawExists = await this.chainsawService
+             .ExistsByIdAsync(id);
+            if (!chainsawExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "Chainsaw");
+            }
+
+            try
+            {
+                await this.chainsawService.EditChainsawByIdAndFormModel(id, formModel);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Нещо се обърка! Опитайте отново или се свържете с администратор!");
+
+                return this.View(formModel);
+            }
+
+            return this.RedirectToAction("Details", "Chainsaw", new {id});
+        }
+
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] = "Нещо се обърка! Опитайте отново или се свържете с администратор!";
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }
