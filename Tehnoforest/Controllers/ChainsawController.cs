@@ -142,6 +142,7 @@
                 return this.View(formModel);
             }
 
+            this.TempData[SuccessMessage] = "Моторният трион беше редактиран успешно!";
             return this.RedirectToAction("Details", "Chainsaw", new {id});
         }
 
