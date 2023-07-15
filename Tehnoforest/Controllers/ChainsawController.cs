@@ -186,7 +186,7 @@
             try
             {
                 await this.chainsawService.DeleteChainsawByIdAsync(id);
-                this.TempData[WarningMessage] = "Успешно премахнахте верижният трион!";
+                this.TempData[WarningMessage] = "Успешно премахнахте верижния трион!";
 
                 return this.RedirectToAction("All", "Chainsaw");
             }
