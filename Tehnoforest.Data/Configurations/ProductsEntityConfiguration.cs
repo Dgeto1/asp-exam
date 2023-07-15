@@ -16,6 +16,10 @@
                 .WithMany(u => u.Automowers)
                 .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(a => a.IsAvailable)
+                .HasDefaultValue(true);
         }
 
         public void Configure(EntityTypeBuilder<Chainsaw> builder)
@@ -27,6 +31,10 @@
                 .WithMany(u => u.Chainsaws)
                 .HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(c => c.IsAvailable)
+                .HasDefaultValue(true);
         }
 
         public void Configure(EntityTypeBuilder<GardenTractor> builder)
@@ -38,6 +46,10 @@
                 .WithMany(u => u.GardenTractors)
                 .HasForeignKey(gt => gt.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(gt =>gt.IsAvailable)
+                .HasDefaultValue(true);
         }
 
         public void Configure(EntityTypeBuilder<GrassTrimmer> builder)
@@ -49,6 +61,10 @@
                 .WithMany(u => u.GrassTrimmers)
                 .HasForeignKey(gt => gt.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(gt => gt.IsAvailable)
+                .HasDefaultValue(true);
         }
 
         public void Configure(EntityTypeBuilder<LawnMower> builder)
@@ -59,6 +75,10 @@
                 .WithMany(u => u.LawnMowers)
                 .HasForeignKey(lm => lm.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(lm => lm.IsAvailable)
+                .HasDefaultValue(true);
         }
 
         private Automower[] GenerateAutomowers()

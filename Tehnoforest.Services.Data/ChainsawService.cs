@@ -46,6 +46,7 @@
             };
 
             IEnumerable<ChainsawAllViewModel> allChainsaws = await chainsawsQuery
+                .Where(c => c.IsAvailable)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.ChainsawPerPage)
                 .Take(queryModel.ChainsawPerPage)
                 .Select(c => new ChainsawAllViewModel()
