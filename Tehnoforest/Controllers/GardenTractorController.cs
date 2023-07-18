@@ -1,11 +1,14 @@
 ﻿namespace Tehnoforest.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Tehnoforest.Services.Data.Interfaces;
+    using Tehnoforest.Services.Data.Models.GardenTractor;
     using Tehnoforest.Web.ViewModels.GardenTractor;
     using static Common.NotificationMessagesConstants;
 
+    [Authorize]
     public class GardenTractorController : Controller
     {
         private readonly IGardenTractorService gardenTractorService;
@@ -13,6 +16,19 @@
         public GardenTractorController(IGardenTractorService gardenTractorService)
         {
             this.gardenTractorService = gardenTractorService;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> All([FromQuery] AllGardenTractorsQueryModel queryModel)
+        {
+            AllGardenTractorFilteredAndPagedServiceModel serviceModel =
+                await this.gardenTractorService.AllAsync(queryModel);
+
+            queryModel.GardenTractors = serviceModel.GardenTractors;
+            queryModel.TotalGardenTractor = serviceModel.TotalGardenTractosrsCount;
+
+            return this.View(queryModel);
         }
 
         [HttpGet]

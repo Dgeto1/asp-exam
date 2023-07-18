@@ -33,4 +33,12 @@
     <ProjectReference Include="..\Tehnoforest.Web.ViewModels\Tehnoforest.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\GardenTractor\All.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\GardenTractor\All.cshtml" />
+  </ItemGroup>
+
 </Project>
