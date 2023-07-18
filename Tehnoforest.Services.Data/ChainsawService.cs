@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
+
     using Tehnoforest.Data;
     using Tehnoforest.Data.Models;
     using Tehnoforest.Services.Data.Interfaces;
@@ -165,7 +166,7 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<ChainsawDeleteViewModel> GetHouseForDeleteByIdAsync(int chainsawId)
+        public async Task<ChainsawDeleteViewModel> GetChainsawForDeleteByIdAsync(int chainsawId)
         {
             Chainsaw chainsaw = await this.dbContext
                 .Chainsaws

@@ -161,7 +161,7 @@
             try
             {
                 ChainsawDeleteViewModel viewModel = 
-                    await this.chainsawService.GetHouseForDeleteByIdAsync(id);
+                    await this.chainsawService.GetChainsawForDeleteByIdAsync(id);
 
                 return this.View(viewModel);
             }

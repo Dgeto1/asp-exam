@@ -1,11 +1,11 @@
-﻿namespace Tehnoforest.Web.ViewModels.Chainsaw
+﻿namespace Tehnoforest.Web.ViewModels.GardenTractor
 {
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.Product;
-    using static Common.EntityValidationConstants.Chainsaw;
+    using static Common.EntityValidationConstants.GardenTractor;
 
-    public class ChainsawFormModel
+    public  class GardenTractorFormModel
     {
         [Required]
         [StringLength(ModelMaxLength, MinimumLength = ModelMinLength)]
@@ -13,30 +13,39 @@
         public string Model { get; set; } = null!;
 
         [Required]
-        [Range(typeof(decimal), PowerMin, PowerMax)]
-        [Display(Name = "Мощност")]
-        public decimal Power { get; set; }
-
-        [Required]
         [Range(typeof(int), CylinderDisplacementMin, CylinderDisplacementMax)]
         [Display(Name = "Обем на цилиндъра")]
-        public decimal CylinderDisplacement { get; set; }
+        public int CylinderDisplacement { get; set; }
 
         [Required]
-        [Range(typeof(int), BarMin, BarMax)]
-        [Display(Name = "Дължина на шина")]
-        public int BarLength { get; set; }
+        [Range(typeof(decimal), NetPowerMin, NetPowerMax)]
+        [Display(Name = "Ефективна мощност при зададени обороти Енергия")]
+        public decimal NetPower { get; set; }
+
+        [Required]
+        [Range(typeof(int), CuttingWidthMin, CuttingWidthMax)]
+        [Display(Name = "Ширина на косене")]
+        public int CuttingWidth { get; set; }
+
+        [Required]
+        [Range(typeof(int), CuttingHeightMaxMin, CuttingHeightMaxMax)]
+        [Display(Name = "Максимална височина на косене")]
+        public int CuttingHeightMax { get; set; }
+
+        [Required]
+        [Range(typeof(int), CuttingHeightMinMin, CuttingHeightMinMax)]
+        [Display(Name = "Минимална височина на косене")]
+        public int CuttingHeightMin { get; set; } 
 
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
-        [Display(Name = "Описание")]
+        [Display(Name = "Описание на продукт")]
         public string Description { get; set; } = null!;
 
         [Required]
         [StringLength(ImageUrlMaxLength)]
         [Display(Name = "Линк на изображение")]
         public string ImageUrl { get; set; } = null!;
-
 
         [Required]
         [Range(typeof(decimal), PriceMin, PriceMax)]

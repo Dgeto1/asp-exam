@@ -1,23 +1,23 @@
-﻿@model ChainsawAllViewModel
+﻿@model GardenTractorAllViewModel
 <div class="col-md-4">
     <div class="card mb-3">
         <img class="card-img-top" src="@Model.ImageUrl" alt="Chainsaw Image">
         <div class="card-body text-center">
             <h4>@Model.Model</h4>
-            <h6>Мощност: <b>@Model.Power kW</b></h6>
+            <h6>Мощност: <b>@Model.NetPower kW</b></h6>
             <h6>Обем на цилиндъра: <b>@Model.CylinderDisplacement cm³</b> </h6>
             <h6>
                 Цена:
                 <b>@String.Format("{0:f2}", Model.Price) BGN</b>
             </h6>
             <br />
-            <a asp-controller="Chainsaw" asp-action="Details" asp-route-id="@Model.Id"
+            <a asp-controller="GardenTractor" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="Chainsaw" asp-action="Edit" asp-route-id="@Model.Id"
+                <a asp-controller="GardenTractor" asp-action="Edit" asp-route-id="@Model.Id"
                    class="btn btn-warning">Edit</a>
-                <a asp-controller="Chainsaw" asp-action="Delete" asp-route-id="@Model.Id"
+                <a asp-controller="GardenTractor" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger">Delete</a>
             }
         </div>

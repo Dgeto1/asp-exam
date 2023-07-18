@@ -6,7 +6,9 @@
     using static Common.EntityValidationConstants.Automower;
     public  class AutomowerFormModel
     {
+        [Required]
         [StringLength(ModelMaxLength, MinimumLength = ModelMinLength)]
+        [Display(Name = "Модел")]
         public string Model { get; set; } = null!;
 
         [Required]
@@ -36,5 +38,10 @@
         [Range(typeof(decimal), PriceMin, PriceMax)]
         [Display(Name = "Цена")]
         public decimal Price { get; set; }
+
+        [Required]
+        [Range(typeof(int), AvailabilityMin, AvailabilityMax)]
+        [Display(Name = "Наличност")]
+        public int Availability { get; set; }
     }
 }

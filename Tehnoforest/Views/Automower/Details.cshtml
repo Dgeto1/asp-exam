@@ -1,0 +1,39 @@
+﻿@model AutomowerDetailsViewModel
+<link rel="stylesheet" href="~/css/details.css" type="text/css" />
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Automower Image">
+        </div>
+        <div class="card col-8 border-0">
+            <h2>HUSQVARNA @Model.Model</h2>
+            <h2><b>@String.Format("{0:f2}", Model.Price) BGN</b> </h2>
+            <hr />
+            <div id="container">
+                <div>
+                    <h3>@Model.WorkingAreaCapacity m²</h3>
+                    <p>Максимална работна площ</p>
+                </div>
+                <div>
+                    <h3>@Model.MaximumSlopePerformance %</h3>
+                    <p>Максимален наклон на работа</p>
+                </div>
+                <div>
+                    <h3>Automower® Connect</h3>
+                    <p>Контролирано приложение</p>
+                </div>
+            </div>
+            <p>@Model.Description</p>
+            <div class="form-inline">
+                @if (this.User.Identity!.IsAuthenticated)
+                {
+                    <a asp-controller="Automower" asp-action="Edit" asp-route-id="@Model.Id"
+                       class="btn btn-warning">Edit</a>
+                    <a asp-controller="Automower" asp-action="Delete" asp-route-id="@Model.Id"
+                       class="btn btn-danger">Delete</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,7 +19,7 @@
 
         Task EditChainsawByIdAndFormModelAsync(int chainsawId, ChainsawFormModel formModel);
 
-        Task<ChainsawDeleteViewModel> GetHouseForDeleteByIdAsync(int chainsawId);
+        Task<ChainsawDeleteViewModel> GetChainsawForDeleteByIdAsync(int chainsawId);
 
         Task DeleteChainsawByIdAsync(int chainsawId);
     }
