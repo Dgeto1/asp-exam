@@ -1,10 +1,11 @@
-﻿namespace Tehnoforest.Web.ViewModels.Automower
+﻿namespace Tehnoforest.Web.ViewModels.GardenTractor
 {
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.Product;
-    using static Common.EntityValidationConstants.Automower;
-    public  class AutomowerFormModel
+    using static Common.EntityValidationConstants.GardenTractor;
+
+    public  class GardenTractorFormModel
     {
         [Required]
         [StringLength(ModelMaxLength, MinimumLength = ModelMinLength)]
@@ -12,13 +13,13 @@
         public string Model { get; set; } = null!;
 
         [Required]
-        [Range(typeof(int), WorkingAreaCapacityMin, WorkingAreaCapacityMax)]
-        [Display(Name = "Работна площ")]
-        public int WorkingAreaCapacity { get; set; }
+        [Range(typeof(int), CylinderDisplacementMin, CylinderDisplacementMax)]
+        [Display(Name = "Обем на цилиндъра")]
+        public int CylinderDisplacement { get; set; }
 
         [Required]
-        [Range(typeof(int), MaximumSlopePerformanceMin, MaximumSlopePerformanceMax)]
-        public int SlopePerformance { get; set; }
+        [Range(typeof(int), NetPowerMin, NetPowerMax)]
+        public int NetPower { get; set; }
 
         [Required]
         [Display(Name = "Вид на ограничението")]

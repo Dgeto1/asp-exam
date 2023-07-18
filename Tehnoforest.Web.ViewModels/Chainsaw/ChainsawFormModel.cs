@@ -7,7 +7,9 @@
 
     public class ChainsawFormModel
     {
+        [Required]
         [StringLength(ModelMaxLength, MinimumLength = ModelMinLength)]
+        [Display(Name = "Модел")]
         public string Model { get; set; } = null!;
 
         [Required]
@@ -18,7 +20,7 @@
         [Required]
         [Range(typeof(int), CylinderDisplacementMin, CylinderDisplacementMax)]
         [Display(Name = "Обем на цилиндъра")]
-        public int CylinderDisplacement { get; set; }
+        public decimal CylinderDisplacement { get; set; }
 
         [Required]
         [Range(typeof(int), BarMin, BarMax)]

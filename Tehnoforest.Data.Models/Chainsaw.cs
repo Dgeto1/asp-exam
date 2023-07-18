@@ -16,7 +16,7 @@
         public decimal Power {get; set;}
 
         [Required]
-        public int CylinderDisplacement { get; set; }
+        public decimal CylinderDisplacement { get; set; }
 
         [Required]
         public int BarLength { get; set; }
