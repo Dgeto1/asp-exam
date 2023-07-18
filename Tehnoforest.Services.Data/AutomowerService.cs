@@ -1,6 +1,7 @@
 ﻿namespace Tehnoforest.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
+    using System.Diagnostics;
     using System.Threading.Tasks;
 
     using Tehnoforest.Data;
@@ -8,6 +9,7 @@
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.Automower;
     using Tehnoforest.Web.ViewModels.Automower;
+    using Tehnoforest.Web.ViewModels.Chainsaw;
     using Tehnoforest.Web.ViewModels.Enums;
 
     public class AutomowerService : IAutomowerService
@@ -90,6 +92,25 @@
             return newAutomower.Id.ToString();
         }
 
+        public async Task EditAutomowerByIdAndFormModelAsync(int automowerId, AutomowerFormModel formModel)
+        {
+            Automower automower = await this.dbContext
+            .Automowers
+               .Where(a => a.IsAvailable)
+               .FirstAsync(a => a.Id == automowerId);
+
+            automower.Model = formModel.Model;
+            automower.WorkingAreaCapacity = formModel.WorkingAreaCapacity;
+            automower.MaximumSlopePerformance = formModel.SlopePerformance;
+            automower.BoundaryType = formModel.BoundaryType;
+            automower.Description = formModel.Description;
+            automower.ImageUrl = formModel.ImageUrl;
+            automower.Price = formModel.Price;
+            automower.Availability = formModel.Availability;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistByModelAsync(string automowerModel)
         {
             bool result = await this.dbContext
@@ -106,6 +127,53 @@
                 .AnyAsync(a => a.Id == id);
 
             return result;
+        }
+
+        public async Task<AutomowerDeleteViewModel> GetAutomowerForDeleteByIdAsync(int automowerId)
+        {
+            Automower automower = await this.dbContext
+                .Automowers
+                .Where(a => a.IsAvailable)
+                .FirstAsync(a => a.Id == automowerId);
+
+            return new AutomowerDeleteViewModel()
+            {
+                Model = automower.Model,
+                Availability = automower.Availability,
+                ImageUrl = automower.ImageUrl
+            };
+        }
+
+        public async Task DeleteAutomowerByIdAsync(int automowerId)
+        {
+            Automower automowerToDelete = await this.dbContext
+                .Automowers
+                .Where(a => a.IsAvailable)
+                .FirstAsync(a => a.Id == automowerId);
+
+            automowerToDelete.IsAvailable = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<AutomowerFormModel> GetAutomowerForEditByIdAsync(int automowerId)
+        {
+            Automower automower = await this.dbContext
+            .Automowers
+               .Where(a => a.IsAvailable)
+               .FirstAsync(a => a.Id == automowerId);
+
+            return new AutomowerFormModel
+            {
+                Model = automower.Model,
+                WorkingAreaCapacity = automower.WorkingAreaCapacity,
+                SlopePerformance = automower.MaximumSlopePerformance,
+                BoundaryType = automower.BoundaryType,
+                Description = automower.Description,
+                ImageUrl = automower.ImageUrl,
+                Price = automower.Price,
+                Availability = automower.Availability
+            };
         }
 
         public async Task<AutomowerDetailsViewModel> GetDetailsByIdAsync(int automowerId)

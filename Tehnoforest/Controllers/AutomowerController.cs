@@ -100,6 +100,106 @@
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            bool automowewrExists = await this.automowerService
+               .ExistsByIdAsync(id);
+            if (!automowewrExists)
+            {
+                this.TempData[ErrorMessage] = "Автоматичната косачка не съществува!";
+
+                return this.RedirectToAction("All", "Automower");
+            }
+
+            AutomowerFormModel formModel = await this.automowerService
+                .GetAutomowerForEditByIdAsync(id);
+
+            return this.View(formModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, AutomowerFormModel formModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(formModel);
+            }
+
+            bool automowewrExists = await this.automowerService
+             .ExistsByIdAsync(id);
+            if (!automowewrExists)
+            {
+                this.TempData[ErrorMessage] = "Автоматичната косачка не съществува!";
+
+                return this.RedirectToAction("All", "Automower");
+            }
+
+            try
+            {
+                await this.automowerService.EditAutomowerByIdAndFormModelAsync(id, formModel);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Нещо се обърка! Опитайте отново или се свържете с администратор!");
+
+                return this.View(formModel);
+            }
+
+            this.TempData[SuccessMessage] = "Автоматичната косачка беше редактиран успешно!";
+            return this.RedirectToAction("Details", "Automower", new { id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool automowerExistst = await this.automowerService
+            .ExistsByIdAsync(id);
+            if (!automowerExistst)
+            {
+                this.TempData[ErrorMessage] = "Автоматичната косачка не съществува!";
+
+                return this.RedirectToAction("All", "Automower");
+            }
+
+            try
+            {
+                AutomowerDeleteViewModel viewModel =
+                    await this.automowerService.GetAutomowerForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, AutomowerDeleteViewModel formModel)
+        {
+            bool automowerExistst = await this.automowerService
+           .ExistsByIdAsync(id);
+            if (!automowerExistst)
+            {
+                this.TempData[ErrorMessage] = "Автоматичната косачка не съществува!";
+
+                return this.RedirectToAction("All", "Automower");
+            }
+
+            try
+            {
+                await this.automowerService.DeleteAutomowerByIdAsync(id);
+                this.TempData[WarningMessage] = "Успешно премахнахте автоматичната косачка!";
+
+                return this.RedirectToAction("All", "Automower");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] = "Нещо се обърка! Опитайте отново или се свържете с администратор!";
