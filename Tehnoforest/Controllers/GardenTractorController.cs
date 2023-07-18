@@ -22,7 +22,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllGardenTractorsQueryModel queryModel)
         {
-            AllGardenTractorFilteredAndPagedServiceModel serviceModel =
+            AllGardenTractorsFilteredAndPagedServiceModel serviceModel =
                 await this.gardenTractorService.AllAsync(queryModel);
 
             queryModel.GardenTractors = serviceModel.GardenTractors;

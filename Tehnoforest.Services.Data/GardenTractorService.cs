@@ -19,7 +19,7 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<AllGardenTractorFilteredAndPagedServiceModel> AllAsync(AllGardenTractorsQueryModel queryModel)
+        public async Task<AllGardenTractorsFilteredAndPagedServiceModel> AllAsync(AllGardenTractorsQueryModel queryModel)
         {
             IQueryable<GardenTractor> gardenTractorsQuery = this.dbContext
                 .GardenTractors
@@ -63,7 +63,7 @@
 
             int totalGardenTractors = gardenTractorsQuery.Count();
 
-            return new AllGardenTractorFilteredAndPagedServiceModel()
+            return new AllGardenTractorsFilteredAndPagedServiceModel()
             {
                 TotalGardenTractosrsCount = totalGardenTractors,
                 GardenTractors = allGardenTractors

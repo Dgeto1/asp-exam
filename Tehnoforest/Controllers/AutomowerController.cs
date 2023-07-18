@@ -4,7 +4,10 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Tehnoforest.Services.Data.Interfaces;
+    using Tehnoforest.Services.Data.Models.Automower;
+    using Tehnoforest.Services.Data.Models.Chainsaw;
     using Tehnoforest.Web.ViewModels.Automower;
+    using Tehnoforest.Web.ViewModels.Chainsaw;
     using static Common.NotificationMessagesConstants;
 
     [Authorize]
@@ -18,10 +21,15 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery] AllAutomowersQueryModel queryModel)
         {
-            // TODO:  
-            return this.Ok();
+            AllAutomowersFilteredAndPagedServiceModel serviceModel =
+                await this.automowerService.AllAsync(queryModel);
+
+            queryModel.Automowers = serviceModel.Automowers;
+            queryModel.TotalAutomowers = serviceModel.TotalAutomowersCount;
+
+            return this.View(queryModel);
         }
 
         [HttpGet]

@@ -1,9 +1,9 @@
 ﻿namespace Tehnoforest.Services.Data.Models.GardenTractor
 {
     using Tehnoforest.Web.ViewModels.GardenTractor;
-    public class AllGardenTractorFilteredAndPagedServiceModel
+    public class AllGardenTractorsFilteredAndPagedServiceModel
     {
-        public AllGardenTractorFilteredAndPagedServiceModel()
+        public AllGardenTractorsFilteredAndPagedServiceModel()
         {
             this.GardenTractors = new HashSet<GardenTractorAllViewModel>();
         }
