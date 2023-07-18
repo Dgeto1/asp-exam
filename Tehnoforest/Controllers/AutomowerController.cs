@@ -57,10 +57,13 @@
             }
             try
             {
+                string automowerId =
+                    await this.automowerService.CreateAndReturnIdAsync(formModel);
+
                 await this.automowerService.CreateAndReturnIdAsync(formModel);
 
                 this.TempData[SuccessMessage] = "Косачката е добавена успешно!";
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Details", "Automower", new { id = automowerId });
             }
             catch (Exception)
             {
@@ -68,6 +71,32 @@
                 this.ModelState.AddModelError(string.Empty, "Нещо се обърка, докато се добавяше косачката! Моля опитайте отново или се свържете с администраторите!");
 
                 return this.View(formModel);
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            bool automowerExists = await this.automowerService
+                .ExistsByIdAsync(id);
+            if (!automowerExists)
+            {
+                this.TempData[ErrorMessage] = "Автоматичната косачка не съществува!";
+
+                return this.RedirectToAction("All", "Automower");
+            }
+
+            try
+            {
+                AutomowerDetailsViewModel viewModel = await this.automowerService
+                .GetDetailsByIdAsync(id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
             }
         }
 

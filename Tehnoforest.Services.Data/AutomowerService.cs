@@ -7,9 +7,7 @@
     using Tehnoforest.Data.Models;
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.Automower;
-    using Tehnoforest.Services.Data.Models.Chainsaw;
     using Tehnoforest.Web.ViewModels.Automower;
-    using Tehnoforest.Web.ViewModels.Chainsaw;
     using Tehnoforest.Web.ViewModels.Enums;
 
     public class AutomowerService : IAutomowerService
@@ -108,6 +106,26 @@
                 .AnyAsync(a => a.Id == id);
 
             return result;
+        }
+
+        public async Task<AutomowerDetailsViewModel> GetDetailsByIdAsync(int automowerId)
+        {
+            Automower automower = await this.dbContext
+                .Automowers
+                .Where(a => a.IsAvailable)
+                .FirstAsync(c => c.Id == automowerId);
+
+            return new AutomowerDetailsViewModel()
+            {
+                Id = automower.Id,
+                Model = automower.Model,
+                MaximumSlopePerformance = automower.MaximumSlopePerformance,
+                WorkingAreaCapacity = automower.WorkingAreaCapacity,
+                BoundaryType = automower.BoundaryType,
+                ImageUrl = automower.ImageUrl,
+                Description = automower.Description,
+                Price = automower.Price,
+            };
         }
     }
 }

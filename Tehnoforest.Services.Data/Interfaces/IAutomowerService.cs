@@ -2,7 +2,6 @@
 {
     using Tehnoforest.Services.Data.Models.Automower;
     using Tehnoforest.Web.ViewModels.Automower;
-    using Tehnoforest.Web.ViewModels.GardenTractor;
 
     public interface IAutomowerService
     {
@@ -11,6 +10,8 @@
         Task<string> CreateAndReturnIdAsync(AutomowerFormModel formModel);
 
         Task<AllAutomowersFilteredAndPagedServiceModel> AllAsync(AllAutomowersQueryModel queryModel);
+
+        Task<AutomowerDetailsViewModel> GetDetailsByIdAsync(int automowerId);
 
         Task<bool> ExistsByIdAsync(int id);
     }
