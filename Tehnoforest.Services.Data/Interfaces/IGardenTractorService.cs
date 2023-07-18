@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tehnoforest.Web.ViewModels.Automower;
+using Tehnoforest.Web.ViewModels.Chainsaw;
+using Tehnoforest.Web.ViewModels.GardenTractor;
 
 namespace Tehnoforest.Services.Data.Interfaces
 {
@@ -11,6 +13,6 @@ namespace Tehnoforest.Services.Data.Interfaces
     {
         Task<bool> ExistByModelAsync(string gardenTractorModel);
 
-        Task CreateAsync(AutomowerFormModel formModel);
+        Task<string> CreateAndReturnIdAsync(Web.ViewModels.GardenTractor.GardenTractorFormModel formModel);
     }
 }

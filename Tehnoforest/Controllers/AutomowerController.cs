@@ -49,7 +49,7 @@
             }
             try
             {
-                await this.automowerService.CreateAsync(formModel);
+                await this.automowerService.CreateAndReturnIdAsync(formModel);
 
                 this.TempData[SuccessMessage] = "Косачката е добавена успешно!";
                 return this.RedirectToAction("Index", "Home");
@@ -61,6 +61,13 @@
 
                 return this.View(formModel);
             }
+        }
+
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] = "Нещо се обърка! Опитайте отново или се свържете с администратор!";
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

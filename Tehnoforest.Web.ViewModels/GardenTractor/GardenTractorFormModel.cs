@@ -18,12 +18,24 @@
         public int CylinderDisplacement { get; set; }
 
         [Required]
-        [Range(typeof(int), NetPowerMin, NetPowerMax)]
-        public int NetPower { get; set; }
+        [Range(typeof(decimal), NetPowerMin, NetPowerMax)]
+        [Display(Name = "Ефективна мощност при зададени обороти Енергия")]
+        public decimal NetPower { get; set; }
 
         [Required]
-        [Display(Name = "Вид на ограничението")]
-        public string BoundaryType { get; set; } = null!;
+        [Range(typeof(int), CuttingWidthMin, CuttingWidthMax)]
+        [Display(Name = "Ширина на косене")]
+        public int CuttingWidth { get; set; }
+
+        [Required]
+        [Range(typeof(int), CuttingHeightMaxMin, CuttingHeightMaxMax)]
+        [Display(Name = "Максимална височина на косене")]
+        public int CuttingHeightMax { get; set; }
+
+        [Required]
+        [Range(typeof(int), CuttingHeightMinMin, CuttingHeightMinMax)]
+        [Display(Name = "Минимална височина на косене")]
+        public int CuttingHeightMin { get; set; } 
 
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
@@ -39,5 +51,10 @@
         [Range(typeof(decimal), PriceMin, PriceMax)]
         [Display(Name = "Цена")]
         public decimal Price { get; set; }
+
+        [Required]
+        [Range(typeof(int), AvailabilityMin, AvailabilityMax)]
+        [Display(Name = "Наличност")]
+        public int Availability { get; set; }
     }
 }

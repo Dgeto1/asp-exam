@@ -6,6 +6,6 @@
     {
         Task<bool> ExistByModelAsync(string automowerModel);
 
-        Task CreateAsync(AutomowerFormModel formModel);
+        Task<string> CreateAndReturnIdAsync(AutomowerFormModel formModel);
     }
 }

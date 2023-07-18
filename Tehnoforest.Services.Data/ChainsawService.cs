@@ -165,7 +165,7 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<ChainsawDeleteViewModel> GetHouseForDeleteByIdAsync(int chainsawId)
+        public async Task<ChainsawDeleteViewModel> GetChainsawForDeleteByIdAsync(int chainsawId)
         {
             Chainsaw chainsaw = await this.dbContext
                 .Chainsaws

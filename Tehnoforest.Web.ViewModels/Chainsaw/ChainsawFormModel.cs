@@ -43,6 +43,7 @@
         [Display(Name = "Цена")]
         public decimal Price { get; set; }
 
+        [Required]
         [Range(typeof(int), AvailabilityMin, AvailabilityMax)]
         [Display(Name = "Наличност")]
         public int Availability { get; set; }

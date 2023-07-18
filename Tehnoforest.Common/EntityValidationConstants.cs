@@ -46,8 +46,10 @@ namespace Tehnoforest.Common
             public const string NetPowerMax = "25";
             public const string CuttingWidthMin = "80";
             public const string CuttingWidthMax = "120";
-            public const string CuttingHeightMin = "30";
-            public const string CuttingHeightMax = "110";
+            public const string CuttingHeightMinMin = "20";
+            public const string CuttingHeightMinMax = "40";
+            public const string CuttingHeightMaxMin = "80";
+            public const string CuttingHeightMaxMax = "120";
             public const string PriceMax = "20000";
         }
     }

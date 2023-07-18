@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Text;
 using Tehnoforest.Data;
 using Tehnoforest.Data.Models;
 using Tehnoforest.Services.Data;
@@ -34,6 +31,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 builder.Services.AddScoped<IChainsawService, ChainsawService>();
 builder.Services.AddScoped<IAutomowerService, AutomowerService>();
+builder.Services.AddScoped<IGardenTractorService, GardenTractorService>();
 
 builder.Services
     .AddControllersWithViews()

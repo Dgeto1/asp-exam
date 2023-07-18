@@ -16,7 +16,7 @@
         {
             this.dbContext = dbContext;
         }
-        public async Task CreateAsync(AutomowerFormModel formModel)
+        public async Task<string> CreateAndReturnIdAsync(AutomowerFormModel formModel)
         {
             Automower newAutomower = new Automower()
             {
@@ -27,11 +27,13 @@
                 Description = formModel.Description,
                 ImageUrl = formModel.ImageUrl,
                 Price = formModel.Price,
-                Availability = 1
+                Availability = formModel.Availability
             };
 
             await this.dbContext.Automowers.AddAsync(newAutomower);
             await this.dbContext.SaveChangesAsync();
+
+            return newAutomower.Id.ToString();
         }
 
         public async Task<bool> ExistByModelAsync(string automowerModel)

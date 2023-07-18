@@ -1,4 +1,4 @@
-﻿@model AutomowerFormModel
+﻿@model GardenTractorFormModel
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form method="post">
@@ -8,22 +8,34 @@
                 <span asp-validation-for="Model" class="small text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkingAreaCapacity"></label>
-                <input asp-for="WorkingAreaCapacity" class="form-control"
-                       placeholder="Работна площ">
-                <span asp-validation-for="WorkingAreaCapacity" class="small text-danger"></span>
+                <label asp-for="CylinderDisplacement"></label>
+                <input asp-for="CylinderDisplacement" class="form-control"
+                       placeholder="Обем на цилиндъра">
+                <span asp-validation-for="CylinderDisplacement" class="small text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SlopePerformance"></label>
-                <input asp-for="SlopePerformance" class="form-control"
-                       placeholder="Максимален наклон на работа">
-                <span asp-validation-for="SlopePerformance" class="small text-danger"></span>
+                <label asp-for="NetPower"></label>
+                <input asp-for="NetPower" class="form-control"
+                       placeholder="Ефективна мощност при зададени обороти Енергия">
+                <span asp-validation-for="NetPower" class="small text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BoundaryType"></label>
-                <input asp-for="BoundaryType" class="form-control"
-                       placeholder="Вид на ограничението">
-                <span asp-validation-for="BoundaryType" class="small text-danger"></span>
+                <label asp-for="CuttingWidth"></label>
+                <input asp-for="CuttingWidth" class="form-control"
+                       placeholder="Ширина на косене">
+                <span asp-validation-for="CuttingWidth" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CuttingHeightMax"></label>
+                <input asp-for="CuttingHeightMax" class="form-control"
+                       placeholder="Максимална височина на косене">
+                <span asp-validation-for="CuttingHeightMax" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CuttingHeightMin"></label>
+                <input asp-for="CuttingHeightMin" class="form-control"
+                       placeholder="Минимална височина на косене">
+                <span asp-validation-for="CuttingHeightMin" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description"></label>
