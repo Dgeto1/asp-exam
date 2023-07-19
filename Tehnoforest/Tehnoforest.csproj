@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\details.css" />
+    <None Include="wwwroot\css\index.css" />
   </ItemGroup>
 
   <ItemGroup>

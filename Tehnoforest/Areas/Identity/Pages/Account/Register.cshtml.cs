@@ -122,8 +122,13 @@ namespace Tehnoforest.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 ApplicationUser user = CreateUser();
-                //var user = new ApplicationUser {Email = Input.Email };
-                //var result = await _userManager.CreateAsync(user, Input.Password);
+                 /*user = new ApplicationUser {Email = "admin@abv.bg" };
+                 var password = await _userManager.CreateAsync(user, "123456");
+
+                if (password.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                }*/
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -133,11 +138,7 @@ namespace Tehnoforest.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
 
-                    /*if(this._context.Users.Count() == 1)
-                    {
-                        await this._roleManager.CreateAsync(new IdentityRole("Administrator"));
-                        await this._userManager.AddToRoleAsync(user, "Administrator");
-                    }*/
+                   
                   
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

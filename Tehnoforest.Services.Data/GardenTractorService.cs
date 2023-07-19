@@ -1,6 +1,7 @@
 ﻿namespace Tehnoforest.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
+    using System.Diagnostics;
     using System.Threading.Tasks;
 
     using Tehnoforest.Data;
@@ -109,6 +110,70 @@
                 .AnyAsync(gt => gt.Id == id);
 
             return result;
+        }
+
+        public async Task<GardenTractorDetailsViewModel> GetDetailsByIdAsync(int gardenTractorId)
+        {
+            GardenTractor gardenTractor = await this.dbContext
+                .GardenTractors
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == gardenTractorId);
+
+            return new GardenTractorDetailsViewModel()
+            {
+                Model = gardenTractor.Model,
+                CylinderDisplacement = gardenTractor.CylinderDisplacement,
+                NetPower = gardenTractor.NetPower,
+                CuttingWidth = gardenTractor.CuttingWidth,
+                CuttingHeightMax = gardenTractor.CuttingHeightMax,
+                CuttingHeightMin = gardenTractor.CuttingHeightMin,
+                Description = gardenTractor.Description,
+                ImageUrl = gardenTractor.ImageUrl,
+                Price = gardenTractor.Price
+            };
+        }
+
+        public async Task<GardenTractorFormModel> GetGardenTractorForEditByIdAsync(int gardenTractorId)
+        {
+            GardenTractor gardenTractor = await this.dbContext
+                .GardenTractors
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == gardenTractorId);
+
+            return new GardenTractorFormModel()
+            {
+                Model = gardenTractor.Model,
+                CylinderDisplacement = gardenTractor.CylinderDisplacement,
+                NetPower = gardenTractor.NetPower,
+                CuttingWidth = gardenTractor.CuttingWidth,
+                CuttingHeightMax = gardenTractor.CuttingHeightMax,
+                CuttingHeightMin = gardenTractor.CuttingHeightMin,
+                Description = gardenTractor.Description,
+                ImageUrl = gardenTractor.ImageUrl,
+                Price = gardenTractor.Price,
+                Availability = gardenTractor.Availability
+            };
+        }
+
+        public async Task EditGardenTractorByIdAndFormModelAsync(int gardenTractorId, GardenTractorFormModel formModel)
+        {
+            GardenTractor gardenTractor = await this.dbContext
+               .GardenTractors
+               .Where(gt => gt.IsAvailable)
+               .FirstAsync(gt => gt.Id == gardenTractorId);
+
+            gardenTractor.Model = formModel.Model;
+            gardenTractor.CylinderDisplacement = formModel.CylinderDisplacement;
+            gardenTractor.NetPower = formModel.NetPower;
+            gardenTractor.CuttingWidth = formModel.CuttingWidth;
+            gardenTractor.CuttingHeightMax = formModel.CuttingHeightMax;
+            gardenTractor.CuttingHeightMin = formModel.CuttingHeightMin;
+            gardenTractor.Description = formModel.Description;
+            gardenTractor.ImageUrl = formModel.ImageUrl;
+            gardenTractor.Price = formModel.Price;
+            gardenTractor.Availability = formModel.Availability;
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }
