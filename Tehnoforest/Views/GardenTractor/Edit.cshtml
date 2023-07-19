@@ -1,0 +1,13 @@
+﻿@model GardenTractorFormModel
+@{
+    ViewData["Title"] = "Редактирай градински трактор";
+}
+
+<h2 class="text-center">Редактирай градински тракторн</h2>
+<hr />
+
+<partial name="_GardenTractorFormPartial" model="@Model" />
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

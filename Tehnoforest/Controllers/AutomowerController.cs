@@ -5,9 +5,7 @@
 
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.Automower;
-    using Tehnoforest.Services.Data.Models.Chainsaw;
     using Tehnoforest.Web.ViewModels.Automower;
-    using Tehnoforest.Web.ViewModels.Chainsaw;
     using static Common.NotificationMessagesConstants;
 
     [Authorize]

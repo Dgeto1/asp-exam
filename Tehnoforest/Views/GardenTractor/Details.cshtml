@@ -1,0 +1,53 @@
+﻿@model GardenTractorDetailsViewModel
+<link rel="stylesheet" href="~/css/details.css" type="text/css" />
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Garden Tractor Image">
+        </div>
+        <div class="card col-8 border-0">
+            <h4>Градински трактори</h4>
+            <h2>HUSQVARNA @Model.Model</h2>
+            <h2><b>@String.Format("{0:f2}", Model.Price) BGN</b> </h2>
+            <hr />
+            <div id="container">
+                <div>
+                    <h3>@Model.CylinderDisplacement cm³</h3>
+                    <p>Обем на цилиндъра</p>
+                </div>
+                <div>
+                    <h3>@Model.NetPower kW</h3>
+                    <p>Ефективна мощност при зададени обороти Енергия</p>
+                </div>
+            </div>
+            <hr />
+            <div id="buyButton">
+                <a asp-controller="" asp-action="" asp-route-id="@Model.Id"
+                   class="btn btn-success">Купи</a>
+            </div>
+
+            <p>@Model.Description</p>
+            <div id="specifications">
+                <div>
+                    <h3> Ширина на косене @Model.CuttingWidth cm</h3>
+                </div>
+                <div>
+                    <h3> Максимална височина на косене @Model.CuttingHeightMax cm</h3>
+                </div>
+                <div>
+                    <h3> Минимална височина на косене @Model.CuttingHeightMin cm</h3>
+                </div>
+            </div>
+            <div class="form-inline">
+                @if (this.User.Identity!.IsAuthenticated)
+                {
+                    <a asp-controller="GardenTractor" asp-action="Edit" asp-route-id="@Model.Id"
+                       class="btn btn-warning">Edit</a>
+                    <a asp-controller="GardenTractor" asp-action="Delete" asp-route-id="@Model.Id"
+                       class="btn btn-danger">Delete</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

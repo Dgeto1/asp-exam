@@ -52,5 +52,14 @@ namespace Tehnoforest.Common
             public const string CuttingHeightMaxMax = "120";
             public const string PriceMax = "20000";
         }
+
+        public static class GrassTrimmer
+        {
+            public const string PowerMin = "0";
+            public const string PowerMax = "4";
+            public const string CuttingWidthMin = "35";
+            public const string CuttingWidthMax = "60";
+            public const string PriceMax = "5000";
+        }
     }
 }

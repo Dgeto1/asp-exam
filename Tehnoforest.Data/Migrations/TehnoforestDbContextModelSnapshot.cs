@@ -305,6 +305,54 @@ namespace Tehnoforest.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Tehnoforest.Data.Models.CartItem", b =>
+                {
+                    b.Property<string>("ItemId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("AutomowerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CartId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ChainsawId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("GardenTractorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GrassTrimmerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LawnMowerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ItemId");
+
+                    b.HasIndex("AutomowerId");
+
+                    b.HasIndex("ChainsawId");
+
+                    b.HasIndex("GardenTractorId");
+
+                    b.HasIndex("GrassTrimmerId");
+
+                    b.HasIndex("LawnMowerId");
+
+                    b.ToTable("ShoppingCartItems");
+                });
+
             modelBuilder.Entity("Tehnoforest.Data.Models.Chainsaw", b =>
                 {
                     b.Property<int>("Id")
@@ -641,6 +689,39 @@ namespace Tehnoforest.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Tehnoforest.Data.Models.CartItem", b =>
+                {
+                    b.HasOne("Tehnoforest.Data.Models.Automower", "Automower")
+                        .WithMany()
+                        .HasForeignKey("AutomowerId");
+
+                    b.HasOne("Tehnoforest.Data.Models.Chainsaw", "Chainsaw")
+                        .WithMany()
+                        .HasForeignKey("ChainsawId");
+
+                    b.HasOne("Tehnoforest.Data.Models.GardenTractor", "GardenTractor")
+                        .WithMany()
+                        .HasForeignKey("GardenTractorId");
+
+                    b.HasOne("Tehnoforest.Data.Models.GrassTrimmer", "GrassTrimmer")
+                        .WithMany()
+                        .HasForeignKey("GrassTrimmerId");
+
+                    b.HasOne("Tehnoforest.Data.Models.LawnMower", "LawnMower")
+                        .WithMany()
+                        .HasForeignKey("LawnMowerId");
+
+                    b.Navigation("Automower");
+
+                    b.Navigation("Chainsaw");
+
+                    b.Navigation("GardenTractor");
+
+                    b.Navigation("GrassTrimmer");
+
+                    b.Navigation("LawnMower");
                 });
 
             modelBuilder.Entity("Tehnoforest.Data.Models.Chainsaw", b =>

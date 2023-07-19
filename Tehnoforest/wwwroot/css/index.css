@@ -1,0 +1,73 @@
+﻿body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+header .carousel-inner .item {
+    height: 100vh;
+}
+
+.navbar-inverse {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+    .navbar-inverse .navbar-brand {
+        color: #fff;
+        font-family: 'Alfa Slab One', cursive;
+        font-size: 25px;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff;
+    }
+
+.bg {
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+}
+
+.carousel-caption {
+    padding-bottom: 250px;
+    text-align: left;
+    left: 13%;
+}
+
+    .carousel-caption h2 {
+        font-size: 50px;
+        text-transform: uppercase;
+        font-family: 'Alfa Slab One', cursive;
+    }
+
+    .carousel-caption .btn {
+        display: inline-block;
+        margin-top: 15px;
+    }
+
+.carousel-control.right {
+    background-image: none;
+}
+
+.carousel-control.left {
+    background-image: none;
+}
+
+@media (max-width:767px) {
+    .bg {
+        background-position: 65%;
+    }
+
+    .carousel-caption {
+        padding-bottom: 140px;
+        left: 5%;
+    }
+
+        .carousel-caption h2 {
+            font-size: 20px;
+        }
+
+        .carousel-caption h3 {
+            font-size: 15px;
+        }
+}

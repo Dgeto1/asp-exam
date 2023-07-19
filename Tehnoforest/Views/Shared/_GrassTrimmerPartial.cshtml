@@ -1,0 +1,25 @@
+﻿@model GrassTrimmerAllViewModel
+<div class="col-md-4">
+    <div class="card mb-3">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="Grass Trimmer Image">
+        <div class="card-body text-center">
+            <h4>AUTOMOWER® @Model.Model</h4>
+            <h6>Ширина на косене: <b>@Model.CuttingWidth cm</b></h6>
+            <h6>Мощност: <b>@Model.Power %</b> </h6>
+            <h6>
+                Цена:
+                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+            </h6>
+            <br />
+            <a asp-controller="GrassTrimmer" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Details</a>
+            @if (this.User.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-controller="Automower" asp-action="Edit" asp-route-id="@Model.Id"
+                   class="btn btn-warning">Edit</a>
+                <a asp-controller="Automower" asp-action="Delete" asp-route-id="@Model.Id"
+                   class="btn btn-danger">Delete</a>
+            }
+        </div>
+    </div>
+</div>
