@@ -19,5 +19,9 @@
         Task<GardenTractorFormModel> GetGardenTractorForEditByIdAsync(int gardenTractorId);
 
         Task EditGardenTractorByIdAndFormModelAsync(int gardenTractorId, GardenTractorFormModel formModel);
+
+        Task<GardenTractorDeleteViewModel> GetGardenTractorForDeleteByIdAsync(int gardenTractorId);
+
+        Task DeleteGardenTractorByIdAsync(int gardenTractorId);
     }
 }

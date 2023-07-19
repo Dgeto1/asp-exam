@@ -146,6 +146,57 @@
             return this.RedirectToAction("Details", "GardenTractor", new { id });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool gardenTractorExists = await this.gardenTractorService
+            .ExistsByIdAsync(id);
+            if (!gardenTractorExists)
+            {
+                this.TempData[ErrorMessage] = "Градинският трактор не съществува!";
+
+                return this.RedirectToAction("All", "GardenTractor");
+            }
+
+            try
+            {
+                GardenTractorDeleteViewModel viewModel =
+                    await this.gardenTractorService.GetGardenTractorForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, GardenTractorDeleteViewModel formModel)
+        {
+            bool gardenTractorExists = await this.gardenTractorService
+           .ExistsByIdAsync(id);
+            if (!gardenTractorExists)
+            {
+                this.TempData[ErrorMessage] = "Верижният трион не съществува!";
+
+                return this.RedirectToAction("All", "GardenTractor");
+            }
+
+            try
+            {
+                await this.gardenTractorService.DeleteGardenTractorByIdAsync(id);
+                this.TempData[WarningMessage] = "Успешно премахнахте градинския трактор!";
+
+                return this.RedirectToAction("All", "GardenTractor");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] = "Нещо се обърка! Опитайте отново или се свържете с администратор!";

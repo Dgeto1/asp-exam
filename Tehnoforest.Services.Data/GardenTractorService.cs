@@ -8,6 +8,7 @@
     using Tehnoforest.Data.Models;
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.GardenTractor;
+    using Tehnoforest.Web.ViewModels.Chainsaw;
     using Tehnoforest.Web.ViewModels.Enums;
     using Tehnoforest.Web.ViewModels.GardenTractor;
 
@@ -172,6 +173,33 @@
             gardenTractor.ImageUrl = formModel.ImageUrl;
             gardenTractor.Price = formModel.Price;
             gardenTractor.Availability = formModel.Availability;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<GardenTractorDeleteViewModel> GetGardenTractorForDeleteByIdAsync(int gardenTractorId)
+        {
+            GardenTractor gardenTractor = await this.dbContext
+                .GardenTractors
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == gardenTractorId);
+
+            return new GardenTractorDeleteViewModel()
+            {
+                Model = gardenTractor.Model,
+                Availability = gardenTractor.Availability,
+                ImageUrl = gardenTractor.ImageUrl
+            };
+        }
+
+        public async Task DeleteGardenTractorByIdAsync(int gardenTractorId)
+        {
+            GardenTractor gardenTractor = await this.dbContext
+                .GardenTractors
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == gardenTractorId);
+
+            gardenTractor.IsAvailable = false;
 
             await this.dbContext.SaveChangesAsync();
         }

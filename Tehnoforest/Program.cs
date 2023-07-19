@@ -44,6 +44,7 @@ namespace Tehnoforest
             builder.Services.AddScoped<IChainsawService, ChainsawService>();
             builder.Services.AddScoped<IAutomowerService, AutomowerService>();
             builder.Services.AddScoped<IGardenTractorService, GardenTractorService>();
+            builder.Services.AddScoped<IGrassTrimmerService, GrassTrimmerService>();
 
             builder.Services
                 .AddControllersWithViews()
