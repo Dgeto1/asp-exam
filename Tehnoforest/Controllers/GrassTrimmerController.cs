@@ -1,10 +1,14 @@
 ﻿namespace Tehnoforest.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Tehnoforest.Services.Data.Interfaces;
+    using Tehnoforest.Services.Data.Models.Automower;
+    using Tehnoforest.Services.Data.Models.GrassTrimmer;
+    using Tehnoforest.Web.ViewModels.Automower;
     using Tehnoforest.Web.ViewModels.GrassTrimer;
-
+    using Tehnoforest.Web.ViewModels.GrassTrimmer;
     using static Common.NotificationMessagesConstants;
     public class GrassTrimmerController : Controller
     {
@@ -13,6 +17,18 @@
         public GrassTrimmerController(IGrassTrimmerService grassTrimmerService)
         {
             this.grassTrimmerService = grassTrimmerService;
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> All([FromQuery] AllGrassTrimmersQueryModel queryModel)
+        {
+            AllGrassTrimmersFilteredAndPagedServiceModel serviceModel =
+                await this.grassTrimmerService.AllAsync(queryModel);
+
+            queryModel.GrassTrimmers = serviceModel.GrassTrimmers;
+            queryModel.TotalGrassTrimmers = serviceModel.TotalGrassTrimmersCount;
+
+            return this.View(queryModel);
         }
 
         [HttpGet]

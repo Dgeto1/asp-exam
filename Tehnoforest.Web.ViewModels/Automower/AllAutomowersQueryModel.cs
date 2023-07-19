@@ -23,7 +23,7 @@
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Покажи копсачки роботи на страницата")]
+        [Display(Name = "Покажи косачки роботи на страницата")]
         public int AutomowerPerPage { get; set; }
 
         public int TotalAutomowers { get; set; }
