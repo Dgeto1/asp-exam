@@ -7,6 +7,7 @@
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.GardenTractor;
     using Tehnoforest.Services.Data.Models.GrassTrimmer;
+    using Tehnoforest.Web.ViewModels.Automower;
     using Tehnoforest.Web.ViewModels.Enums;
 
     using Tehnoforest.Web.ViewModels.GrassTrimer;
@@ -99,6 +100,35 @@
                 .AnyAsync(gt => gt.Model == automowerModel);
 
             return result;
+        }
+
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            bool result = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .AnyAsync(gt => gt.Id == id);
+
+            return result;
+        }
+
+        public async Task<GrassTrimmerDetailsViewModel> GetDetailsByIdAsync(int grassTrimmerId)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+               .GrassTrimmers
+               .Where(gt => gt.IsAvailable)
+               .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            return new GrassTrimmerDetailsViewModel()
+            {
+                Id = grassTrimmer.Id,
+                Model = grassTrimmer.Model,
+                Power = grassTrimmer.Power,
+                CuttingWidth = grassTrimmer.CuttingWidth,
+                ImageUrl = grassTrimmer.ImageUrl,
+                Description = grassTrimmer.Description,
+                Price = grassTrimmer.Price,
+            };
         }
     }
 }

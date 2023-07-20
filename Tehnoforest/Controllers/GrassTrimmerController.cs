@@ -10,6 +10,8 @@
     using Tehnoforest.Web.ViewModels.GrassTrimer;
     using Tehnoforest.Web.ViewModels.GrassTrimmer;
     using static Common.NotificationMessagesConstants;
+
+    [Authorize]
     public class GrassTrimmerController : Controller
     {
         private readonly IGrassTrimmerService grassTrimmerService;
@@ -70,6 +72,39 @@
 
                 return this.View(formModel);
             }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            bool grassTrimmerExists = await this.grassTrimmerService
+               .ExistsByIdAsync(id);
+            if (!grassTrimmerExists)
+            {
+                this.TempData[ErrorMessage] = "Моторната коса не съществува!";
+
+                return this.RedirectToAction("All", "GrassTrimmer");
+            }
+
+            try
+            {
+                GrassTrimmerDetailsViewModel viewModel = await this.grassTrimmerService
+                .GetDetailsByIdAsync(id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] = "Нещо се обърка! Опитайте отново или се свържете с администратор!";
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

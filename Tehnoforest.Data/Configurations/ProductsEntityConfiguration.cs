@@ -9,8 +9,7 @@
     {
         public void Configure(EntityTypeBuilder<Automower> builder)
         {
-            builder.HasData(this.GenerateAutomowers());
-
+            
             builder
                 .HasOne(a => a.User)
                 .WithMany(u => u.Automowers)
@@ -79,6 +78,33 @@
             builder
                 .Property(lm => lm.IsAvailable)
                 .HasDefaultValue(true);
+        }
+        public void Configure(EntityTypeBuilder<ShoppingCartItem> builder)
+        {
+            builder.HasOne(d => d.Automower)
+                    .WithMany(p => p.ShoppingCartItems)
+                    .HasForeignKey(d => d.AutomowerId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(d => d.Chainsaw)
+                    .WithMany(p => p.ShoppingCartItems)
+                    .HasForeignKey(d => d.ChainsawId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(d => d.GardenTractor)
+                    .WithMany(p => p.ShoppingCartItems)
+                    .HasForeignKey(d => d.GardenTractorId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(d => d.GrassTrimmer)
+                    .WithMany(p => p.ShoppingCartItems)
+                    .HasForeignKey(d => d.GrassTrimmerId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(d => d.LawnMower)
+                    .WithMany(p => p.ShoppingCartItems)
+                    .HasForeignKey(d => d.LawnMowerId)
+                    .OnDelete(DeleteBehavior.Restrict);
         }
 
         private Automower[] GenerateAutomowers()

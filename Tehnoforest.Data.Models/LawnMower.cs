@@ -5,11 +5,15 @@
     using static Common.EntityValidationConstants.Product;
     public class LawnMower
     {
+        public LawnMower()
+        {
+            this.ShoppingCartItems = new HashSet<ShoppingCartItem>();
+        }
+
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(ModelMaxLength)]
         public string Model { get; set; } = null!;
 
         [Required]
@@ -45,5 +49,6 @@
 
         public ApplicationUser? User { get; set; } = null!;
 
+        public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

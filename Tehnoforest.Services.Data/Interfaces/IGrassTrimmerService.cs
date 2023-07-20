@@ -2,6 +2,7 @@
 {
     using Tehnoforest.Services.Data.Models.GardenTractor;
     using Tehnoforest.Services.Data.Models.GrassTrimmer;
+    using Tehnoforest.Web.ViewModels.Automower;
     using Tehnoforest.Web.ViewModels.GrassTrimer;
     using Tehnoforest.Web.ViewModels.GrassTrimmer;
 
@@ -12,5 +13,9 @@
         Task<string> CreateAndReturnIdAsync(GrassTrimmerFormModel formModel);
 
         Task<AllGrassTrimmersFilteredAndPagedServiceModel> AllAsync(AllGrassTrimmersQueryModel queryModel);
+
+        Task<GrassTrimmerDetailsViewModel> GetDetailsByIdAsync(int grassTrimmerId);
+
+        Task<bool> ExistsByIdAsync(int id);
     }
 }
