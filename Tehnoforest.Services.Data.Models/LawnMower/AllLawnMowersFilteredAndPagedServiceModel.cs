@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Tehnoforest.Web.ViewModels.Automower;
+using Tehnoforest.Web.ViewModels.LawnMower;
 
 namespace Tehnoforest.Services.Data.Models.LawnMower
 {
-    internal class AllLawnMowersFilteredAndPagedServiceModel
+    public class AllLawnMowersFilteredAndPagedServiceModel
     {
+        public AllLawnMowersFilteredAndPagedServiceModel()
+        {
+            this.LawnMowers = new HashSet<LawnMowerAllViewModel>();
+        }
+        public int TotalLawnMowersCount { get; set; }
+
+        public IEnumerable<LawnMowerAllViewModel> LawnMowers { get; set; }
     }
 }
