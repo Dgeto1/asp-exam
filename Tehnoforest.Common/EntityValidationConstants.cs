@@ -61,5 +61,14 @@ namespace Tehnoforest.Common
             public const string CuttingWidthMax = "60";
             public const string PriceMax = "5000";
         }
+
+        public static class LawnMower
+        {
+            public const string WorkingAreaCapacityMin = "400";
+            public const string WorkingAreaCapacityMax = "1500";
+            public const string CuttingWidthMin = "40";
+            public const string CuttingWidthMax = "60";
+            public const string PriceMax = "5000";
+        }
     }
 }
