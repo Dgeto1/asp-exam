@@ -150,6 +150,56 @@
             return this.RedirectToAction("Details", "GrassTrimmer", new { id });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool grassTrimmerEsists = await this.grassTrimmerService
+            .ExistsByIdAsync(id);
+            if (!grassTrimmerEsists)
+            {
+                this.TempData[ErrorMessage] = "Моторната коса не съществува!";
+
+                return this.RedirectToAction("All", "GrassTrimmer");
+            }
+
+            try
+            {
+                GrassTrimmerDeleteViewModel viewModel =
+                    await this.grassTrimmerService.GetGrassTrimmerForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, GrassTrimmerDeleteViewModel formModel)
+        {
+            bool grassTrimmerEsists = await this.grassTrimmerService
+           .ExistsByIdAsync(id);
+            if (!grassTrimmerEsists)
+            {
+                this.TempData[ErrorMessage] = "Моторната коса не съществува!";
+
+                return this.RedirectToAction("All", "GrassTrimmer");
+            }
+
+            try
+            {
+                await this.grassTrimmerService.DeleteGrassTrimmerByIdAsync(id);
+                this.TempData[WarningMessage] = "Успешно премахнахте моторната коса!";
+
+                return this.RedirectToAction("All", "GrassTrimmer");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] = "Нещо се обърка! Опитайте отново или се свържете с администратор!";

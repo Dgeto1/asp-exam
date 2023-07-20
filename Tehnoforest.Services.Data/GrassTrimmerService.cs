@@ -92,6 +92,18 @@
             return newGrassTrimmer.Id.ToString();
         }
 
+        public async Task DeleteGrassTrimmerByIdAsync(int grassTrimmerId)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            grassTrimmer.IsAvailable = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
         public async Task EditGrassTrimmerByIdAndFormModelAsync(int grassTrimmerId, GrassTrimmerFormModel formModel)
         {
             GrassTrimmer grassTrimmer = await this.dbContext
@@ -147,6 +159,21 @@
                 ImageUrl = grassTrimmer.ImageUrl,
                 Description = grassTrimmer.Description,
                 Price = grassTrimmer.Price,
+            };
+        }
+
+        public async Task<GrassTrimmerDeleteViewModel> GetGrassTrimmerForDeleteByIdAsync(int grassTrimmerId)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            return new GrassTrimmerDeleteViewModel()
+            {
+                Model = grassTrimmer.Model,
+                Availability = grassTrimmer.Availability,
+                ImageUrl = grassTrimmer.ImageUrl
             };
         }
 

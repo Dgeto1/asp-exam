@@ -20,6 +20,10 @@
 
         Task EditGrassTrimmerByIdAndFormModelAsync(int grassTrimmerId, GrassTrimmerFormModel formModel);
 
+        Task<GrassTrimmerDeleteViewModel> GetGrassTrimmerForDeleteByIdAsync(int grassTrimmerId);
+
+        Task DeleteGrassTrimmerByIdAsync(int grassTrimmerId);
+
         Task<bool> ExistsByIdAsync(int id);
     }
 }
