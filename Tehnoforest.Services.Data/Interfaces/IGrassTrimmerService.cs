@@ -16,6 +16,10 @@
 
         Task<GrassTrimmerDetailsViewModel> GetDetailsByIdAsync(int grassTrimmerId);
 
+        Task<GrassTrimmerFormModel> GetGrassTrimmerForEditByIdAsync(int grassTrimmerId);
+
+        Task EditGrassTrimmerByIdAndFormModelAsync(int grassTrimmerId, GrassTrimmerFormModel formModel);
+
         Task<bool> ExistsByIdAsync(int id);
     }
 }

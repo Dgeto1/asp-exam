@@ -92,6 +92,25 @@
             return newGrassTrimmer.Id.ToString();
         }
 
+        public async Task EditGrassTrimmerByIdAndFormModelAsync(int grassTrimmerId, GrassTrimmerFormModel formModel)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            grassTrimmer.Model = formModel.Model;
+            grassTrimmer.Power = formModel.Power;
+            grassTrimmer.CuttingWidth = formModel.CuttingWidth;
+            grassTrimmer.ImageUrl = formModel.ImageUrl;
+            grassTrimmer.Description = formModel.Description;
+            grassTrimmer.Price = formModel.Price;
+            grassTrimmer.Availability = formModel.Availability;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+
         public async Task<bool> ExistByModelAsync(string automowerModel)
         {
             bool result = await this.dbContext
@@ -128,6 +147,25 @@
                 ImageUrl = grassTrimmer.ImageUrl,
                 Description = grassTrimmer.Description,
                 Price = grassTrimmer.Price,
+            };
+        }
+
+        public async Task<GrassTrimmerFormModel> GetGrassTrimmerForEditByIdAsync(int grassTrimmerId)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            return new GrassTrimmerFormModel()
+            {
+                Model = grassTrimmer.Model,
+                Power = grassTrimmer.Power,
+                CuttingWidth = grassTrimmer.CuttingWidth,
+                ImageUrl = grassTrimmer.ImageUrl,
+                Description = grassTrimmer.Description,
+                Price = grassTrimmer.Price,
+                Availability = grassTrimmer.Availability
             };
         }
     }

@@ -15,9 +15,9 @@
                class="btn btn-success">Details</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="Automower" asp-action="Edit" asp-route-id="@Model.Id"
+                <a asp-controller="GrassTrimmer" asp-action="Edit" asp-route-id="@Model.Id"
                    class="btn btn-warning">Edit</a>
-                <a asp-controller="Automower" asp-action="Delete" asp-route-id="@Model.Id"
+                <a asp-controller="GrassTrimmer" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger">Delete</a>
             }
         </div>
