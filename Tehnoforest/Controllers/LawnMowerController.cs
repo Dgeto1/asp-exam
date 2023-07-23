@@ -59,7 +59,6 @@
                 string lawnMowerId =
                     await this.lawnMowerService.CreateAndReturnIdAsync(formModel);
 
-                await this.lawnMowerService.CreateAndReturnIdAsync(formModel);
 
                 this.TempData[SuccessMessage] = "Косачката е добавена успешно!";
                 return this.RedirectToAction("Details", "LawnMower", new { id = lawnMowerId });
