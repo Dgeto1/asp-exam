@@ -1,0 +1,85 @@
+﻿@model AllLawnMowersQueryModel
+
+@{
+    ViewBag.Title = "Kосачки";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<form method="get">
+    <div class="row">
+
+        <div class="form-group col-md-3">
+            <label asp-for="SearchString"></label>
+            <input asp-for="SearchString" class="form-control" placeholder="...">
+        </div>
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="LawnMowerSorting"></label>
+                <select asp-for="LawnMowerSorting" class="form-control">
+                    <option value="0">Цена 0 -> 9</option>
+                    <option value="1">Цена 9 -> 0</option>
+                    <option value="2">Азбучно А -> Я</option>
+                    <option value="3">Азбучно Я -> А</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group  col-md-3">
+            <label asp-for="LawnMowerPerPage"></label>
+            <select asp-for="LawnMowerPerPage" class="form-control">
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+@{
+    int previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    int maxPage = (int)Math.Ceiling((double)Model.TotalLawnMowers /
+    Model.LawnMowerPerPage);
+}
+
+@if (!Model.LawnMowers.Any())
+{
+    <h2 class="text-center">Няма намерени косачки по зададените критерии!</h2>
+}
+<div class="row">
+    @foreach (var lawnMower in Model.LawnMowers)
+    {
+        <partial name="_LawnMowerPartial" model="@lawnMower" />
+    }
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" :
+string.Empty)"
+           asp-controller="LawnMower"
+           asp-action="All"
+           asp-route-currentPage="@previousPage"
+           asp-route-searchTerm="@Model.SearchString"
+           asp-route-sorting="@((int)Model.LawnMowerSorting)"><<</a>
+    </div>
+    @{
+        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.LawnMowers.Any();
+    }
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary
+@(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="LawnMower"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-searchTerm="@Model.SearchString"
+           asp-route-sorting="@((int)Model.LawnMowerSorting)">>></a>
+    </div>
+</div>

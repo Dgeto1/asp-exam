@@ -1,0 +1,58 @@
+﻿@model LawnMowerFormModel
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Model"></label>
+                <input asp-for="Model" class="form-control" placeholder="Модел">
+                <span asp-validation-for="Model" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkingAreaCapacity"></label>
+                <input asp-for="WorkingAreaCapacity" class="form-control"
+                       placeholder="Работна площ">
+                <span asp-validation-for="WorkingAreaCapacity" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CuttingWidth"></label>
+                <input asp-for="CuttingWidth" class="form-control"
+                       placeholder="Ширина на косене">
+                <span asp-validation-for="CuttingWidth" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriveSystem"></label>
+                <input asp-for="DriveSystem" class="form-control"
+                       placeholder="Задвижваща система">
+                <span asp-validation-for="DriveSystem" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+<textarea asp-for="Description" rows="4" class="form-control"
+          placeholder="Описание"></textarea>
+                <span asp-validation-for="Description" class="small text-
+danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Линк на изображение">
+                <span asp-validation-for="ImageUrl" class="small text-
+danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" placeholder="Цена">
+                <span asp-validation-for="Price" class="small text-
+danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Availability"></label>
+                <input asp-for="Availability" class="form-control" placeholder="Наличност">
+                <span asp-validation-for="Availability" class="small text-
+danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>

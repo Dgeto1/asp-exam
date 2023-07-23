@@ -1,0 +1,15 @@
+﻿@using Tehnoforest.Web.ViewModels.GrassTrimer;
+@model GrassTrimmerFormModel
+@{
+    ViewData["Title"] = "Редактирай моторна коса";
+}
+
+<h2 class="text-center">Редактирай моторна коса</h2>
+<hr />
+
+<partial name="_GrassTrimmerFormPartial" model="@Model" />
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+

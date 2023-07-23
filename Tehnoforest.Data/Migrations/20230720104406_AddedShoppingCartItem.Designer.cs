@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tehnoforest.Data;
 
@@ -11,9 +12,10 @@ using Tehnoforest.Data;
 namespace Tehnoforest.Data.Migrations
 {
     [DbContext(typeof(TehnoforestDbContext))]
-    partial class TehnoforestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230720104406_AddedShoppingCartItem")]
+    partial class AddedShoppingCartItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -559,22 +561,22 @@ namespace Tehnoforest.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoppingCartItemId"), 1L, 1);
 
-                    b.Property<int?>("AutomowerId")
+                    b.Property<int>("AutomowerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ChainsawId")
+                    b.Property<int>("ChainsawId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("GardenTractorId")
+                    b.Property<int>("GardenTractorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GrassTrimmerId")
+                    b.Property<int>("GrassTrimmerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LawnMowerId")
+                    b.Property<int>("LawnMowerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -706,24 +708,34 @@ namespace Tehnoforest.Data.Migrations
             modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
                 {
                     b.HasOne("Tehnoforest.Data.Models.Automower", "Automower")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("AutomowerId");
+                        .WithMany()
+                        .HasForeignKey("AutomowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Tehnoforest.Data.Models.Chainsaw", "Chainsaw")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("ChainsawId");
+                        .WithMany()
+                        .HasForeignKey("ChainsawId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Tehnoforest.Data.Models.GardenTractor", "GardenTractor")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("GardenTractorId");
+                        .WithMany()
+                        .HasForeignKey("GardenTractorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Tehnoforest.Data.Models.GrassTrimmer", "GrassTrimmer")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("GrassTrimmerId");
+                        .WithMany()
+                        .HasForeignKey("GrassTrimmerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Tehnoforest.Data.Models.LawnMower", "LawnMower")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("LawnMowerId");
+                        .WithMany()
+                        .HasForeignKey("LawnMowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Automower");
 
@@ -747,31 +759,6 @@ namespace Tehnoforest.Data.Migrations
                     b.Navigation("GrassTrimmers");
 
                     b.Navigation("LawnMowers");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.Automower", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.Chainsaw", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.GardenTractor", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.GrassTrimmer", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.LawnMower", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
                 });
 #pragma warning restore 612, 618
         }

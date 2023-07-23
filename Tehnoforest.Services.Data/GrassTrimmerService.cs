@@ -7,6 +7,7 @@
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.GardenTractor;
     using Tehnoforest.Services.Data.Models.GrassTrimmer;
+    using Tehnoforest.Web.ViewModels.Automower;
     using Tehnoforest.Web.ViewModels.Enums;
 
     using Tehnoforest.Web.ViewModels.GrassTrimer;
@@ -91,6 +92,37 @@
             return newGrassTrimmer.Id.ToString();
         }
 
+        public async Task DeleteGrassTrimmerByIdAsync(int grassTrimmerId)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            grassTrimmer.IsAvailable = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task EditGrassTrimmerByIdAndFormModelAsync(int grassTrimmerId, GrassTrimmerFormModel formModel)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            grassTrimmer.Model = formModel.Model;
+            grassTrimmer.Power = formModel.Power;
+            grassTrimmer.CuttingWidth = formModel.CuttingWidth;
+            grassTrimmer.ImageUrl = formModel.ImageUrl;
+            grassTrimmer.Description = formModel.Description;
+            grassTrimmer.Price = formModel.Price;
+            grassTrimmer.Availability = formModel.Availability;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+
         public async Task<bool> ExistByModelAsync(string automowerModel)
         {
             bool result = await this.dbContext
@@ -99,6 +131,69 @@
                 .AnyAsync(gt => gt.Model == automowerModel);
 
             return result;
+        }
+
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            bool result = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .AnyAsync(gt => gt.Id == id);
+
+            return result;
+        }
+
+        public async Task<GrassTrimmerDetailsViewModel> GetDetailsByIdAsync(int grassTrimmerId)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+               .GrassTrimmers
+               .Where(gt => gt.IsAvailable)
+               .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            return new GrassTrimmerDetailsViewModel()
+            {
+                Id = grassTrimmer.Id,
+                Model = grassTrimmer.Model,
+                Power = grassTrimmer.Power,
+                CuttingWidth = grassTrimmer.CuttingWidth,
+                ImageUrl = grassTrimmer.ImageUrl,
+                Description = grassTrimmer.Description,
+                Price = grassTrimmer.Price,
+            };
+        }
+
+        public async Task<GrassTrimmerDeleteViewModel> GetGrassTrimmerForDeleteByIdAsync(int grassTrimmerId)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            return new GrassTrimmerDeleteViewModel()
+            {
+                Model = grassTrimmer.Model,
+                Availability = grassTrimmer.Availability,
+                ImageUrl = grassTrimmer.ImageUrl
+            };
+        }
+
+        public async Task<GrassTrimmerFormModel> GetGrassTrimmerForEditByIdAsync(int grassTrimmerId)
+        {
+            GrassTrimmer grassTrimmer = await this.dbContext
+                .GrassTrimmers
+                .Where(gt => gt.IsAvailable)
+                .FirstAsync(gt => gt.Id == grassTrimmerId);
+
+            return new GrassTrimmerFormModel()
+            {
+                Model = grassTrimmer.Model,
+                Power = grassTrimmer.Power,
+                CuttingWidth = grassTrimmer.CuttingWidth,
+                ImageUrl = grassTrimmer.ImageUrl,
+                Description = grassTrimmer.Description,
+                Price = grassTrimmer.Price,
+                Availability = grassTrimmer.Availability
+            };
         }
     }
 }
