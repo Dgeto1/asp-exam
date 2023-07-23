@@ -58,8 +58,6 @@
                 string automowerId =
                     await this.automowerService.CreateAndReturnIdAsync(formModel);
 
-                await this.automowerService.CreateAndReturnIdAsync(formModel);
-
                 this.TempData[SuccessMessage] = "Косачката е добавена успешно!";
                 return this.RedirectToAction("Details", "Automower", new { id = automowerId });
             }

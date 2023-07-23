@@ -551,55 +551,78 @@ namespace Tehnoforest.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
+            modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
                 {
-                    b.Property<int>("ShoppingCartItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoppingCartItemId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AutomowerId")
+                    b.Property<int>("Availability")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ChainsawId")
+                    b.Property<int?>("BarLength")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("BoundaryType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GardenTractorId")
+                    b.Property<int?>("CuttingHeightMax")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GrassTrimmerId")
+                    b.Property<int?>("CuttingHeightMin")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LawnMowerId")
+                    b.Property<int?>("CuttingWidth")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<decimal?>("CylinderDisplacement")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("DriveSystem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaximumSlopePerformance")
                         .HasColumnType("int");
 
-                    b.Property<string>("ShoppingCartId")
+                    b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ShoppingCartItemId");
+                    b.Property<decimal?>("NetPower")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasIndex("AutomowerId");
+                    b.Property<decimal?>("Power")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasIndex("ChainsawId");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasIndex("GardenTractorId");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("GrassTrimmerId");
+                    b.Property<int?>("WorkingAreaCapacity")
+                        .HasColumnType("int");
 
-                    b.HasIndex("LawnMowerId");
+                    b.HasKey("Id");
 
-                    b.ToTable("ShoppingCartItems");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -703,37 +726,14 @@ namespace Tehnoforest.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
+            modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
                 {
-                    b.HasOne("Tehnoforest.Data.Models.Automower", "Automower")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("AutomowerId");
+                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Tehnoforest.Data.Models.Chainsaw", "Chainsaw")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("ChainsawId");
-
-                    b.HasOne("Tehnoforest.Data.Models.GardenTractor", "GardenTractor")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("GardenTractorId");
-
-                    b.HasOne("Tehnoforest.Data.Models.GrassTrimmer", "GrassTrimmer")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("GrassTrimmerId");
-
-                    b.HasOne("Tehnoforest.Data.Models.LawnMower", "LawnMower")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("LawnMowerId");
-
-                    b.Navigation("Automower");
-
-                    b.Navigation("Chainsaw");
-
-                    b.Navigation("GardenTractor");
-
-                    b.Navigation("GrassTrimmer");
-
-                    b.Navigation("LawnMower");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Tehnoforest.Data.Models.ApplicationUser", b =>
@@ -747,31 +747,8 @@ namespace Tehnoforest.Data.Migrations
                     b.Navigation("GrassTrimmers");
 
                     b.Navigation("LawnMowers");
-                });
 
-            modelBuilder.Entity("Tehnoforest.Data.Models.Automower", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.Chainsaw", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.GardenTractor", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.GrassTrimmer", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.LawnMower", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

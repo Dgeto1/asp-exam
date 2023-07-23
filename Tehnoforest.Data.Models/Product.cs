@@ -1,25 +1,39 @@
 ﻿namespace Tehnoforest.Data.Models
 {
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using static Common.EntityValidationConstants.Product;
-    public class Automower
-    {
+    using System.ComponentModel.DataAnnotations;
 
+    using static Tehnoforest.Common.EntityValidationConstants.Product;
+
+    public class Product
+    {
         [Key]
         public int Id { get; set; }
 
         [Required]
         public string Model { get; set; } = null!;
 
-        [Required]
-        public int WorkingAreaCapacity { get; set; }
+        public int? WorkingAreaCapacity { get; set; }
 
-        [Required]
-        public int MaximumSlopePerformance { get; set; }
+        public int? MaximumSlopePerformance { get; set; }
 
-        [Required]
-        public string BoundaryType { get; set; } = null!;
+        public string? BoundaryType { get; set; } = null!;
+
+        public decimal? Power { get; set; }
+
+        public decimal? CylinderDisplacement { get; set; }
+
+        public int? BarLength { get; set; }
+
+        public decimal? NetPower { get; set; }
+
+        public int? CuttingWidth { get; set; }
+
+        public int? CuttingHeightMax { get; set; }
+
+        public int? CuttingHeightMin { get; set; }
+
+        public string? DriveSystem { get; set; } = null!;
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
@@ -44,7 +58,5 @@
         public Guid? UserId { get; set; }
 
         public ApplicationUser? User { get; set; } = null!;
-
-
     }
 }

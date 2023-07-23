@@ -12,8 +12,8 @@ using Tehnoforest.Data;
 namespace Tehnoforest.Data.Migrations
 {
     [DbContext(typeof(TehnoforestDbContext))]
-    [Migration("20230720110240_UpdatedShoppingCartItem")]
-    partial class UpdatedShoppingCartItem
+    [Migration("20230723070538_AddedProductEntity")]
+    partial class AddedProductEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -553,6 +553,80 @@ namespace Tehnoforest.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Availability")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BarLength")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BoundaryType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CuttingHeightMax")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CuttingHeightMin")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CuttingWidth")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("CylinderDisplacement")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("DriveSystem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaximumSlopePerformance")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("NetPower")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Power")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("WorkingAreaCapacity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
                 {
                     b.Property<int>("ShoppingCartItemId")
@@ -701,6 +775,15 @@ namespace Tehnoforest.Data.Migrations
                         .WithMany("LawnMowers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
+                {
+                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
