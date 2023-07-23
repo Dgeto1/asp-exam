@@ -5,10 +5,6 @@
     using static Common.EntityValidationConstants.Product;
     public class Chainsaw
     {
-        public Chainsaw()
-        {
-            this.ShoppingCartItems = new HashSet<ShoppingCartItem>();
-        }
 
         [Key]
         public int Id { get; set; }
@@ -50,7 +46,6 @@
 
         public ApplicationUser? User { get; set; } = null!;
 
-        public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
 
     }
 }

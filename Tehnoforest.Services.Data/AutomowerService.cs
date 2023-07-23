@@ -1,7 +1,6 @@
 ﻿namespace Tehnoforest.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
-    using System.Diagnostics;
     using System.Threading.Tasks;
 
     using Tehnoforest.Data;
@@ -9,7 +8,6 @@
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.Automower;
     using Tehnoforest.Web.ViewModels.Automower;
-    using Tehnoforest.Web.ViewModels.Chainsaw;
     using Tehnoforest.Web.ViewModels.Enums;
 
     public class AutomowerService : IAutomowerService
@@ -23,8 +21,8 @@
 
         public async Task<AllAutomowersFilteredAndPagedServiceModel> AllAsync(AllAutomowersQueryModel queryModel)
         {
-            IQueryable<Automower> automowersQuery = this.dbContext
-                .Automowers
+            IQueryable<Product> automowersQuery = this.dbContext
+                .Products
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -56,8 +54,8 @@
                 {
                     Id = a.Id,
                     Model = a.Model,
-                    WorkingAreaCapacity = a.WorkingAreaCapacity,
-                    MaximumSlopePerformance = a.MaximumSlopePerformance,
+                    WorkingAreaCapacity = (int)a.WorkingAreaCapacity,
+                    MaximumSlopePerformance = (int)a.MaximumSlopePerformance,
                     ImageUrl = a.ImageUrl,
                     Price = a.Price
                 })
@@ -74,7 +72,7 @@
 
         public async Task<string> CreateAndReturnIdAsync(AutomowerFormModel formModel)
         {
-            Automower newAutomower = new Automower()
+            Product newAutomower = new Product()
             {
                 Model = formModel.Model,
                 WorkingAreaCapacity = formModel.WorkingAreaCapacity,
@@ -86,7 +84,7 @@
                 Availability = formModel.Availability
             };
 
-            await this.dbContext.Automowers.AddAsync(newAutomower);
+            await this.dbContext.Products.AddAsync(newAutomower);
             await this.dbContext.SaveChangesAsync();
 
             return newAutomower.Id.ToString();
@@ -94,8 +92,8 @@
 
         public async Task EditAutomowerByIdAndFormModelAsync(int automowerId, AutomowerFormModel formModel)
         {
-            Automower automower = await this.dbContext
-            .Automowers
+            Product automower = await this.dbContext
+            .Products
                .Where(a => a.IsAvailable)
                .FirstAsync(a => a.Id == automowerId);
 
@@ -114,7 +112,7 @@
         public async Task<bool> ExistByModelAsync(string automowerModel)
         {
             bool result = await this.dbContext
-                .Automowers
+                .Products
                 .AnyAsync(a => a.Model == automowerModel);
 
             return result;
@@ -123,7 +121,7 @@
         public async Task<bool> ExistsByIdAsync(int id)
         {
             bool result = await this.dbContext
-                .Automowers
+                .Products
                 .AnyAsync(a => a.Id == id);
 
             return result;
@@ -131,8 +129,8 @@
 
         public async Task<AutomowerDeleteViewModel> GetAutomowerForDeleteByIdAsync(int automowerId)
         {
-            Automower automower = await this.dbContext
-                .Automowers
+            Product automower = await this.dbContext
+                .Products
                 .Where(a => a.IsAvailable)
                 .FirstAsync(a => a.Id == automowerId);
 
@@ -146,8 +144,8 @@
 
         public async Task DeleteAutomowerByIdAsync(int automowerId)
         {
-            Automower automowerToDelete = await this.dbContext
-                .Automowers
+            Product automowerToDelete = await this.dbContext
+                .Products
                 .Where(a => a.IsAvailable)
                 .FirstAsync(a => a.Id == automowerId);
 
@@ -158,16 +156,16 @@
 
         public async Task<AutomowerFormModel> GetAutomowerForEditByIdAsync(int automowerId)
         {
-            Automower automower = await this.dbContext
-            .Automowers
+            Product automower = await this.dbContext
+            .Products
                .Where(a => a.IsAvailable)
                .FirstAsync(a => a.Id == automowerId);
 
             return new AutomowerFormModel
             {
                 Model = automower.Model,
-                WorkingAreaCapacity = automower.WorkingAreaCapacity,
-                SlopePerformance = automower.MaximumSlopePerformance,
+                WorkingAreaCapacity = (int)automower.WorkingAreaCapacity,
+                SlopePerformance = (int)automower.MaximumSlopePerformance,
                 BoundaryType = automower.BoundaryType,
                 Description = automower.Description,
                 ImageUrl = automower.ImageUrl,
@@ -178,17 +176,17 @@
 
         public async Task<AutomowerDetailsViewModel> GetDetailsByIdAsync(int automowerId)
         {
-            Automower automower = await this.dbContext
-                .Automowers
+            Product automower = await this.dbContext
+                .Products
                 .Where(a => a.IsAvailable)
-                .FirstAsync(c => c.Id == automowerId);
+                .FirstAsync(a => a.Id == automowerId);
 
             return new AutomowerDetailsViewModel()
             {
                 Id = automower.Id,
                 Model = automower.Model,
-                MaximumSlopePerformance = automower.MaximumSlopePerformance,
-                WorkingAreaCapacity = automower.WorkingAreaCapacity,
+                MaximumSlopePerformance = (int)automower.MaximumSlopePerformance,
+                WorkingAreaCapacity = (int)automower.WorkingAreaCapacity,
                 BoundaryType = automower.BoundaryType,
                 ImageUrl = automower.ImageUrl,
                 Description = automower.Description,

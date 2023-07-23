@@ -9,12 +9,16 @@
         {
             this.Id = Guid.NewGuid();
 
+            this.Products = new HashSet<Product>();
             this.Automowers = new HashSet<Automower>();
             this.Chainsaws = new HashSet<Chainsaw>();
             this.GardenTractors = new HashSet<GardenTractor>();
             this.GrassTrimmers = new HashSet<GrassTrimmer>();
             this.LawnMowers = new HashSet<LawnMower>();
         }
+
+        [NotMapped]
+        public virtual ICollection<Product> Products { get; set; }
 
         [NotMapped]
         public virtual ICollection<Automower> Automowers { get; set; }
