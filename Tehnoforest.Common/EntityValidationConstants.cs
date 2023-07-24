@@ -32,7 +32,7 @@ namespace Tehnoforest.Common
             public const string PowerMin = "0";
             public const string PowerMax = "30";
             public const string CylinderDisplacementMin = "0";
-            public const string CylinderDisplacementMax = "60";
+            public const string CylinderDisplacementMax = "100";
             public const string BarMin = "10";
             public const string BarMax = "200";
             public const string PriceMax = "3000";

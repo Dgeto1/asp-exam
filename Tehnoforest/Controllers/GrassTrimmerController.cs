@@ -60,8 +60,6 @@
                 string grassTrimmerId =
                     await this.grassTrimmerService.CreateAndReturnIdAsync(formModel);
 
-                await this.grassTrimmerService.CreateAndReturnIdAsync(formModel);
-
                 this.TempData[SuccessMessage] = "Моторната коса е добавена успешно!";
                 return this.RedirectToAction("Details", "GrassTrimmer", new { id = grassTrimmerId });
             }

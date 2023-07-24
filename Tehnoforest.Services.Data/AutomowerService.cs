@@ -48,6 +48,8 @@
 
             IEnumerable<AutomowerAllViewModel> allAutomowers = await automowersQuery
                 .Where(a => a.IsAvailable)
+                .Where(a => a.WorkingAreaCapacity != null)
+                .Where(a => a.MaximumSlopePerformance != null)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.AutomowerPerPage)
                 .Take(queryModel.AutomowerPerPage)
                 .Select(a => new AutomowerAllViewModel()

@@ -18,7 +18,7 @@
         public decimal Power { get; set; }
 
         [Required]
-        [Range(typeof(int), CylinderDisplacementMin, CylinderDisplacementMax)]
+        [Range(typeof(decimal), CylinderDisplacementMin, CylinderDisplacementMax)]
         [Display(Name = "Обем на цилиндъра")]
         public decimal CylinderDisplacement { get; set; }
 

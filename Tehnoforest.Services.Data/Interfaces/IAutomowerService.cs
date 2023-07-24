@@ -2,7 +2,6 @@
 {
     using Tehnoforest.Services.Data.Models.Automower;
     using Tehnoforest.Web.ViewModels.Automower;
-    using Tehnoforest.Web.ViewModels.Chainsaw;
 
     public interface IAutomowerService
     {

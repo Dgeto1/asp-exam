@@ -61,7 +61,7 @@
                 string gardenTractorId =
                     await this.gardenTractorService.CreateAndReturnIdAsync(formModel);
 
-                this.TempData[SuccessMessage] = "Моторният трион е добавен успешно!";
+                this.TempData[SuccessMessage] = "Градинският трактор е добавен успешно!";
                 return this.RedirectToAction("Details", "GardenTractor", new { id = gardenTractorId });
             }
             catch (Exception)

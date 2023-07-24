@@ -23,8 +23,8 @@
 
         public async Task<AllGardenTractorsFilteredAndPagedServiceModel> AllAsync(AllGardenTractorsQueryModel queryModel)
         {
-            IQueryable<GardenTractor> gardenTractorsQuery = this.dbContext
-                .GardenTractors
+            IQueryable<Product> gardenTractorsQuery = this.dbContext
+                .Products
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -50,14 +50,16 @@
 
             IEnumerable<GardenTractorAllViewModel> allGardenTractors = await gardenTractorsQuery
                 .Where(gt => gt.IsAvailable)
+                .Where(gt => gt.CylinderDisplacement != null)
+                .Where(gt => gt.NetPower != null)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.GardenTractorsPerPage)
                 .Take(queryModel.GardenTractorsPerPage)
                 .Select(gt => new GardenTractorAllViewModel()
                 {
                     Id = gt.Id,
                     Model = gt.Model,
-                    CylinderDisplacement = gt.CylinderDisplacement,
-                    NetPower = gt.NetPower,
+                    CylinderDisplacement = (int)gt.CylinderDisplacement,
+                    NetPower = (int)gt.NetPower,
                     ImageUrl = gt.ImageUrl,
                     Price = gt.Price
                 })
@@ -72,9 +74,9 @@
             };
         }
 
-        public async Task<string> CreateAndReturnIdAsync(Web.ViewModels.GardenTractor.GardenTractorFormModel formModel)
+        public async Task<string> CreateAndReturnIdAsync(GardenTractorFormModel formModel)
         {
-            GardenTractor newGardenTractor = new GardenTractor()
+            Product newGardenTractor = new Product()
             {
                 Model = formModel.Model,
                 CylinderDisplacement = formModel.CylinderDisplacement,
@@ -88,7 +90,7 @@
                 Availability = formModel.Availability
             };
 
-            await this.dbContext.GardenTractors.AddAsync(newGardenTractor);
+            await this.dbContext.Products.AddAsync(newGardenTractor);
             await this.dbContext.SaveChangesAsync();
 
             return newGardenTractor.Id.ToString();
@@ -97,7 +99,7 @@
         public async Task<bool> ExistByModelAsync(string gardenTractorModel)
         {
             bool result = await this.dbContext
-                .GardenTractors
+                .Products
                 .AnyAsync(gt => gt.Model == gardenTractorModel);
 
             return result;
@@ -106,7 +108,7 @@
         public async Task<bool> ExistsByIdAsync(int id)
         {
             bool result = await this.dbContext
-                .GardenTractors
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .AnyAsync(gt => gt.Id == id);
 
@@ -115,19 +117,19 @@
 
         public async Task<GardenTractorDetailsViewModel> GetDetailsByIdAsync(int gardenTractorId)
         {
-            GardenTractor gardenTractor = await this.dbContext
-                .GardenTractors
+            Product gardenTractor = await this.dbContext
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .FirstAsync(gt => gt.Id == gardenTractorId);
 
             return new GardenTractorDetailsViewModel()
             {
                 Model = gardenTractor.Model,
-                CylinderDisplacement = gardenTractor.CylinderDisplacement,
-                NetPower = gardenTractor.NetPower,
-                CuttingWidth = gardenTractor.CuttingWidth,
-                CuttingHeightMax = gardenTractor.CuttingHeightMax,
-                CuttingHeightMin = gardenTractor.CuttingHeightMin,
+                CylinderDisplacement = (int)gardenTractor.CylinderDisplacement,
+                NetPower = (int)gardenTractor.NetPower,
+                CuttingWidth = (int)gardenTractor.CuttingWidth,
+                CuttingHeightMax = (int)gardenTractor.CuttingHeightMax,
+                CuttingHeightMin = (int)gardenTractor.CuttingHeightMin,
                 Description = gardenTractor.Description,
                 ImageUrl = gardenTractor.ImageUrl,
                 Price = gardenTractor.Price
@@ -136,19 +138,19 @@
 
         public async Task<GardenTractorFormModel> GetGardenTractorForEditByIdAsync(int gardenTractorId)
         {
-            GardenTractor gardenTractor = await this.dbContext
-                .GardenTractors
+            Product gardenTractor = await this.dbContext
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .FirstAsync(gt => gt.Id == gardenTractorId);
 
             return new GardenTractorFormModel()
             {
                 Model = gardenTractor.Model,
-                CylinderDisplacement = gardenTractor.CylinderDisplacement,
-                NetPower = gardenTractor.NetPower,
-                CuttingWidth = gardenTractor.CuttingWidth,
-                CuttingHeightMax = gardenTractor.CuttingHeightMax,
-                CuttingHeightMin = gardenTractor.CuttingHeightMin,
+                CylinderDisplacement = (int)gardenTractor.CylinderDisplacement,
+                NetPower = (int)gardenTractor.NetPower,
+                CuttingWidth = (int)gardenTractor.CuttingWidth,
+                CuttingHeightMax = (int)gardenTractor.CuttingHeightMax,
+                CuttingHeightMin = (int)gardenTractor.CuttingHeightMin,
                 Description = gardenTractor.Description,
                 ImageUrl = gardenTractor.ImageUrl,
                 Price = gardenTractor.Price,
@@ -158,8 +160,8 @@
 
         public async Task EditGardenTractorByIdAndFormModelAsync(int gardenTractorId, GardenTractorFormModel formModel)
         {
-            GardenTractor gardenTractor = await this.dbContext
-               .GardenTractors
+            Product gardenTractor = await this.dbContext
+               .Products
                .Where(gt => gt.IsAvailable)
                .FirstAsync(gt => gt.Id == gardenTractorId);
 
@@ -179,8 +181,8 @@
 
         public async Task<GardenTractorDeleteViewModel> GetGardenTractorForDeleteByIdAsync(int gardenTractorId)
         {
-            GardenTractor gardenTractor = await this.dbContext
-                .GardenTractors
+            Product gardenTractor = await this.dbContext
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .FirstAsync(gt => gt.Id == gardenTractorId);
 
@@ -194,8 +196,8 @@
 
         public async Task DeleteGardenTractorByIdAsync(int gardenTractorId)
         {
-            GardenTractor gardenTractor = await this.dbContext
-                .GardenTractors
+            Product gardenTractor = await this.dbContext
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .FirstAsync(gt => gt.Id == gardenTractorId);
 
