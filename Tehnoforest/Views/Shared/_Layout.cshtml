@@ -41,19 +41,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="GardenTractor" asp-action="All">Градински трактори</a>
                         </li>
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button class="dropbtn">Добави продукт</button>
-                                <div class="dropdown-content">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Chainsaw" asp-action="Add">Добави моторен трион</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Automower" asp-action="Add">Добави автоматична косачка</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="GardenTractor" asp-action="Add">Добави градински трактор</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="GrassTrimmer" asp-action="Add">Добави моторна коса</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="LawnMower" asp-action="Add">Добави косачка</a>
+                        @if (this.User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="dropbtn">Добави продукт</button>
+                                    <div class="dropdown-content">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Chainsaw" asp-action="Add">Добави моторен трион</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Automower" asp-action="Add">Добави автоматична косачка</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="GardenTractor" asp-action="Add">Добави градински трактор</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="GrassTrimmer" asp-action="Add">Добави моторна коса</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="LawnMower" asp-action="Add">Добави косачка</a>
+                                    </div>
                                 </div>
-                            </div>
-                           
-                        </li>
+
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

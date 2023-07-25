@@ -4,7 +4,9 @@ using Tehnoforest.Data;
 using Tehnoforest.Data.Models;
 using Tehnoforest.Services.Data;
 using Tehnoforest.Services.Data.Interfaces;
+using Tehnoforest.Web.Infrastructure.Extensions;
 using Tehnoforest.Web.Infrastructure.ModelBinders;
+using static Tehnoforest.Common.GeneralApplicationConstants;
 
 namespace Tehnoforest
 {
@@ -35,6 +37,7 @@ namespace Tehnoforest
                 options.Password.RequiredLength =
                     builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
             })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<TehnoforestDbContext>();
 
             builder.Services.ConfigureApplicationCookie(cfg =>
@@ -76,6 +79,8 @@ namespace Tehnoforest
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(DevelopmentAdminEmail);
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
