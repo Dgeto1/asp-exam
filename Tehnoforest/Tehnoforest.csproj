@@ -42,4 +42,8 @@
     <_ContentIncludedByDefault Remove="Views\GardenTractor\All.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Pages\Account\" />
+  </ItemGroup>
+
 </Project>

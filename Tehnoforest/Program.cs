@@ -37,9 +37,10 @@ namespace Tehnoforest
             })
                 .AddEntityFrameworkStores<TehnoforestDbContext>();
 
-            /*builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<TehnoforestDbContext>()
-                .AddRoles<IdentityRole>();*/
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/User/Login";
+            });
 
             builder.Services.AddScoped<IChainsawService, ChainsawService>();
             builder.Services.AddScoped<IAutomowerService, AutomowerService>();

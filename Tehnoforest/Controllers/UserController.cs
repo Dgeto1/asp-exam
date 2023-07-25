@@ -1,16 +1,18 @@
 ﻿namespace Tehnoforest.Controllers
 {
-	using Microsoft.AspNetCore.Identity;
-	using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
 	
 	using Tehnoforest.Data.Models;
     using Tehnoforest.Web.ViewModels.User;
+
+    using static Tehnoforest.Common.NotificationMessagesConstants;
 
     public class UserController : Controller
 	{
 		private readonly SignInManager<ApplicationUser> signInManager;
 		private readonly UserManager<ApplicationUser> userManager;
-		private readonly IUserStore<ApplicationUser> userStore;
 
         public UserController(SignInManager<ApplicationUser> signInManager,
                              UserManager<ApplicationUser> userManager)
@@ -60,6 +62,41 @@
             await signInManager.SignInAsync(user, false);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Login(string? returnUrl = null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            LoginFormModel model = new LoginFormModel()
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result =
+                await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
+            if (!result.Succeeded)
+            {
+                TempData[ErrorMessage] =
+                    "Нещо се обърка! Моля опитайте по-късно или се свържете с администраторите!";
+
+                return View(model);
+            }
+
+            return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
     }
 }
