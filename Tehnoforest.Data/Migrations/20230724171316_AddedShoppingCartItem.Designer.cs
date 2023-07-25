@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tehnoforest.Data;
 
@@ -11,9 +12,10 @@ using Tehnoforest.Data;
 namespace Tehnoforest.Data.Migrations
 {
     [DbContext(typeof(TehnoforestDbContext))]
-    partial class TehnoforestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230724171316_AddedShoppingCartItem")]
+    partial class AddedShoppingCartItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,20 +178,6 @@ namespace Tehnoforest.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasDefaultValue("Test");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasDefaultValue("Test");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

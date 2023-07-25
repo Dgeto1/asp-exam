@@ -1,5 +1,4 @@
-﻿using Tehnoforest.Web.ViewModels.Automower;
-using Tehnoforest.Web.ViewModels.LawnMower;
+﻿using Tehnoforest.Web.ViewModels.LawnMower;
 
 namespace Tehnoforest.Services.Data.Models.LawnMower
 {
