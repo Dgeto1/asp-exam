@@ -117,18 +117,11 @@ namespace Tehnoforest.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 ApplicationUser user = CreateUser();
-                 /*user = new ApplicationUser {Email = "admin@abv.bg" };
-                 var password = await _userManager.CreateAsync(user, "123456");
 
-                if (password.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, "Admin");
-                }*/
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
