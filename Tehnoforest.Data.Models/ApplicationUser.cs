@@ -13,6 +13,7 @@
             this.Id = Guid.NewGuid();
 
             Products = new HashSet<Product>();
+            RepairServiceProducts = new HashSet<RepairServiceProduct>();
         }
 
         [Required]
@@ -25,5 +26,8 @@
 
         [NotMapped]
         public virtual ICollection<Product> Products { get; set; }
+
+        [NotMapped]
+        public virtual ICollection<RepairServiceProduct> RepairServiceProducts { get; set; }
     }
 }

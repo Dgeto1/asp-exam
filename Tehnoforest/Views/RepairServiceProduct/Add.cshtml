@@ -1,0 +1,14 @@
+﻿@model RepairServiceProductFormModel
+@{
+    ViewData["Title"] = "Добави машина за ремонт";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<partial name="_RepairServiceProductFormPartial" model="@Model" />
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}

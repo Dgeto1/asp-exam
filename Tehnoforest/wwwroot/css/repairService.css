@@ -1,0 +1,28 @@
+﻿body {
+   
+}
+
+fieldset {
+    border: 1px solid black;
+    color: black;
+    text-align: center;
+    width: 50%;
+}
+
+legend {
+    padding: 0 10px;
+}
+
+.google-map {
+    margin-bottom: 10%;
+    padding-bottom: 50%;
+    position: relative;
+}
+
+.google-map iframe {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}

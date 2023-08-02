@@ -31,7 +31,7 @@
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add()
         {
             AutomowerFormModel formModel = new AutomowerFormModel();

@@ -17,6 +17,8 @@
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; } = null!;
 
+        public DbSet<RepairServiceProduct> RepairServiceProducts { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

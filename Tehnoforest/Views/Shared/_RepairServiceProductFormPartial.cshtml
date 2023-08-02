@@ -1,0 +1,46 @@
+﻿@model RepairServiceProductFormModel
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="ClientName"></label>
+                <input asp-for="ClientName" class="form-control" placeholder="Име на клиент">
+                <span asp-validation-for="ClientName" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandMachine"></label>
+                <input asp-for="BrandMachine" class="form-control"
+                       placeholder="Марка на машина">
+                <span asp-validation-for="BrandMachine" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelMachine"></label>
+                <input asp-for="ModelMachine" class="form-control"
+                       placeholder="Модел на машина">
+                <span asp-validation-for="ModelMachine" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProblemDescription"></label>
+<textarea asp-for="ProblemDescription" rows="4" class="form-control"
+          placeholder="Описание на проблем"></textarea>
+                <span asp-validation-for="ProblemDescription" class="small text-
+danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfAcceptance"></label>
+                <input asp-for="DateOfAcceptance" class="form-control" placeholder="Дата на приемане">
+                <span asp-validation-for="DateOfAcceptance" class="small text-
+danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfReturning"></label>
+                <input asp-for="DateOfReturning" class="form-control" placeholder="Дата на връщане">
+                <span asp-validation-for="DateOfReturning" class="small text-
+danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>

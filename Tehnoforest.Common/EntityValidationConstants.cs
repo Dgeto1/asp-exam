@@ -82,5 +82,13 @@ namespace Tehnoforest.Common
             public const int PasswordMinLength = 6;
             public const int PasswordMaxLength = 100;
         }
+
+        public static class RepairService
+        {
+            public const int ClientNameMinLength = 1;
+            public const int ClientNameMaxLength = 15;
+            public const int BrandNameMinLength = 3;
+            public const int BrandNameMaxLength = 20;
+        }
     }
 }
