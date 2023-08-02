@@ -33,7 +33,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add()
         {
                 ChainsawFormModel formModel = new ChainsawFormModel();

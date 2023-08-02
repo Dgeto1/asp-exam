@@ -21,8 +21,8 @@
 
         public async Task<AllChainsawsFilteredAndPagedServiceModel> AllAsync(AllChainsawsQueryModel queryModel)
         {
-            IQueryable<Chainsaw> chainsawsQuery = this.dbContext
-                .Chainsaws
+            IQueryable<Product> chainsawsQuery = this.dbContext
+                .Products
                 .AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -48,14 +48,16 @@
 
             IEnumerable<ChainsawAllViewModel> allChainsaws = await chainsawsQuery
                 .Where(c => c.IsAvailable)
+                .Where(c => c.CylinderDisplacement != null)
+                .Where(c => c.Power != null)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.ChainsawPerPage)
                 .Take(queryModel.ChainsawPerPage)
                 .Select(c => new ChainsawAllViewModel()
                 {
                     Id = c.Id,
                     Model = c.Model,
-                    CylinderDisplacement = c.CylinderDisplacement,
-                    Power = c.Power,
+                    CylinderDisplacement = (decimal)c.CylinderDisplacement,
+                    Power = (decimal)c.Power,
                     ImageUrl = c.ImageUrl,
                     Price = c.Price
                 })
@@ -72,7 +74,7 @@
 
         public async Task<string> CreateAndReturnIdAsync(ChainsawFormModel formModel)
         {
-            Chainsaw newChainsaw = new Chainsaw()
+            Product newChainsaw = new Product()
             {
                 Model = formModel.Model,
                 Power = formModel.Power,
@@ -83,7 +85,7 @@
                 Price = formModel.Price,
                 Availability = formModel.Availability
             };
-            await this.dbContext.Chainsaws.AddAsync(newChainsaw);
+            await this.dbContext.Products.AddAsync(newChainsaw);
             await this.dbContext.SaveChangesAsync();
 
             return newChainsaw.Id.ToString();
@@ -92,7 +94,7 @@
         public async Task<bool> ExistsByIdAsync(int id)
         {
             bool result = await this.dbContext
-                .Chainsaws
+                .Products
                 .Where(c => c.IsAvailable)
                 .AnyAsync(c => c.Id == id);
 
@@ -102,7 +104,7 @@
         public async Task<bool> ExistByModelAsync(string chainsawModel)
         {
             bool result = await this.dbContext
-                .Chainsaws
+                .Products
                 .AnyAsync(c => c.Model == chainsawModel);
 
             return result;
@@ -110,17 +112,17 @@
 
         public async Task<ChainsawFormModel> GetChainsawForEditByIdAsync(int chainsawId)
         {
-            Chainsaw chainsaw = await this.dbContext
-               .Chainsaws
+            Product chainsaw = await this.dbContext
+               .Products
                .Where(c => c.IsAvailable)
                .FirstAsync(c => c.Id == chainsawId);
 
             return new ChainsawFormModel
             {
                 Model = chainsaw.Model,
-                CylinderDisplacement = chainsaw.CylinderDisplacement,
-                Power = chainsaw.Power,
-                BarLength = chainsaw.BarLength,
+                CylinderDisplacement = (int)chainsaw.CylinderDisplacement,
+                Power = (int)chainsaw.Power,
+                BarLength = (int)chainsaw.BarLength,
                 Description = chainsaw.Description,
                 ImageUrl = chainsaw.ImageUrl,
                 Price = chainsaw.Price,
@@ -130,8 +132,8 @@
 
         public async Task<ChainsawDetailsViewModel> GetDetailsByIdAsync(int chainsawId)
         {
-            Chainsaw chainsaw = await this.dbContext
-                .Chainsaws
+            Product chainsaw = await this.dbContext
+                .Products
                 .Where(c => c.IsAvailable)
                 .FirstAsync(c => c.Id == chainsawId);
 
@@ -139,8 +141,8 @@
             {
                 Id = chainsaw.Id,
                 Model = chainsaw.Model,
-                CylinderDisplacement = chainsaw.CylinderDisplacement,
-                Power = chainsaw.Power,
+                CylinderDisplacement = (int)chainsaw.CylinderDisplacement,
+                Power = (int)chainsaw.Power,
                 ImageUrl = chainsaw.ImageUrl,
                 Description = chainsaw.Description,
                 Price = chainsaw.Price,
@@ -149,8 +151,8 @@
 
         public async Task EditChainsawByIdAndFormModelAsync(int chainsawId, ChainsawFormModel formModel)
         {
-            Chainsaw chainsaw = await this.dbContext
-                .Chainsaws
+            Product chainsaw = await this.dbContext
+                .Products
                 .Where(c => c.IsAvailable)
                 .FirstAsync(c => c.Id == chainsawId);
 
@@ -168,8 +170,8 @@
 
         public async Task<ChainsawDeleteViewModel> GetChainsawForDeleteByIdAsync(int chainsawId)
         {
-            Chainsaw chainsaw = await this.dbContext
-                .Chainsaws
+            Product chainsaw = await this.dbContext
+                .Products
                 .Where(c => c.IsAvailable)
                 .FirstAsync(c => c.Id == chainsawId);
 
@@ -183,8 +185,8 @@
 
         public async Task DeleteChainsawByIdAsync(int chainsawId)
         {
-            Chainsaw chainsawToDelete = await this.dbContext
-                .Chainsaws
+            Product chainsawToDelete = await this.dbContext
+                .Products
                 .Where(c => c.IsAvailable)
                 .FirstAsync(c => c.Id == chainsawId);
 

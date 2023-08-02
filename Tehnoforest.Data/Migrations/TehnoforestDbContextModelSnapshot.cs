@@ -17,7 +17,7 @@ namespace Tehnoforest.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.18")
+                .HasAnnotation("ProductVersion", "6.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -177,6 +177,20 @@ namespace Tehnoforest.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasDefaultValue("Test");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasDefaultValue("Test");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -223,334 +237,6 @@ namespace Tehnoforest.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Tehnoforest.Data.Models.Automower", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Availability")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BoundaryType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
-
-                    b.Property<bool>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<int>("MaximumSlopePerformance")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("WorkingAreaCapacity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Automowers");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.Chainsaw", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Availability")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BarLength")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("CylinderDisplacement")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
-
-                    b.Property<bool>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<decimal>("Power")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Chainsaws");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Availability = 5,
-                            BarLength = 35,
-                            CylinderDisplacement = 38m,
-                            Description = "Лесен за ползване трион в хоби сегмента. Благодарение на достатъчния капацитет на рязане, трионът е подходящ за рязане на дърва за огрев, леко поваляне или подрязване. Има X-Torq® двигател за ниски емисии и Air Injection, който пази филтъра чист.",
-                            ImageUrl = "https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/chainsaws/photos/studio/h110-0522.webp?v=a56825c923296e8&format=WEBP_LANDSCAPE_CONTAIN_XL",
-                            IsAvailable = false,
-                            Model = "120 Mark II",
-                            Power = 2m,
-                            Price = 455m
-                        });
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.GardenTractor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Availability")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CuttingHeightMax")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CuttingHeightMin")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CuttingWidth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CylinderDisplacement")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
-
-                    b.Property<bool>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<decimal>("NetPower")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("GardenTractors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Availability = 5,
-                            CuttingHeightMax = 102,
-                            CuttingHeightMin = 38,
-                            CuttingWidth = 97,
-                            CylinderDisplacement = 452,
-                            Description = "TS 138L е удобен трактор, идеален за собственици на малки и средни градини. Той е ефективен трактор със странично изхвърляне, интелигентен дизайн и ергономичност. TS 138L разполага с мощен двигател Husqvarna Series с без-чок старт, лостово управляема хидростатична трансмисия и ергономично кормило.",
-                            ImageUrl = "https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/garden-tractors/photos/studio/h310-2250.webp?v=7a7813db23296e8&format=WEBP_LANDSCAPE_CONTAIN_XL",
-                            IsAvailable = false,
-                            Model = "TS 138L",
-                            NetPower = 9m,
-                            Price = 6399m
-                        });
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.GrassTrimmer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Availability")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CuttingWidth")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
-
-                    b.Property<bool>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Power")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("GrassTrimmers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Availability = 5,
-                            CuttingWidth = 47,
-                            Description = "Husqvarna 535RX е нова моторна коса в клас 35 куб. см., с отлична ергономия, предвидена за продължително и интензивно натоварване и с достатъчно мощност, за постигане на първокласни резултати.",
-                            ImageUrl = "https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/brushcutters/photos/studio/h210-0364.webp?v=e58eac2723296e8&format=WEBP_LANDSCAPE_CONTAIN_XL",
-                            IsAvailable = false,
-                            Model = "535RX",
-                            Power = 2m,
-                            Price = 1115m
-                        });
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.LawnMower", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Availability")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CuttingWidth")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("DriveSystem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
-
-                    b.Property<bool>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("WorkingAreaCapacity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("LawnMowers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Availability = 5,
-                            CuttingWidth = 47,
-                            Description = "Мощна самоходна бензинова косачка за трева. Създаването на подредена и добре подстригана трева е истинско удоволствие с тази самоходна косачка със събиране на тревата. Husqvarna LC 247S е удобна за използване, задвижвана от двигател Husqvarna. Тя разполага и с лесна настройка на височината на рязане, интуитивни контроли и лесна сгъваема дръжка за удобна работа и съхранение.",
-                            DriveSystem = "Самоход",
-                            ImageUrl = "https://www-static-nw.husqvarna.com/-/images/aprimo/klippo/walk-behind-mowers/photos/studio/il-527596.webp?v=e7809c1a23296e8&format=WEBP_LANDSCAPE_CONTAIN_XL",
-                            IsAvailable = false,
-                            Model = "LC 247S",
-                            Price = 1100m,
-                            WorkingAreaCapacity = 800
-                        });
-                });
-
             modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -594,7 +280,9 @@ namespace Tehnoforest.Data.Migrations
                         .HasColumnType("nvarchar(2048)");
 
                     b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<int?>("MaximumSlopePerformance")
                         .HasColumnType("int");
@@ -623,6 +311,79 @@ namespace Tehnoforest.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Tehnoforest.Data.Models.RepairServiceProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BrandMachine")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DateOfAcceptance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfReturning")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModelMachine")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ProblemDescription")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RepairServiceProducts");
+                });
+
+            modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
+                {
+                    b.Property<int>("ShoppingCartItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoppingCartItemId"), 1L, 1);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShoppingCartId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ShoppingCartItemId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -676,56 +437,6 @@ namespace Tehnoforest.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Tehnoforest.Data.Models.Automower", b =>
-                {
-                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
-                        .WithMany("Automowers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.Chainsaw", b =>
-                {
-                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
-                        .WithMany("Chainsaws")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.GardenTractor", b =>
-                {
-                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
-                        .WithMany("GardenTractors")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.GrassTrimmer", b =>
-                {
-                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
-                        .WithMany("GrassTrimmers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.LawnMower", b =>
-                {
-                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
-                        .WithMany("LawnMowers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
                 {
                     b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
@@ -736,19 +447,36 @@ namespace Tehnoforest.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Tehnoforest.Data.Models.RepairServiceProduct", b =>
+                {
+                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
+                        .WithMany("RepairServiceProducts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("Tehnoforest.Data.Models.Product", "Product")
+                        .WithMany("ShoppingCartItems")
+                        .HasForeignKey("ProductId")
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Tehnoforest.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Automowers");
-
-                    b.Navigation("Chainsaws");
-
-                    b.Navigation("GardenTractors");
-
-                    b.Navigation("GrassTrimmers");
-
-                    b.Navigation("LawnMowers");
-
                     b.Navigation("Products");
+
+                    b.Navigation("RepairServiceProducts");
+                });
+
+            modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
+                {
+                    b.Navigation("ShoppingCartItems");
                 });
 #pragma warning restore 612, 618
         }

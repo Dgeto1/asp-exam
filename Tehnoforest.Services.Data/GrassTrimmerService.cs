@@ -24,8 +24,8 @@
 
         public async Task<AllGrassTrimmersFilteredAndPagedServiceModel> AllAsync(AllGrassTrimmersQueryModel queryModel)
         {
-            IQueryable<GrassTrimmer> grassTrimmersQuery = this.dbContext
-              .GrassTrimmers
+            IQueryable<Product> grassTrimmersQuery = this.dbContext
+              .Products
               .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -51,14 +51,16 @@
 
             IEnumerable<GrassTrimmerAllViewModel> allGrassTrimmers = await grassTrimmersQuery
                 .Where(gt => gt.IsAvailable)
+                .Where(gt => gt.Power != null)
+                .Where(gt => gt.CuttingWidth != null)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.GrassTrimmerPerPage)
                 .Take(queryModel.GrassTrimmerPerPage)
                 .Select(gt => new GrassTrimmerAllViewModel()
                 {
                     Id = gt.Id,
                     Model = gt.Model,
-                    Power = gt.Power,
-                    CuttingWidth = gt.CuttingWidth,
+                    Power = (int)gt.Power,
+                    CuttingWidth = (int)gt.CuttingWidth,
                     ImageUrl = gt.ImageUrl,
                     Price = gt.Price
                 })
@@ -75,7 +77,7 @@
 
         public async Task<string> CreateAndReturnIdAsync(GrassTrimmerFormModel formModel)
         {
-            GrassTrimmer newGrassTrimmer = new GrassTrimmer()
+            Product newGrassTrimmer = new Product()
             {
                 Model = formModel.Model,
                 Power = formModel.Power,
@@ -86,7 +88,7 @@
                 Availability = formModel.Availability
             };
 
-            await this.dbContext.GrassTrimmers.AddAsync(newGrassTrimmer);
+            await this.dbContext.Products.AddAsync(newGrassTrimmer);
             await this.dbContext.SaveChangesAsync();
 
             return newGrassTrimmer.Id.ToString();
@@ -94,8 +96,8 @@
 
         public async Task DeleteGrassTrimmerByIdAsync(int grassTrimmerId)
         {
-            GrassTrimmer grassTrimmer = await this.dbContext
-                .GrassTrimmers
+            Product grassTrimmer = await this.dbContext
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .FirstAsync(gt => gt.Id == grassTrimmerId);
 
@@ -106,8 +108,8 @@
 
         public async Task EditGrassTrimmerByIdAndFormModelAsync(int grassTrimmerId, GrassTrimmerFormModel formModel)
         {
-            GrassTrimmer grassTrimmer = await this.dbContext
-                .GrassTrimmers
+            Product grassTrimmer = await this.dbContext
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .FirstAsync(gt => gt.Id == grassTrimmerId);
 
@@ -126,7 +128,7 @@
         public async Task<bool> ExistByModelAsync(string automowerModel)
         {
             bool result = await this.dbContext
-                .GrassTrimmers
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .AnyAsync(gt => gt.Model == automowerModel);
 
@@ -136,7 +138,7 @@
         public async Task<bool> ExistsByIdAsync(int id)
         {
             bool result = await this.dbContext
-                .GrassTrimmers
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .AnyAsync(gt => gt.Id == id);
 
@@ -145,8 +147,8 @@
 
         public async Task<GrassTrimmerDetailsViewModel> GetDetailsByIdAsync(int grassTrimmerId)
         {
-            GrassTrimmer grassTrimmer = await this.dbContext
-               .GrassTrimmers
+            Product grassTrimmer = await this.dbContext
+               .Products
                .Where(gt => gt.IsAvailable)
                .FirstAsync(gt => gt.Id == grassTrimmerId);
 
@@ -154,8 +156,8 @@
             {
                 Id = grassTrimmer.Id,
                 Model = grassTrimmer.Model,
-                Power = grassTrimmer.Power,
-                CuttingWidth = grassTrimmer.CuttingWidth,
+                Power = (int)grassTrimmer.Power,
+                CuttingWidth = (int)grassTrimmer.CuttingWidth,
                 ImageUrl = grassTrimmer.ImageUrl,
                 Description = grassTrimmer.Description,
                 Price = grassTrimmer.Price,
@@ -164,8 +166,8 @@
 
         public async Task<GrassTrimmerDeleteViewModel> GetGrassTrimmerForDeleteByIdAsync(int grassTrimmerId)
         {
-            GrassTrimmer grassTrimmer = await this.dbContext
-                .GrassTrimmers
+            Product grassTrimmer = await this.dbContext
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .FirstAsync(gt => gt.Id == grassTrimmerId);
 
@@ -179,16 +181,16 @@
 
         public async Task<GrassTrimmerFormModel> GetGrassTrimmerForEditByIdAsync(int grassTrimmerId)
         {
-            GrassTrimmer grassTrimmer = await this.dbContext
-                .GrassTrimmers
+            Product grassTrimmer = await this.dbContext
+                .Products
                 .Where(gt => gt.IsAvailable)
                 .FirstAsync(gt => gt.Id == grassTrimmerId);
 
             return new GrassTrimmerFormModel()
             {
                 Model = grassTrimmer.Model,
-                Power = grassTrimmer.Power,
-                CuttingWidth = grassTrimmer.CuttingWidth,
+                Power = (int)grassTrimmer.Power,
+                CuttingWidth = (int)grassTrimmer.CuttingWidth,
                 ImageUrl = grassTrimmer.ImageUrl,
                 Description = grassTrimmer.Description,
                 Price = grassTrimmer.Price,

@@ -4,7 +4,9 @@ using Tehnoforest.Data;
 using Tehnoforest.Data.Models;
 using Tehnoforest.Services.Data;
 using Tehnoforest.Services.Data.Interfaces;
+using Tehnoforest.Web.Infrastructure.Extensions;
 using Tehnoforest.Web.Infrastructure.ModelBinders;
+using static Tehnoforest.Common.GeneralApplicationConstants;
 
 namespace Tehnoforest
 {
@@ -35,17 +37,20 @@ namespace Tehnoforest
                 options.Password.RequiredLength =
                     builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
             })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<TehnoforestDbContext>();
 
-            /*builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<TehnoforestDbContext>()
-                .AddRoles<IdentityRole>();*/
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/User/Login";
+            });
 
             builder.Services.AddScoped<IChainsawService, ChainsawService>();
             builder.Services.AddScoped<IAutomowerService, AutomowerService>();
             builder.Services.AddScoped<IGardenTractorService, GardenTractorService>();
             builder.Services.AddScoped<IGrassTrimmerService, GrassTrimmerService>();
             builder.Services.AddScoped<ILawnMowerService, LawnMowerService>();
+            builder.Services.AddScoped<IRepairServiceProductService, RepairServiceProductService>();
 
             builder.Services
                 .AddControllersWithViews()
@@ -75,6 +80,8 @@ namespace Tehnoforest
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(DevelopmentAdminEmail);
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();

@@ -32,7 +32,7 @@ namespace Tehnoforest.Common
             public const string PowerMin = "0";
             public const string PowerMax = "30";
             public const string CylinderDisplacementMin = "0";
-            public const string CylinderDisplacementMax = "60";
+            public const string CylinderDisplacementMax = "100";
             public const string BarMin = "10";
             public const string BarMax = "200";
             public const string PriceMax = "3000";
@@ -69,6 +69,26 @@ namespace Tehnoforest.Common
             public const string CuttingWidthMin = "40";
             public const string CuttingWidthMax = "60";
             public const string PriceMax = "5000";
+        }
+
+        public static class User
+        {
+            public const int FirstNameMinLength = 1;
+            public const int FirstNameMaxLength = 15;
+
+			public const int LastNameMinLength = 1;
+			public const int LastNameMaxLength = 15;
+
+            public const int PasswordMinLength = 6;
+            public const int PasswordMaxLength = 100;
+        }
+
+        public static class RepairService
+        {
+            public const int ClientNameMinLength = 1;
+            public const int ClientNameMaxLength = 15;
+            public const int BrandNameMinLength = 3;
+            public const int BrandNameMaxLength = 20;
         }
     }
 }

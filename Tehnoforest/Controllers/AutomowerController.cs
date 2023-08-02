@@ -19,19 +19,19 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All([FromQuery] AllAutomowersQueryModel queryModel)
+        public async Task<IActionResult> All([FromQuery]AllAutomowersQueryModel queryModel)
         {
             AllAutomowersFilteredAndPagedServiceModel serviceModel =
-                await this.automowerService.AllAsync(queryModel);
+                await automowerService.AllAsync(queryModel);
 
             queryModel.Automowers = serviceModel.Automowers;
             queryModel.TotalAutomowers = serviceModel.TotalAutomowersCount;
 
-            return this.View(queryModel);
+            return View(queryModel);
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add()
         {
             AutomowerFormModel formModel = new AutomowerFormModel();

@@ -19,8 +19,8 @@
         }
         public async Task<AllLawnMowersFilteredAndPagedServiceModel> AllAsync(AllLawnMowersQueryModel queryModel)
         {
-            IQueryable<LawnMower> lawnMowersQuery = this.dbContext
-               .LawnMowers
+            IQueryable<Product> lawnMowersQuery = this.dbContext
+               .Products
                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -46,13 +46,15 @@
 
             IEnumerable<LawnMowerAllViewModel> allLawnMowers = await lawnMowersQuery
                 .Where(a => a.IsAvailable)
+                .Where(a => a.WorkingAreaCapacity != null)
+                .Where(a => a.DriveSystem != null)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.LawnMowerPerPage)
                 .Take(queryModel.LawnMowerPerPage)
                 .Select(a => new LawnMowerAllViewModel()
                 {
                     Id = a.Id,
                     Model = a.Model,
-                    WorkingAreaCapacity = a.WorkingAreaCapacity,
+                    WorkingAreaCapacity = (int)a.WorkingAreaCapacity,
                     DriveSystem = a.DriveSystem,
                     ImageUrl = a.ImageUrl,
                     Price = a.Price
@@ -70,7 +72,7 @@
 
         public async Task<string> CreateAndReturnIdAsync(LawnMowerFormModel formModel)
         {
-            LawnMower newLawnMower = new LawnMower()
+            Product newLawnMower = new Product()
             {
                 Model = formModel.Model,
                 WorkingAreaCapacity = formModel.WorkingAreaCapacity,
@@ -82,7 +84,7 @@
                 Availability = formModel.Availability
             };
 
-            await this.dbContext.LawnMowers.AddAsync(newLawnMower);
+            await this.dbContext.Products.AddAsync(newLawnMower);
             await this.dbContext.SaveChangesAsync();
 
             return newLawnMower.Id.ToString();
@@ -90,8 +92,8 @@
 
         public async Task DeleteLawnMowerByIdAsync(int lawnMowerId)
         {
-            LawnMower lawnMower = await this.dbContext
-           .LawnMowers
+            Product lawnMower = await this.dbContext
+           .Products
               .Where(a => a.IsAvailable)
               .FirstAsync(a => a.Id == lawnMowerId);
 
@@ -102,8 +104,8 @@
 
         public async Task EditLawnMowerByIdAndFormModelAsync(int lawnMowerId, LawnMowerFormModel formModel)
         {
-            LawnMower lawnMower = await this.dbContext
-            .LawnMowers
+            Product lawnMower = await this.dbContext
+            .Products
                .Where(a => a.IsAvailable)
                .FirstAsync(a => a.Id == lawnMowerId);
 
@@ -122,7 +124,7 @@
         public async Task<bool> ExistByModelAsync(string lawnMowerModel)
         {
             bool result = await this.dbContext
-                .LawnMowers
+                .Products
                 .Where(a => a.IsAvailable)
                 .AnyAsync(a => a.Model == lawnMowerModel);
 
@@ -132,7 +134,7 @@
         public async Task<bool> ExistsByIdAsync(int id)
         {
             bool result = await this.dbContext
-               .LawnMowers
+               .Products
                .Where(a => a.IsAvailable)
                .AnyAsync(a => a.Id == id);
 
@@ -141,8 +143,8 @@
 
         public async Task<LawnMowerDetailsViewModel> GetDetailsByIdAsync(int lawnMowerId)
         {
-            LawnMower lawnMower = await this.dbContext
-            .LawnMowers
+            Product lawnMower = await this.dbContext
+            .Products
                 .Where(a => a.IsAvailable)
                 .FirstAsync(a => a.Id == lawnMowerId);
 
@@ -150,9 +152,9 @@
             {
                 Id = lawnMower.Id,
                 Model = lawnMower.Model,
-                WorkingAreaCapacity = lawnMower.WorkingAreaCapacity,
+                WorkingAreaCapacity = (int)lawnMower.WorkingAreaCapacity,
                 DriveSystem = lawnMower.DriveSystem,
-                CuttingWidth = lawnMower.CuttingWidth,
+                CuttingWidth = (int)lawnMower.CuttingWidth,
                 Description = lawnMower.Description,
                 ImageUrl = lawnMower.ImageUrl,
                 Price = lawnMower.Price
@@ -161,8 +163,8 @@
 
         public async Task<LawnMowerDeleteViewModel> GetLawnMowerForDeleteByIdAsync(int lawnMowerId)
         {
-            LawnMower lawnMower = await this.dbContext
-            .LawnMowers
+            Product lawnMower = await this.dbContext
+            .Products
                 .Where(a => a.IsAvailable)
                 .FirstAsync(a => a.Id == lawnMowerId);
 
@@ -176,17 +178,17 @@
 
         public async Task<LawnMowerFormModel> GetLawnMowerForEditByIdAsync(int lawnMowerId)
         {
-            LawnMower lawnMower = await this.dbContext
-            .LawnMowers
+            Product lawnMower = await this.dbContext
+            .Products
                 .Where(a => a.IsAvailable)
                 .FirstAsync(a => a.Id == lawnMowerId);
 
             return new LawnMowerFormModel
             {
                 Model = lawnMower.Model,
-                WorkingAreaCapacity = lawnMower.WorkingAreaCapacity,
+                WorkingAreaCapacity = (int)lawnMower.WorkingAreaCapacity,
                 DriveSystem = lawnMower.DriveSystem,
-                CuttingWidth = lawnMower.CuttingWidth,
+                CuttingWidth = (int)lawnMower.CuttingWidth,
                 Description = lawnMower.Description,
                 ImageUrl = lawnMower.ImageUrl,
                 Price = lawnMower.Price,

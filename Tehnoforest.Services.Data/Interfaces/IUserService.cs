@@ -1,10 +1,10 @@
 ﻿namespace Tehnoforest.Services.Data.Interfaces
 {
-    using Tehnoforest.Web.ViewModels.ShoppingCart;
+    using Tehnoforest.Web.ViewModels.ShoppingCartItem;
 
     public interface IUserService
     {
-        IQueryable<ShoppingCartItemFormModel> GetUserShoppingCartItems(string userEmail);
+        IQueryable<ShoppingCartItemViewModel> GetUserShoppingCartItems(string userEmail);
 
         Task<int> GetUserShoppingCartItemsCount(string userEmail);
 

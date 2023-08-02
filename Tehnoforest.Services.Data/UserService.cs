@@ -1,11 +1,16 @@
-﻿using Tehnoforest.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Tehnoforest.Data;
+using Tehnoforest.Data.Models;
 using Tehnoforest.Services.Data.Interfaces;
-using Tehnoforest.Web.ViewModels.ShoppingCart;
+using Tehnoforest.Services.Data.Models.Automower;
+using Tehnoforest.Web.ViewModels.ShoppingCartItem;
+using static Tehnoforest.Common.EntityValidationConstants;
 
 namespace Tehnoforest.Services.Data
 {
-    public class UserService : IUserService
-    {
+        public class UserService : IUserService 
+        {                                                                                                                                                                                              
         private readonly TehnoforestDbContext dbContext;
 
         public UserService(TehnoforestDbContext dbContext)
@@ -13,34 +18,125 @@ namespace Tehnoforest.Services.Data
             this.dbContext = dbContext;
         }
 
-        public Task<bool> AddShoppingCartItem(int productId, string userEmail)
+        public async Task<bool> AddShoppingCartItem(int productId, string userEmail)
         {
-            throw new NotImplementedException();
+            if (await ShoppingCartItemExists(productId, userEmail))
+            {
+                var quantity = (await dbContext.ShoppingCartItems.FirstAsync(sci => sci.ShoppingCartId == userEmail && sci.ProductId == productId)).Quantity;
+
+                return await ChangeShoppingCartItemQuantity(productId, userEmail, quantity + 1);
+            }
+
+            var shoppingCartItemForDb = new ShoppingCartItem
+            {
+                ShoppingCartId = userEmail,
+                ProductId = productId,
+                Quantity = 1,
+                DateCreated = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+            };
+
+            await dbContext.ShoppingCartItems.AddAsync(shoppingCartItemForDb);
+
+            return await dbContext.SaveChangesAsync() > 0 ? true : false;
         }
 
-        public Task<bool> ChangeShoppingCartItemQuantity(int productId, string userEmail, int quantity)
+        public async Task<bool> ChangeShoppingCartItemQuantity(int productId, string userEmail, int quantity)
         {
-            throw new NotImplementedException();
+            if (!await ShoppingCartItemExists(productId, userEmail))
+            {
+                return false;
+            }
+            if (quantity <= 0)
+            {
+                return await RemoveShoppingCartItem(productId, userEmail);
+            }
+
+            var shoppingCartItemFromDb = await dbContext.ShoppingCartItems.FirstAsync(sci => sci.ShoppingCartId == userEmail && sci.ProductId == productId);
+            shoppingCartItemFromDb.Quantity = quantity;
+
+            dbContext.Update(shoppingCartItemFromDb);
+
+            return await dbContext.SaveChangesAsync() > 0 ? true : false;
         }
 
-        public Task<bool> ClearUserShoppingCart(string userEmail)
+        public async Task<bool> ClearUserShoppingCart(string userEmail)
         {
-            throw new NotImplementedException();
+            var userItems = dbContext.ShoppingCartItems.Where(sci => sci.ShoppingCartId == userEmail);
+
+            if (await userItems.AnyAsync())
+            {
+                dbContext.ShoppingCartItems.RemoveRange(userItems);
+            }
+
+            return await dbContext.SaveChangesAsync() > 0 ? true : false;
         }
 
-        public IQueryable<ShoppingCartItemFormModel> GetUserShoppingCartItems(string userEmail)
+        public async Task<IEnumerable<ShoppingCartItemViewModel>> GetUserShoppingCartItems(string userId)
         {
-            throw new NotImplementedException();
+            IEnumerable<ShoppingCartItemViewModel> products = await dbContext
+                .ShoppingCartItems
+                .Where(h => h.ShoppingCartId == userId)
+                .Select(h => new ShoppingCartItemViewModel
+                {
+                    ShoppingCartItemId = h.ShoppingCartItemId,
+                    ShoppingCartId = userId,
+                    ProductId = h.ProductId,
+                    ProductModel = h.Product.Model,
+                    ProductPrice = h.Product.Price,
+                    Quantity = h.Quantity,
+                    ProductImageUrl = h.Product.ImageUrl
+                })
+                .ToArrayAsync();
+
+            return products;
+
+			/*var shoppingCartitems = (from item in dbContext.ShoppingCartItems
+                where item.ShoppingCartId == userId
+                join product in dbContext.Products on item.ProductId equals product.Id
+                select new ShoppingCartItemViewModel
+                {
+                    ShoppingCartItemId = item.ShoppingCartItemId,
+                    ShoppingCartId = userId,
+                    ProductId = item.ProductId,
+                    ProductModel = product.Model,
+                    ProductPrice = product.Price,
+                    Quantity = item.Quantity,
+                    ProductImageUrl = product.ImageUrl
+                });*/
+
+            //int totalShoppingCartItems = shoppingCartitems.Count();
+
+           // return shoppingCartitems;
         }
 
-        public Task<int> GetUserShoppingCartItemsCount(string userEmail)
+        public async Task<int> GetUserShoppingCartItemsCount(string userEmail)
         {
-            throw new NotImplementedException();
+            return await dbContext.ShoppingCartItems.Where(sci => sci.ShoppingCartId == userEmail).Select(sci => sci.Quantity).SumAsync();
         }
 
-        public Task<bool> RemoveShoppingCartItem(int productId, string userEmail)
+        public async Task<bool> RemoveShoppingCartItem(int productId, string userEmail)
         {
-            throw new NotImplementedException();
+            if (!await ShoppingCartItemExists(productId, userEmail))
+            {
+                return false;
+            }
+
+            var shoppingCartItemFromDb = await dbContext.ShoppingCartItems.FirstAsync(sci => sci.ShoppingCartId == userEmail && sci.ProductId == productId);
+
+            dbContext.ShoppingCartItems.Remove(shoppingCartItemFromDb);
+
+            return await dbContext.SaveChangesAsync() > 0 ? true : false;
+        }
+
+		IQueryable<ShoppingCartItemViewModel> IUserService.GetUserShoppingCartItems(string userEmail)
+		{
+			throw new NotImplementedException();
+		}
+
+		private async Task<bool> ShoppingCartItemExists(int productId, string userEmail)
+        {
+            return await dbContext.ShoppingCartItems.AnyAsync(sci => sci.ShoppingCartId == userEmail && sci.ProductId == productId);
         }
     }
 }

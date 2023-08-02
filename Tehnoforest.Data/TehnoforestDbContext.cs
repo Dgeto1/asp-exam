@@ -14,12 +14,10 @@
 
         }
 
-        public DbSet<Automower> Automowers { get; set; } = null!;
-        public DbSet<Chainsaw> Chainsaws { get; set; } = null!;
-        public DbSet<GardenTractor> GardenTractors { get; set; } = null!;
-        public DbSet<GrassTrimmer> GrassTrimmers { get; set; } = null!;
-        public DbSet<LawnMower> LawnMowers { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; } = null!;
+
+        public DbSet<RepairServiceProduct> RepairServiceProducts { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder builder)
