@@ -45,12 +45,20 @@ namespace Tehnoforest
                 cfg.LoginPath = "/User/Login";
             });
 
+            builder.Services.AddMvc().AddSessionStateTempDataProvider();
+            builder.Services.AddSession();
+
             builder.Services.AddScoped<IChainsawService, ChainsawService>();
             builder.Services.AddScoped<IAutomowerService, AutomowerService>();
             builder.Services.AddScoped<IGardenTractorService, GardenTractorService>();
             builder.Services.AddScoped<IGrassTrimmerService, GrassTrimmerService>();
             builder.Services.AddScoped<ILawnMowerService, LawnMowerService>();
             builder.Services.AddScoped<IRepairServiceProductService, RepairServiceProductService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IOrdersService, OrdersService>();
+
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
             builder.Services
                 .AddControllersWithViews()
@@ -82,6 +90,8 @@ namespace Tehnoforest
             app.UseAuthorization();
 
             app.SeedAdministrator(DevelopmentAdminEmail);
+
+            app.UseSession();
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();

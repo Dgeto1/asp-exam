@@ -7,11 +7,6 @@
 
     public class Product
     {
-        public Product()
-        {
-            ShoppingCartItems = new HashSet<ShoppingCartItem>();
-        }
-
         [Key]
         public int Id { get; set; }
 
@@ -64,6 +59,5 @@
 
         public ApplicationUser? User { get; set; } = null!;
 
-        public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

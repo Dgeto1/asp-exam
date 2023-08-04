@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tehnoforest.Data.Models\Tehnoforest.Data.Models.csproj" />
+    <ProjectReference Include="..\Tehnoforest.Data\Tehnoforest.Data.csproj" />
   </ItemGroup>
 
 </Project>

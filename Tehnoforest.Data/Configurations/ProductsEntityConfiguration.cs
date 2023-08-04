@@ -5,7 +5,7 @@
 
     using Tehnoforest.Data.Models;
 
-    public class ProductsEntityConfiguration : IEntityTypeConfiguration<Product>, IEntityTypeConfiguration<ShoppingCartItem>
+    public class ProductsEntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
@@ -19,12 +19,12 @@
                .Property(p => p.IsAvailable)
                .HasDefaultValue(true);
         }
-        public void Configure(EntityTypeBuilder<ShoppingCartItem> builder)
+        /*public void Configure(EntityTypeBuilder<ShoppingCartItem> builder)
         {
             builder.HasOne(d => d.Product)
-                   .WithMany(p => p.ShoppingCartItems)
-                   .HasForeignKey(d => d.ProductId)
+                   .WithMany(d => d.User.ShoppingCartItems)
+                   .HasForeignKey(p => p.ShoppingCartId)
                    .OnDelete(DeleteBehavior.ClientSetNull);
-        }
+        }*/
     }
 }

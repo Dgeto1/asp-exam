@@ -1,14 +1,15 @@
-﻿namespace Tehnoforest.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Tehnoforest.Data.Models
 {
     public class ShoppingCartItem
     {
-        public int ShoppingCartItemId { get; set; }
-        public string ShoppingCartId { get; set; } = null!;
-        public int Quantity { get; set; }
-        public int ProductId { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        [Key]
+        public int Id { get; set; }
 
-        public virtual Product Product { get; set; } = null!;
+        public Product Product { get; set; } = null!;
+        public int Amount { get; set; }
+
+        public string ShoppingCartId { get; set; } = null!;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tehnoforest.Data;
 
@@ -11,9 +12,10 @@ using Tehnoforest.Data;
 namespace Tehnoforest.Data.Migrations
 {
     [DbContext(typeof(TehnoforestDbContext))]
-    partial class TehnoforestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230804190454_RemoveShoppingCart")]
+    partial class RemoveShoppingCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -404,31 +406,6 @@ namespace Tehnoforest.Data.Migrations
                     b.ToTable("RepairServiceProducts");
                 });
 
-            modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ShoppingCartItems");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -526,17 +503,6 @@ namespace Tehnoforest.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("Tehnoforest.Data.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Tehnoforest.Data.Models.ApplicationUser", b =>
