@@ -8,6 +8,10 @@ namespace Tehnoforest.Data.Models
 {
     public class RepairServiceProduct
     {
+        public RepairServiceProduct()
+        {
+            this.Id = Guid.NewGuid();
+        }
         [Key]
         public Guid Id { get; set; }
 

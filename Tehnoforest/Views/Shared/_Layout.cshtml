@@ -45,8 +45,8 @@
                             <div class="dropdown">
                                 <button class="dropbtn">Сервиз</button>
                                 <div class="dropdown-content">
-                                    <a class="nav-link text-dark" asp-controller="RepairService" asp-action="Info">Сервизи</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">История на ремонтите</a>
+                                    <a class="nav-link text-dark" asp-controller="RepairServiceProduct" asp-action="Info">Сервизи</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="RepairServiceProduct" asp-action="All">История на ремонтите</a>
                                     @if (this.User.IsInRole("Administrator"))
                                     {
                                         <a class="nav-link text-dark" asp-controller="RepairServiceProduct" asp-action="Add">Добави машина за ремонт</a>

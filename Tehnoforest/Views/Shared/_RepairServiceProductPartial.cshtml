@@ -1,0 +1,13 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/allProducts.css" />
+</head>
+@model RepairServiceProductAllViewModel
+<div class="col-md-4">
+    <div class="card mb-3">
+        <div class="card-body text-center">
+            <h6>@Model.ClientName | @Model.BrandMachine | @Model.ModelMachine | @Model.DateReturned</h6>
+            <a asp-controller="RepairServiceProduct" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Детайли</a>
+        </div>
+    </div>
+</div>
