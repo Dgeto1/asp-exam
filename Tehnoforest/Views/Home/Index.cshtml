@@ -1,3 +1,103 @@
 ﻿@{
     ViewData["Title"] = "Начална страница";
 }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Card Slider</title>
+    <!-- Swiper CSS -->
+    <script src=" https://cdn.jsdelivr.net/npm/swiper@10.1.0/swiper-bundle.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/swiper@10.1.0/swiper-bundle.min.css " rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <div class="slide-container swiper">
+        <div class="slide-content">
+            <div class="card-wrapper swiper-wrapper">
+                <div class="card swiper-slide">
+                    <div class="imgBox">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/robotic-mowers/photos/studio/h310-1892.webp?v=d33a8fb7e00e823d&format=WEBP_LANDSCAPE_CONTAIN_MD" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="contentBox">
+                        <h3 class="name">Автоматични косачки</h3>
+                        <h5 class="desc">Намерете и купете Вашата идеална косачка-робот от нашата гама Automower®.</h5>
+                        <a asp-controller="Automower" asp-action="All"
+                           class="info">Разгледайте</a>
+                    </div>
+                </div>
+                <div class="card swiper-slide">
+                    <div class="imgBox">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/brushcutters/photos/studio/h210-0746.webp?v=12e80f1ce00e823d&format=WEBP_LANDSCAPE_CONTAIN_MD" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="contentBox">
+                        <h3 class="name">Моторни коси</h3>
+                        <h5 class="desc">Запознайте се с пълната ни гама и намерете идеалната моторна коса според Вашите нужди.</h5>
+                        <a asp-controller="GrassTrimmer" asp-action="All"
+                           class="info">Разгледайте</a>
+                    </div>
+                </div>
+                <div class="card swiper-slide">
+                    <div class="imgBox">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="https://www-static-nw.husqvarna.com/-/images/aprimo/klippo/walk-behind-mowers/photos/studio/ue-223163.webp?v=cb8d9f5fe00e823d&format=WEBP_LANDSCAPE_CONTAIN_MD" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="contentBox">
+                        <h3 class="name">Косачки</h3>
+                        <h5 class="desc"> Разгледайте нашата гама самоходни и ръчни косачки за трева.</h5>
+                        <a asp-controller="LawnMower" asp-action="All"
+                           class="info">Разгледайте</a>
+                    </div>
+                </div>
+                <div class="card swiper-slide">
+                    <div class="imgBox">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/chainsaws/photos/studio/h110-0515.webp?v=d2d3196ce00e823d&format=WEBP_LANDSCAPE_CONTAIN_MD" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="contentBox">
+                        <h3 class="name">Верижни триони</h3>
+                        <h5 class="desc">Открийте нашата гама акумулаторни електрически верижни триони и бензинови верижни триони.</h5>
+                        <a asp-controller="Chainsaw" asp-action="All"
+                           class="info">Разгледайте</a>
+                    </div>
+                </div>
+                <div class="card swiper-slide">
+                    <div class="imgBox">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/garden-tractors/photos/studio/h310-2391.webp?v=105491cae00e823d&format=WEBP_LANDSCAPE_CONTAIN_MD" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="contentBox">
+                        <h3 class="name">Градински трактори</h3>
+                        <h5 class="desc">Нашите градински трактори са компактни трактори, които Ви осигуряват безпроблемна работа.</h5>
+                        <a asp-controller="GardenTractor" asp-action="All"
+                           class="info">Разгледайте</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-button-next swiper-navBtn"></div>
+        <div class="swiper-button-prev swiper-navBtn"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+</body>
+<!-- Swiper JS -->
+<script src="js/swiper-bundle.min.js"></script>
+<!-- JavaScript -->
+<script src="~/js/script.js"></script>
+    

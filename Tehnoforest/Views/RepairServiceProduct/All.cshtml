@@ -1,0 +1,29 @@
+﻿@model AllRepairServiceProductsQueryModel
+<form method ="get">
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label asp-for="SearchString"></label>
+            <input asp-for="SearchString" class="form-control" placeholder="...">
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+@if (!Model.RepairServiceProducts.Any())
+{
+    <h2 class="text-center">Няма намерени сервизни карти по предоставения номер!</h2>
+}
+else if(Model.RepairServiceProducts.Count() == 1)
+{
+    <div class="row">
+        @foreach (var product in Model.RepairServiceProducts)
+        {
+            <partial name="_RepairServiceProductPartial" model="@product" />
+        }
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model RepairServiceProductDetailsViewModel
+<div class="container" style="display:inline">
+    <div class="card col-8 border-0">
+        <h2>Сервизна карта № @Model.Id.ToString()</h2>
+        <h4>Клиент: @Model.ClientName</h4>
+        <h4>Марка: @Model.BrandMachine | Модел: @Model.ModelMachine</h4>
+        <h4>Описание на проблем: @Model.ProblemDescription</h4>
+        <h4>Машината е приета на @Model.DateOfAcceptance.Year</h4>
+        <h4>Машината е върната на @Model.DateReturned.Year</h4>
+     </div>
+</div>

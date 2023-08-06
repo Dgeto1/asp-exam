@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tehnoforest.Common\Tehnoforest.Common.csproj" />
+    <ProjectReference Include="..\Tehnoforest.Web.Infrastructure\Tehnoforest.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

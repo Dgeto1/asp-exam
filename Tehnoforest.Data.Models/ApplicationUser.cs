@@ -14,6 +14,8 @@
 
             Products = new HashSet<Product>();
             RepairServiceProducts = new HashSet<RepairServiceProduct>();
+            Orders = new HashSet<Order>();
+            //ShoppingCartItems = new HashSet<ShoppingCartItem>();
         }
 
         [Required]
@@ -29,5 +31,11 @@
 
         [NotMapped]
         public virtual ICollection<RepairServiceProduct> RepairServiceProducts { get; set; }
+
+        [NotMapped]
+        public virtual ICollection<Order> Orders { get; set; }
+
+        //[NotMapped]
+       // public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

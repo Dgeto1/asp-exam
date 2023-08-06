@@ -237,6 +237,57 @@ namespace Tehnoforest.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Tehnoforest.Data.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Tehnoforest.Data.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -280,9 +331,7 @@ namespace Tehnoforest.Data.Migrations
                         .HasColumnType("nvarchar(2048)");
 
                     b.Property<bool>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<int?>("MaximumSlopePerformance")
                         .HasColumnType("int");
@@ -357,29 +406,23 @@ namespace Tehnoforest.Data.Migrations
 
             modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
                 {
-                    b.Property<int>("ShoppingCartItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoppingCartItemId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("ShoppingCartId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ShoppingCartItemId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
@@ -437,12 +480,40 @@ namespace Tehnoforest.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Tehnoforest.Data.Models.Order", b =>
+                {
+                    b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Tehnoforest.Data.Models.OrderItem", b =>
+                {
+                    b.HasOne("Tehnoforest.Data.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tehnoforest.Data.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
                 {
                     b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
-                        .WithMany("Products")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -460,8 +531,9 @@ namespace Tehnoforest.Data.Migrations
             modelBuilder.Entity("Tehnoforest.Data.Models.ShoppingCartItem", b =>
                 {
                     b.HasOne("Tehnoforest.Data.Models.Product", "Product")
-                        .WithMany("ShoppingCartItems")
+                        .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -469,14 +541,14 @@ namespace Tehnoforest.Data.Migrations
 
             modelBuilder.Entity("Tehnoforest.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Orders");
 
                     b.Navigation("RepairServiceProducts");
                 });
 
-            modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
+            modelBuilder.Entity("Tehnoforest.Data.Models.Order", b =>
                 {
-                    b.Navigation("ShoppingCartItems");
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

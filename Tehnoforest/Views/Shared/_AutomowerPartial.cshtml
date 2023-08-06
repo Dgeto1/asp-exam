@@ -16,7 +16,14 @@
             <br />
             <a asp-controller="Automower" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
-            @if (this.User.Identity?.IsAuthenticated ?? false)
+            <a class="btn btn-success text-white"
+               asp-controller="Orders"
+               asp-action="AddItemToShoppingCart"
+               asp-route-id="@Model.Id">
+                <i class="bi bi-cart-plus"></i> Добави в количката)
+            </a>
+                
+            @if (this.User.IsInRole("Administrator"))
             {
                 <a asp-controller="Automower" asp-action="Edit" asp-route-id="@Model.Id"
                    class="btn btn-warning">Edit</a>

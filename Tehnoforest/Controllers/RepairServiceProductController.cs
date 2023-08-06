@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Tehnoforest.Services.Data;
 using Tehnoforest.Services.Data.Interfaces;
-using Tehnoforest.Web.ViewModels.Automower;
+using Tehnoforest.Services.Data.Models.RepairServiceProduct;
 using Tehnoforest.Web.ViewModels.RepairServiceProduct;
+using Microsoft.EntityFrameworkCore;
 
 using static Tehnoforest.Common.NotificationMessagesConstants;
+using Tehnoforest.Web.ViewModels.Automower;
 
 namespace Tehnoforest.Controllers
 {
@@ -17,6 +18,21 @@ namespace Tehnoforest.Controllers
         {
             this.repairService = repairService;
 
+        }
+
+        public IActionResult Info()
+        {
+            return this.View();
+        }
+
+        public async Task<IActionResult> All([FromQuery] AllRepairServiceProductsQueryModel queryModel)
+        {
+            AllRepairServiceProductsModel serviceModel =
+                await repairService.AllAsync(queryModel);
+
+            queryModel.RepairServiceProducts = serviceModel.Products;
+
+            return View(queryModel);
         }
 
         [HttpGet]
@@ -46,6 +62,40 @@ namespace Tehnoforest.Controllers
 
                 return this.View(formModel);
             }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id)
+        {
+            bool productExists = await this.repairService
+                .ExistsByIdAsync(id);
+            if (!productExists)
+            {
+                this.TempData[ErrorMessage] = "Машината не съществува!";
+
+                return this.RedirectToAction("All", "RepairServiceProduct");
+            }
+
+            try
+            {
+                RepairServiceProductDetailsViewModel viewModel = await this.repairService
+                .GetDetailsByIdAsync(id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] = "Нещо се обърка! Опитайте отново или се свържете с администратор!";
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

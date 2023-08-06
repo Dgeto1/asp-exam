@@ -1,0 +1,44 @@
+﻿@model GrassTrimmerDetailsViewModel
+<link rel="stylesheet" href="~/css/details.css" type="text/css" />
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Garden Tractor Image">
+        </div>
+        <div class="card col-8 border-0">
+            <h4>Бензинови моторни коси</h4>
+            <h2>HUSQVARNA @Model.Model</h2>
+            <h2><b>@String.Format("{0:f2}", Model.Price) BGN</b> </h2>
+            <hr />
+            <div id="container">
+                <div>
+                    <h3>@Model.CuttingWidth cm</h3>
+                    <p>Ширина на косене</p>
+                </div>
+                <div>
+                    <h3>@Model.Power kW</h3>
+                    <p>Мощност</p>
+                </div>
+            </div>
+            <hr />
+            <a class="btn btn-success text-white"
+               asp-controller="Orders"
+               asp-action="AddItemToShoppingCart"
+               asp-route-id="@Model.Id">
+                <i class="bi bi-cart-plus"></i> Добави в количката)
+            </a>
+
+            <p>@Model.Description</p>
+            <div class="form-inline">
+                @if (this.User.IsInRole("Administrator"))
+                {
+                    <a asp-controller="GardenTractor" asp-action="Edit" asp-route-id="@Model.Id"
+                       class="btn btn-warning">Edit</a>
+                    <a asp-controller="GardenTractor" asp-action="Delete" asp-route-id="@Model.Id"
+                       class="btn btn-danger">Delete</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
