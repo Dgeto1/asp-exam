@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest.Services.Data",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest.Web.Infrastructure", "Tehnoforest.Web.Infrastructure\Tehnoforest.Web.Infrastructure.csproj", "{516151C8-C1BD-4125-826C-B2895A0EC844}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehnoforest.Services.Data.Models", "Tehnoforest.Services.Data.Models\Tehnoforest.Services.Data.Models.csproj", "{A6B675F8-C1B4-4071-86E2-129D95BF5CCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tehnoforest.Services.Data.Models", "Tehnoforest.Services.Data.Models\Tehnoforest.Services.Data.Models.csproj", "{A6B675F8-C1B4-4071-86E2-129D95BF5CCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

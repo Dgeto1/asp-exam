@@ -5,8 +5,8 @@
 
     public class ShoppingCartSummary : ViewComponent
     {
-       // private readonly ShoppingCart _shoppingCart;
-       /* public ShoppingCartSummary(ShoppingCart shoppingCart)
+        private readonly ShoppingCart _shoppingCart;
+        public ShoppingCartSummary(ShoppingCart shoppingCart)
         {
             _shoppingCart = shoppingCart;
         }
@@ -16,6 +16,6 @@
             var items = _shoppingCart.GetShoppingCartItems();
 
             return View(items.Count);
-        }*/
+        }
     }
 }

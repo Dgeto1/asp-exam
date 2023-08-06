@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using Tehnoforest.Data.Models;
 using Tehnoforest.Data;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Tehnoforest.Services.Data
 {
@@ -16,12 +16,12 @@ namespace Tehnoforest.Services.Data
         public ShoppingCart(TehnoforestDbContext dbContext)
         {
             this.dbContext = dbContext;
-            ShoppingCartItems = new List<ShoppingCartItem>();
+            //this.ShoppingCartItems = new List<ShoppingCartItem>();
         }
 
         public static ShoppingCart GetShoppingCart(IServiceProvider services)
         {
-            Microsoft.AspNetCore.Http.ISession? session = services.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>()?.HttpContext.Session;
+            ISession? session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
             var context = services.GetService<TehnoforestDbContext>();
 
             string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
@@ -81,7 +81,7 @@ namespace Tehnoforest.Services.Data
             return ShoppingCartItems ?? (ShoppingCartItems = this.dbContext
                 .ShoppingCartItems
                 .Where(n => n.ShoppingCartId == ShoppingCartId)
-                .Include(n => n.Product)
+                .Include(p => p.Product)
                 .ToList());
         }
 
