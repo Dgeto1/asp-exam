@@ -1,9 +1,13 @@
-﻿@model GrassTrimmerAllViewModel
+﻿<head>
+    <link rel="stylesheet" href="~/css/allProducts.css" asp-append-version="true" />
+</head>
+@model GrassTrimmerAllViewModel
 <div class="col-md-4">
     <div class="card mb-3">
         <img class="card-img-top" src="@Model.ImageUrl" alt="Grass Trimmer Image">
-        <div class="card-body text-center">
-            <h4>AUTOMOWER® @Model.Model</h4>
+        <div class="card-body text-left">
+            <h6>Моторни коси</h6>
+            <h4>@Model.Model</h4>
             <h6>Ширина на косене: <b>@Model.CuttingWidth cm</b></h6>
             <h6>Мощност: <b>@Model.Power kW</b> </h6>
             <h6>
@@ -12,12 +16,12 @@
             </h6>
             <br />
             <a asp-controller="GrassTrimmer" asp-action="Details" asp-route-id="@Model.Id"
-               class="btn btn-success">Details</a>
+               class="btn btn-success">Детайли</a>
             <a class="btn btn-success text-white"
                asp-controller="Orders"
                asp-action="AddItemToShoppingCart"
                asp-route-id="@Model.Id">
-                <i class="bi bi-cart-plus"></i> Add to Cart)
+                <i class="bi bi-cart-plus"></i> Добави в количката)
             </a>
             @if (this.User.IsInRole("Administrator"))
             {
