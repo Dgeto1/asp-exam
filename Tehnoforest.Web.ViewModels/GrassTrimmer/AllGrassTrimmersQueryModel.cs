@@ -22,7 +22,7 @@ namespace Tehnoforest.Web.ViewModels.GrassTrimmer
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Покажи моторни коси на страницата")]
+        [Display(Name = "Покажи по")]
         public int GrassTrimmerPerPage { get; set; }
 
         public int TotalGrassTrimmers { get; set; }

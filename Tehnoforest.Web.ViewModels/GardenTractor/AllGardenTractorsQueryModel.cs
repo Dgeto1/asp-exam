@@ -22,7 +22,7 @@
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Покажи градински трактори на страницата")]
+        [Display(Name = "Покажи по")]
         public int GardenTractorsPerPage { get; set; }
 
         public int TotalGardenTractor { get; set; }
