@@ -1,4 +1,5 @@
-﻿@model IEnumerable<UserViewModel>
+﻿@using Tehnoforest.Web.Infrastructure.Middlewares;
+@model IEnumerable<UserViewModel>
 @{
     ViewBag.Title = "Всички потребители";
 }
@@ -8,8 +9,9 @@
     <thead>
         <tr>
             <th><label>Email</label></th>
-            <th><label>Full Name</label></th>
-            <th><label>Phone Number</label></th>
+            <th><label>Име</label></th>
+            <th><label>Телефонен номер</label></th>
+            <th><label>Потребителят е онлайн</label></th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +21,16 @@
                 <td><label>@user.Email</label></td>
                 <td><label>@user.FullName</label></td>
                 <td><label>@user.PhoneNumber</label></td>
+                <td>
+                    @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
+                    {
+                        <label>✔</label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+                    }
+                </td>
             </tr>
         }
     </tbody>

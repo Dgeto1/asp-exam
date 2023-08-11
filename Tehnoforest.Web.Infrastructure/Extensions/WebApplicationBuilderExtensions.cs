@@ -7,6 +7,7 @@
     using Tehnoforest.Data.Models;
 
     using static Common.GeneralApplicationConstants;
+    using Tehnoforest.Web.Infrastructure.Middlewares;
 
     public static class WebApplicationBuilderExtensions
     {
@@ -67,6 +68,11 @@
                 .GetResult();
 
             return app;
+        }
+
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<OnlineUsersMiddleware>();
         }
     }
 }

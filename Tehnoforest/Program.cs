@@ -90,6 +90,8 @@ namespace Tehnoforest
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.EnableOnlineUsersCheck();
+
             app.SeedAdministrator(DevelopmentAdminEmail);
 
             app.UseSession();

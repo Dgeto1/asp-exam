@@ -72,6 +72,10 @@
 
                             </li>
                         }
+                        @if (this.User.IsInRole("Administrator"))
+                        {
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="All">Всички потребители</a>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @await Component.InvokeAsync("ShoppingCartSummary")
