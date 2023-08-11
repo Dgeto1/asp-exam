@@ -3,6 +3,7 @@
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 
+<section class="h-100 h-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-8 col-xl-6">
@@ -13,6 +14,7 @@
                     <div class="card-body p-4 p-md-5">
                     <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Създаване на акаунт</h3>
             <hr />
+            <form id="account" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating mb-2">
                 <input asp-for="FirstName" class="form-control" autocomplete="firstName" aria-required="true" />
@@ -40,8 +42,12 @@
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-    </div>
+            </form>
+            </div>
+      </div>
 </div>
+</section>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
