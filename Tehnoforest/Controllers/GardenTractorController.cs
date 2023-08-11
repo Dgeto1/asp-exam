@@ -5,8 +5,9 @@
 
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.GardenTractor;
-    using Tehnoforest.Web.ViewModels.Chainsaw;
     using Tehnoforest.Web.ViewModels.GardenTractor;
+
+    using static Tehnoforest.Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
 
     [Authorize]
@@ -33,7 +34,7 @@
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Add()
         {
             GardenTractorFormModel formModel = new GardenTractorFormModel();
@@ -42,6 +43,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Add(GardenTractorFormModel formModel)
         {
             bool gardenTractorExists =
@@ -97,6 +99,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id)
         {
             bool gardenTractorExists = await this.gardenTractorService
@@ -115,6 +118,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id, GardenTractorFormModel formModel)
         {
             if (!this.ModelState.IsValid)
@@ -147,6 +151,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             bool gardenTractorExists = await this.gardenTractorService
@@ -172,6 +177,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id, GardenTractorDeleteViewModel formModel)
         {
             bool gardenTractorExists = await this.gardenTractorService

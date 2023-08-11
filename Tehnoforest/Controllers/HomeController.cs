@@ -4,6 +4,7 @@
     using System.Diagnostics;
 
     using Tehnoforest.Web.ViewModels.Home;
+    using static Tehnoforest.Common.GeneralApplicationConstants;
 
     public class HomeController : Controller
     {
@@ -14,7 +15,7 @@
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }

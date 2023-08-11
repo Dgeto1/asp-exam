@@ -4,6 +4,7 @@
 @model RepairServiceProductAllViewModel
 <div class="col-md-4">
     <div class="card mb-3">
+        <img class="card-img-top" src="https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/service-environment/photos/action/wx-958305.jpg?v=570f424259e495dd&format=JPG_LANDSCAPE_COVER_MDl" alt="Chainsaw Image">
         <div class="card-body text-center">
             <h6>@Model.ClientName | @Model.BrandMachine | @Model.ModelMachine | @Model.DateReturned</h6>
             <a asp-controller="RepairServiceProduct" asp-action="Details" asp-route-id="@Model.Id"

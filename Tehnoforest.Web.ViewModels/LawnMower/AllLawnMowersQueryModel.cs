@@ -25,7 +25,7 @@
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Покажи косачки на страницата")]
+        [Display(Name = "Покажи по")]
         public int LawnMowerPerPage { get; set; }
 
         public int TotalLawnMowers { get; set; }

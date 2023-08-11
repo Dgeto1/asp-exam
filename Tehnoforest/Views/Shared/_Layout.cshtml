@@ -72,6 +72,10 @@
 
                             </li>
                         }
+                        @if (this.User.IsInRole("Administrator"))
+                        {
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="All">Всички потребители</a>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @await Component.InvokeAsync("ShoppingCartSummary")
@@ -81,18 +85,59 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
+
+    <footer class="site-footer">
         <div class="container">
-            &copy; Tehnoforest - @ReleaseYear
-            @if (DateTime.UtcNow.Year != ReleaseYear)
-            {
-                @Html.Raw($" - {DateTime.UtcNow.Year}")
-            }
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6>За Фирмата</h6>
+                    <p class="text-justify">
+                        <strong>Технофорест ООД</strong>. Оторизиран дистрибутор на Хускварна груп.
+                        Оторизиран Сервиз и Поддръжка.
+                        Оригинални резервни части и аксесоари.
+                        Повече от 25 години доказана фирма. 
+                        <strong>Информация за контакт:</strong>
+                        Бул. 23-ти Пехотен Шипченски Полк 16
+                        Телефон: +359 (0) 888 321844
+                    </p>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Продукти</h6>
+                    <ul class="footer-links">
+                        <li><a asp-controller="Automower" asp-action="All">Автоматични косачки</a></li>
+                        <li><a asp-controller="Chainsaw" asp-action="All">Верижни триони</a></li>
+                        <li><a asp-controller="LawnMower" asp-action="All">Косачки</a></li>
+                        <li><a asp-controller="GrassTrimmer" asp-action="All">Моторни коси</a></li>
+                        <li><a asp-controller="GardenTractor" asp-action="All">Градински трактори</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Къде да ни намерите</h6>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2936.0417090532264!2d25.386598376618263!3d42.618071418761296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a853f7d67246f9%3A0x6b728625c852f65!2sUlitsa%20%2223-ti%20pehoten%20Shipchenski%20polk%22%2016%2C%206100%20Novenski%2C%20Kazanlak!5e0!3m2!1sen!2sbg!4v1691662079615!5m2!1sen!2sbg" width="270" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">
+                        &copy; Tehnoforest - @ReleaseYear
+                        @if (DateTime.UtcNow.Year != ReleaseYear)
+                        {
+                            @Html.Raw($" - {DateTime.UtcNow.Year}")
+                        }
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -100,6 +145,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

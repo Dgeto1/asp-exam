@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tehnoforest.Data;
 
@@ -11,9 +12,10 @@ using Tehnoforest.Data;
 namespace Tehnoforest.Data.Migrations
 {
     [DbContext(typeof(TehnoforestDbContext))]
-    partial class TehnoforestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230811183026_DefaultValue")]
+    partial class DefaultValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,9 +333,7 @@ namespace Tehnoforest.Data.Migrations
                         .HasColumnType("nvarchar(2048)");
 
                     b.Property<bool>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<int?>("MaximumSlopePerformance")
                         .HasColumnType("int");
@@ -513,9 +513,8 @@ namespace Tehnoforest.Data.Migrations
             modelBuilder.Entity("Tehnoforest.Data.Models.Product", b =>
                 {
                     b.HasOne("Tehnoforest.Data.Models.ApplicationUser", "User")
-                        .WithMany("Products")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -544,8 +543,6 @@ namespace Tehnoforest.Data.Migrations
             modelBuilder.Entity("Tehnoforest.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Orders");
-
-                    b.Navigation("Products");
 
                     b.Navigation("RepairServiceProducts");
                 });

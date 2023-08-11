@@ -28,7 +28,6 @@ namespace Tehnoforest.Controllers
             return View(orders);
         }
 
-        [AllowAnonymous]
         public IActionResult ShoppingCart()
         {
             var items = _shoppingCart.GetShoppingCartItems();
@@ -43,7 +42,6 @@ namespace Tehnoforest.Controllers
             return View(response);
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> AddItemToShoppingCart(int id)
         {
             var item = await productService.GetProductByIdAsync(id);
@@ -55,7 +53,6 @@ namespace Tehnoforest.Controllers
             return RedirectToAction(nameof(ShoppingCart));
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> RemoveItemFromShoppingCart(int id)
         {
             var item = await productService.GetProductByIdAsync(id);
@@ -67,7 +64,6 @@ namespace Tehnoforest.Controllers
             return RedirectToAction(nameof(ShoppingCart));
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> CompleteOrder()
         {
             var items = _shoppingCart.GetShoppingCartItems();

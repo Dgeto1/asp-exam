@@ -1,15 +1,20 @@
 ﻿@model RegisterFormModel
-@{
-    ViewData["Title"] = "Register";
-}
+
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 
-<div class="row">
-    <div class="col-md-4 offset-md-4">
-        <form id="registerForm" method="post">
-            <h2>Create a new account.</h2>
+<section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                <img src="https://www-static-nw.husqvarna.com/-/images/aprimo/husqvarna/robotic-mowers/photos/feature/h320-0957.jpg?v=18df2d21d152aa71&format=opengraph-cover"
+                         class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                         alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Създаване на акаунт</h3>
             <hr />
+            <form id="account" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating mb-2">
                 <input asp-for="FirstName" class="form-control" autocomplete="firstName" aria-required="true" />
@@ -37,9 +42,12 @@
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
+            </form>
+            </div>
+      </div>
 </div>
+</section>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

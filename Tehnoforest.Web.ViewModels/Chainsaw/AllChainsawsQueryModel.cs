@@ -22,7 +22,7 @@
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Покажи верижни триони на страницата")]
+        [Display(Name = "Покажи по")]
         public int ChainsawPerPage { get; set; }
 
         public int TotalChainsaws { get; set; }

@@ -56,6 +56,7 @@ namespace Tehnoforest
             builder.Services.AddScoped<IRepairServiceProductService, RepairServiceProductService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IOrdersService, OrdersService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
@@ -89,12 +90,22 @@ namespace Tehnoforest
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.EnableOnlineUsersCheck();
+
             app.SeedAdministrator(DevelopmentAdminEmail);
 
             app.UseSession();
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.Run();
         }
