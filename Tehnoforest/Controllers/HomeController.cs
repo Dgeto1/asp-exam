@@ -4,6 +4,7 @@
     using System.Diagnostics;
 
     using Tehnoforest.Web.ViewModels.Home;
+    using static Tehnoforest.Common.GeneralApplicationConstants;
 
     public class HomeController : Controller
     {
@@ -14,8 +15,12 @@
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName});
+            }
             return View();
         }
 
