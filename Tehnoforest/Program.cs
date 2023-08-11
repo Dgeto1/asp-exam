@@ -56,6 +56,7 @@ namespace Tehnoforest
             builder.Services.AddScoped<IRepairServiceProductService, RepairServiceProductService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IOrdersService, OrdersService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));

@@ -17,10 +17,6 @@
 
         public async Task<IActionResult> Index()
         {
-            if (this.User.IsInRole(AdminRoleName))
-            {
-                return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName});
-            }
             return View();
         }
 
