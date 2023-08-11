@@ -1,0 +1,27 @@
+﻿@using Tehnoforest.Web.ViewModels.Order;
+@model IEnumerable<OrderViewModel>
+@{
+    ViewBag.Title = "Всички поръчки";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Email</label></th>                           
+                                <th><label>Име</label></th> 
+                                <th><label>Артикули</label></th>
+        </tr>   
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td><label>@order.Email</label></td>
+                <td><label>@order.UserName</label></td>
+                <td><label>@order.OrderItems</label></td>
+            </tr>
+        }
+    </tbody>
+</table>
+                                                

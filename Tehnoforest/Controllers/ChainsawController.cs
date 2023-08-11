@@ -6,6 +6,8 @@
     using Tehnoforest.Services.Data.Interfaces;
     using Tehnoforest.Services.Data.Models.Chainsaw;
     using Tehnoforest.Web.ViewModels.Chainsaw;
+
+    using static Tehnoforest.Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
 
 
@@ -33,7 +35,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Add()
         {
                 ChainsawFormModel formModel = new ChainsawFormModel();
@@ -42,6 +44,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Add(ChainsawFormModel formModel)
         {
             bool chainsawExists =
@@ -97,6 +100,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id)
         {
             bool chainsawExists = await this.chainsawService
@@ -115,6 +119,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id, ChainsawFormModel formModel)
         {
             if (!this.ModelState.IsValid)
@@ -147,6 +152,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             bool chainsawExists = await this.chainsawService
@@ -172,6 +178,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id, ChainsawDeleteViewModel formModel)
         {
             bool chainsawExists = await this.chainsawService

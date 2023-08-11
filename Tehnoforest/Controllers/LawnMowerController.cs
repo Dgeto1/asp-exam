@@ -7,6 +7,7 @@
     using Tehnoforest.Services.Data.Models.LawnMower;
     using Tehnoforest.Web.ViewModels.LawnMower;
 
+    using static Tehnoforest.Common.GeneralApplicationConstants;
     using static Tehnoforest.Common.NotificationMessagesConstants;
 
     [Authorize]
@@ -32,7 +33,7 @@
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Add()
         {
             LawnMowerFormModel formModel = new LawnMowerFormModel();
@@ -41,6 +42,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Add(LawnMowerFormModel formModel)
         {
             bool lawnMowerExists =
@@ -99,6 +101,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id)
         {
             bool lawnMowerExists = await this.lawnMowerService
@@ -117,6 +120,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id, LawnMowerFormModel formModel)
         {
             if (!this.ModelState.IsValid)
@@ -149,6 +153,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             bool lawnMowerExists = await this.lawnMowerService
@@ -174,6 +179,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id, LawnMowerDeleteViewModel formModel)
         {
             bool lawnMowerExists = await this.lawnMowerService

@@ -24,11 +24,11 @@
                 <td>
                     @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
                     {
-                        <label>✔</label>
+                        <label>🟢</label>
                     }
                     else
                     {
-                        <label class="text-center">❌</label>
+                        <label class="text-center">🔴</label>
                     }
                 </td>
             </tr>

@@ -4,11 +4,11 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Tehnoforest.Services.Data.Interfaces;
-    using Tehnoforest.Services.Data.Models.Automower;
     using Tehnoforest.Services.Data.Models.GrassTrimmer;
-    using Tehnoforest.Web.ViewModels.Automower;
     using Tehnoforest.Web.ViewModels.GrassTrimer;
     using Tehnoforest.Web.ViewModels.GrassTrimmer;
+
+    using static Tehnoforest.Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
 
     [Authorize]
@@ -34,6 +34,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Add()
         {
             GrassTrimmerFormModel formModel = new GrassTrimmerFormModel();
@@ -42,6 +43,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Add(GrassTrimmerFormModel formModel)
         {
             bool grassTrimmerExists =
@@ -99,6 +101,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id)
         {
             bool grassTrimmerExists = await this.grassTrimmerService
@@ -117,6 +120,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id, GrassTrimmerFormModel formModel)
         {
             if (!this.ModelState.IsValid)
@@ -149,6 +153,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             bool grassTrimmerEsists = await this.grassTrimmerService
@@ -174,6 +179,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id, GrassTrimmerDeleteViewModel formModel)
         {
             bool grassTrimmerEsists = await this.grassTrimmerService
