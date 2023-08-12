@@ -23,14 +23,6 @@
                asp-route-id="@Model.Id">
                 <i class="bi bi-cart-plus"></i> Добави в количката)
             </a>
-                
-            @if (this.User.IsInRole("Administrator"))
-            {
-                <a asp-controller="Automower" asp-action="Edit" asp-route-id="@Model.Id"
-                   class="btn btn-warning">Edit</a>
-                <a asp-controller="Automower" asp-action="Delete" asp-route-id="@Model.Id"
-                   class="btn btn-danger">Delete</a>
-            }
         </div>
     </div>
 </div>

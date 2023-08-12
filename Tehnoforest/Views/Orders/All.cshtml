@@ -1,4 +1,5 @@
-﻿@using Tehnoforest.Data.Models;
+﻿@using System.Globalization;
+@using Tehnoforest.Data.Models;
 @model List<Order>
 
 @{
@@ -14,12 +15,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Order ID</th>
-                    <th>Items</th>
-                    <th>Total</th>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                    <th>Номер на поръчка</th>
+                    <th>Продукти</th>
+                    <th>Общо</th>
+                    @if (User!.Identity!.IsAuthenticated && User.IsInRole("Administrator"))
                     {
-                        <th>User</th>
+                        <th>Потребител</th>
                     }
                 </tr>
             </thead>
@@ -34,14 +35,14 @@
                                 {
                                     <li>
                                         <div class="alert alert-info" role="alert">
-                                            <span class="badge bg-success">@item.Amount</span> [@item.Price.ToString("c")] - @item.Product.Model
+                                            <span class="badge bg-success">@item.Amount</span> [@item.Price.ToString("c",CultureInfo.CreateSpecificCulture("bg-BG"))] - @item.Product.Model
                                         </div>
                                     </li>
                                 }
                             </ul>
                         </td>
                         <td class="align-middle">
-                            @order.OrderItems.Select(p => p.Product.Price * p.Amount).Sum().ToString("c")
+                            @order.OrderItems.Select(p => p.Product.Price * p.Amount).Sum().ToString("c",CultureInfo.CreateSpecificCulture("bg-BG"))
                         </td>
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
                         {

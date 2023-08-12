@@ -6,27 +6,30 @@
 
     public class RegisterFormModel
     {
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
+        [Display(Name = "Име")]
         public string FirstName { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
+        [Display(Name = "Фамилия")]
         public string LastName { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Имейл")]
         public string Email { get; set; } = null!;
 
-        [Required]
-        [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.")]
+        [Required(ErrorMessage = "Полето е задължително")]
+        [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = "Паролата {0} тряба да бъде поне {2} и максимално {1} символа дълга.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Парола")]
         public string Password { get; set; } = null!;
 
+        [Required(ErrorMessage = "Полето е задължително")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Потвърди парола")]
         [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
         public string ConfirmPassword { get; set; } = null!;
     }
