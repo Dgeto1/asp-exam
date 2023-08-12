@@ -14,12 +14,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Order ID</th>
-                    <th>Items</th>
-                    <th>Total</th>
+                    <th>Номер на поръчка</th>
+                    <th>Продукти</th>
+                    <th>Общо</th>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
                     {
-                        <th>User</th>
+                        <th>Потребител</th>
                     }
                 </tr>
             </thead>

@@ -19,7 +19,7 @@ namespace Tehnoforest.Controllers
             this._shoppingCart = shoppingCart;
             this.ordersService = ordersService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> All()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userRole = User.FindFirstValue(ClaimTypes.Role);
