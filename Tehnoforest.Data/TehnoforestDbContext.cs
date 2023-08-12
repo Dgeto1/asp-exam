@@ -11,7 +11,10 @@
         public TehnoforestDbContext(DbContextOptions<TehnoforestDbContext> options)
             : base(options)
         {
-
+            if (!this.Database.IsRelational())
+            {
+                this.Database.EnsureCreated();
+            }
         }
 
         public DbSet<Product> Products { get; set; } = null!;
