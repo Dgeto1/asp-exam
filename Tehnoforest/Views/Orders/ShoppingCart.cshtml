@@ -56,9 +56,12 @@
 
         <div class="text-right">
             <div class="btn-group">
+            @if (this.User!.Identity!.IsAuthenticated)
+            {
                 <a class="btn btn-outline-primary" asp-action="CompleteOrder">
-                Завърши поръчка
+                    Завърши поръчка
                 </a>
+            }
                 <div id="paypal-btn"></div>
                 <span style="padding:5px"></span>
                 <a class="btn btn-outline-success" onclick="history.go(-1)" value="Продължи с пазаруването"> Продължи с пазаруването</a>

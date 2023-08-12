@@ -80,6 +80,18 @@
                     <ul class="navbar-nav">
                         @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
+                    @if (this.User!.Identity!.IsAuthenticated && !this.User.IsInRole("Administrator"))
+                    {
+                        <ul class="navbar-nav">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="All">Моите поръчки</a>
+                        </ul>
+                    }
+                    else if (this.User.IsInRole("Administrator"))
+                    {
+                        <ul class="navbar-nav">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="All">Всички поръчки</a>
+                        </ul>
+                    }
                     <partial name="_LoginPartial" />
                 </div>
             </div>
