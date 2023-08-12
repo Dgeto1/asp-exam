@@ -24,6 +24,10 @@
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Error(int statusCode)
         {
+            if(statusCode == 404)
+            {
+                return View("Index");
+            }
             if(statusCode == 400)
             {
                 return View("Error400");
